@@ -133,7 +133,7 @@ public class Payment {
     }
 }
 /*
-Payment POJO Class
+Payment Pojo Class
 Author: Phindile Lisa Ngozi
 Student Number: 230640893
 Date: 2025/05/10
