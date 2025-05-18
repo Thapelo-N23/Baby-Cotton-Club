@@ -13,10 +13,10 @@ public class Helper {
     }
 
 
-    public static LocalDate getOrderDate(String orderDate) {
-        int year = Integer.parseInt(orderDate.substring(0, 4));
-        int month = Integer.parseInt(orderDate.substring(4, 6));
-        int day = Integer.parseInt(orderDate.substring(6, 8));
+    public static LocalDate getDate(String date) {
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(4, 6));
+        int day = Integer.parseInt(date.substring(6, 8));
         return LocalDate.of(year, month, day);
     }
     public static double calculateSubTotal(int quantity, double unitPrice) {
@@ -56,7 +56,11 @@ public class Helper {
         return amount > 0;
     }
 
-    public static boolean isValidDate(LocalDate date) {
-        return date != null && !date.isAfter(LocalDate.now());
+   public static boolean isValidDate(LocalDate date) {
+       return date != null && !date.isAfter(LocalDate.now());
+   }
+
+    public static boolean isValidId(Integer discountId) {
+        return discountId != null  && discountId > 0;
     }
 }
