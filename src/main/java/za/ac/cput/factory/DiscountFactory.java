@@ -17,7 +17,7 @@ public class DiscountFactory {
             return null;
         }
       
-      if(!Helper.isValidDiscountId(discountId)){
+      if(!Helper.isValidId(discountId)){
         return null;
       }
 
