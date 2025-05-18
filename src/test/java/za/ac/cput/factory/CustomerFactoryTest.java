@@ -26,5 +26,18 @@ class CustomerFactoryTest {
     void createCustomer() {
         assertNotNull(customer);
         System.out.println(customer.toString());
+
+    }
+    @Test
+    void createCustomerWithInvalidEmail() {
+        Customer invalidCustomer = CustomerFactory.createCustomer(
+                123457,
+                "Jane",
+                "Smith",
+                "invalid-email",
+                "0787654321"
+        );
+        assertNull(invalidCustomer, "Customer with invalid email should be null");
+        System.out.println(invalidCustomer);
     }
 }

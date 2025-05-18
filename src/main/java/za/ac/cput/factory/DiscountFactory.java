@@ -10,24 +10,34 @@ import java.util.Date;
 public class DiscountFactory {
 
     public static Discount createDiscount(int discountId, String discountName, String discountType,
-                                          String discountValue, LocalDate date) {
+
+                                          String discountValue, String startDate, String endDate) {
         if (Helper.isNullOrEmpty(discountName) || Helper.isNullOrEmpty(discountType) ||
-                Helper.isNullOrEmpty(discountValue) || date == null ) {
+                Helper.isNullOrEmpty(discountValue) ) {
+            return null;
+        }
+      
+      if(!Helper.isValidDiscountId(discountId)){
+        return null;
+      }
+
+        LocalDate start = Helper.isValidDate(startDate);
+        if (start == null) {
             return null;
         }
 
-        if (!Helper.isValidId(discountId)) {
+        LocalDate end = Helper.isValidDate(endDate);
+        if (end == null) {
             return null;
         }
-
 
         return new Discount.Builder()
                 .setDiscountId(discountId)
                 .setDiscountName(discountName)
                 .setDiscountType(discountType)
                 .setDiscountValue(discountValue)
-                .setLocalDate(date)
-
+                .setStartDate(start)
+                .setEndDate(end)
                 .build();
     }
 }

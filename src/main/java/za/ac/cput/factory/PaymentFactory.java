@@ -13,22 +13,32 @@ import java.time.LocalDate;
 
 public class PaymentFactory {
 
-    public static Payment createPayment(String paymentId, String orderId, LocalDate paymentDate,
+    public static Payment createPayment(String paymentId, String orderId, String paymentDate,
                                         String paymentMethod, String paymentStatus, double amount) {
 
         if (Helper.isNullOrEmpty(paymentId) || Helper.isNullOrEmpty(orderId) ||
-                Helper.isNullOrEmpty(paymentMethod) || Helper.isNullOrEmpty(paymentStatus) ||
-                !Helper.isValidDate(paymentDate) || !Helper.isValidAmount(amount)) {
+                Helper.isNullOrEmpty(paymentMethod) || Helper.isNullOrEmpty(paymentStatus)
+                || !Helper.isValidAmount(amount)) {
+
             return null;
         }
 
-        return new Payment.Builder()
-                .setPaymentId(paymentId)
-                .setOrderId(orderId)
-                .setPaymentDate(paymentDate)
-                .setPaymentMethod(paymentMethod)
-                .setPaymentStatus(paymentStatus)
-                .setAmount(amount)
-                .build();
+            LocalDate date = Helper.isValidDate(paymentDate);
+        if (date == null) {
+            return null;
+        }
+
+
+            return new Payment.Builder()
+                    .setPaymentId(paymentId)
+                    .setOrderId(orderId)
+                    .setPaymentDate(date)
+                    .setPaymentMethod(paymentMethod)
+                    .setPaymentStatus(paymentStatus)
+                    .setAmount(amount)
+                    .build();
+
+        }
+
+
     }
-}

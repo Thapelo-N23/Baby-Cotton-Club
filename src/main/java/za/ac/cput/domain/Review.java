@@ -7,13 +7,15 @@ Date: 11 May 2025
 
 package za.ac.cput.domain;
 
+import java.time.LocalDate;
+
 public class Review {
     private Integer reviewId;
     private Integer customerId;
     private Integer productId;
     private short rating;
     private String reviewComment;
-    private String reviewDate;
+    private LocalDate reviewDate;
 
     public Review(){
     }
@@ -46,7 +48,7 @@ public class Review {
         return reviewComment;
     }
 
-    public String getReviewDate() {
+    public LocalDate getReviewDate() {
         return reviewDate;
     }
 
@@ -55,7 +57,7 @@ public class Review {
         private Integer customerId;
         private Integer productId;
         private short rating;
-        private String reviewDate;
+        private LocalDate reviewDate;
         private String reviewComment;
 
 
@@ -78,7 +80,7 @@ public class Review {
             return this;
         }
 
-        public Builder setReviewDate(String reviewDate) {
+        public Builder setReviewDate(LocalDate reviewDate) {
             this.reviewDate = reviewDate;
             return this;
         }

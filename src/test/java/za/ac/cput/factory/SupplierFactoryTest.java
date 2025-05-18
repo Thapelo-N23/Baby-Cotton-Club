@@ -15,7 +15,7 @@ class SupplierFactoryTest {
 
     @Test
     void testCreateSupplierSuccess() {
-        Supplier supplier = SupplierFactory.createSupplier("SUP001", "SnuggleBabies Clothing Co.", "0211299967");
+        Supplier supplier = SupplierFactory.createSupplier("SUP001", "SnuggleBabies Clothing Co.", "0211234567");
         assertNotNull(supplier);
         assertEquals("SUP001", supplier.getSupplierId());
         assertEquals("SnuggleBabies Clothing Co.", supplier.getSupplierName());

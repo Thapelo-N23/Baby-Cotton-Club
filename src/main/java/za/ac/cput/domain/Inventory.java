@@ -7,12 +7,13 @@
 
 package za.ac.cput.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Inventory {
     private int inventoryId;
     private int productId;
-    private Date receivedDate;
+    private LocalDate receivedDate;
     private String stockAdded;
     private int supplierId;
 
@@ -35,7 +36,7 @@ public class Inventory {
         return productId;
     }
 
-    public Date getReceivedDate() {
+    public LocalDate getReceivedDate() {
         return receivedDate;
     }
 
@@ -52,7 +53,7 @@ public class Inventory {
     public static class Builder {
         private int inventoryId;
         private int productId;
-        private Date receivedDate;
+        private LocalDate receivedDate;
         private String stockAdded;
         private int supplierId;
 
@@ -66,7 +67,7 @@ public class Inventory {
             return this;
         }
 
-        public Builder setReceivedDate(Date receivedDate) {
+        public Builder setReceivedDate(LocalDate receivedDate) {
             this.receivedDate = receivedDate;
             return this;
         }

@@ -8,14 +8,19 @@
 package za.ac.cput.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Discount {
     private int discountId;
     private String discountName;
     private String discountType;
     private String discountValue;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+
     private LocalDate date;
+
 
 
     public Discount() {
@@ -44,13 +49,14 @@ public class Discount {
     public String getDiscountValue() {
         return discountValue;
     }
-//
-//    public LocalDate getDate() {
-//        return date;
-//    }
 
-    public LocalDate getLocalDate() {
-        return date;
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
 
@@ -59,7 +65,9 @@ public class Discount {
         private String discountName;
         private String discountType;
         private String discountValue;
-        private LocalDate date;
+
+        private LocalDate startDate;
+        private LocalDate endDate;
 
 
         public Builder setDiscountId(int discountId) {
@@ -82,10 +90,16 @@ public class Discount {
             return this;
         }
 
-        public Builder setLocalDate( LocalDate date) {
-            this.date = date;
+        public Builder setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
             return this;
         }
+
+        public Builder setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+            return this;
+    
+
 
 
         @Override
@@ -111,6 +125,7 @@ public class Discount {
             this.discountType = discount.discountType;
             this.discountValue = discount.discountValue;
             this.date = discount.date;
+  
             return this;
         }
 

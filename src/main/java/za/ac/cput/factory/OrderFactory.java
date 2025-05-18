@@ -14,17 +14,23 @@ import java.time.LocalDate;
 
 public class OrderFactory {
 
-    public static Order createOrder(String orderId, String customerId, String orderDateStr, double totalAmount, int discountId) {
+    public static Order createOrder(String orderId, String customerId, String orderDate, double totalAmount, int discountId) {
 
         if (Helper.isNullOrEmpty(orderId) || Helper.isNullOrEmpty(customerId)) {
             return null;
         }
 
+        LocalDate date = Helper.isValidDate(orderDate);
+        if (date == null) {
+            return null;
+        }
+
         LocalDate orderDate = Helper.getDate(orderDateStr);
+
         return new Order.Builder()
                 .setOrderId(orderId)
                 .setCustomerId(customerId)
-                .setOrderDate(orderDate)
+                .setOrderDate(date)
                 .setTotalAmount(totalAmount)
                 .setDiscountId(discountId)
                 .build();
