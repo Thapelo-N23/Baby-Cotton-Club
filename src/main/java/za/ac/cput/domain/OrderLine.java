@@ -8,7 +8,15 @@ Date: 2025/05/10
 
 package za.ac.cput.domain;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+
 public class OrderLine {
+    @Id
     private String orderLineId;
     private String orderId;
     private String productId;
@@ -17,7 +25,7 @@ public class OrderLine {
     private double subTotal;
     private int discountId;
 
-    public  OrderLine(){
+    protected   OrderLine(){
 
     }
     private OrderLine(Builder builder) {
