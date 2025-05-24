@@ -4,7 +4,7 @@ Author: Phindile Lisa Ngozi
 Student Number: 230640893
 Date: 2025/05/18
  */
-package za.ac.cput.factory;
+package za.ac.cput.Factory;
 
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
@@ -23,3 +23,4 @@ public class SupplierFactory {
                 .build();
     }
 }
+

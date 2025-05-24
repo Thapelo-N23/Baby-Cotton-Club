@@ -19,7 +19,6 @@ class AddressFactoryTest {
 
     private AddressFactory addressFactory;
     private static Address address = AddressFactory.createAddress(
-            1256,
             "Bush St",
             (short) 123,
             "Soweto",
@@ -36,7 +35,6 @@ class AddressFactoryTest {
     @Test
     void createAddressWithInvalidPostalCode() {
         Address invalidAddress = AddressFactory.createAddress(
-                1257,
                 "Main St",
                 (short) 10,
                 "Pretoria",

@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput.Factory;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput.Factory;
 
 import za.ac.cput.domain.Review;
 import za.ac.cput.util.Helper;

@@ -12,15 +12,14 @@ public class Helper {
         return s == null || s.isEmpty();
     }
 
-    public static LocalDate isValidDate(String date) {
 
-        int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(4, 6));
-        int day = Integer.parseInt(date.substring(6, 8));
+    public static LocalDate isValidDate(String Date) {
+        int year = Integer.parseInt(Date.substring(0, 4));
+        int month = Integer.parseInt(Date.substring(4, 6));
+        int day = Integer.parseInt(Date.substring(6, 8));
         return LocalDate.of(year, month, day);
     }
     public static double calculateSubTotal(int quantity, double unitPrice) {
-
         return quantity * unitPrice;
     }
     public static boolean isValidEmail(String email){
@@ -53,13 +52,8 @@ public class Helper {
         return reviewId != null && reviewId > 0;
     }
 
-    public static boolean isValidAmount(double amount) {
-        return amount > 0;
+    public static boolean isValidId(int inventoryId) {
+        return false;
     }
-
-
-    public static boolean isValidId(Integer discountId) {
-        return discountId != null  && discountId > 0;
-    }
-
 }
+

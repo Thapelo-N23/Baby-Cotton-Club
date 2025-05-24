@@ -1,3 +1,4 @@
+
 /*
 Supplier POJO Class
 Author: Phindile Lisa Ngozi
@@ -10,14 +11,18 @@ public class Supplier {
     private String supplierId;
     private String supplierName;
     private String contactNumber;
+    private String address;
+    private String email;
 
     public Supplier() {
     }
 
-    private Supplier(Builder builder) {
+    public Supplier(Builder builder) {
         this.supplierId = builder.supplierId;
         this.supplierName = builder.supplierName;
         this.contactNumber = builder.contactNumber;
+        this.address = builder.address;
+        this.email = builder.email;
     }
 
     public String getSupplierId() {
@@ -32,12 +37,22 @@ public class Supplier {
         return contactNumber;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public String toString() {
         return "Supplier{" +
                 "supplierId='" + supplierId + '\'' +
                 ", supplierName='" + supplierName + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 
@@ -45,6 +60,8 @@ public class Supplier {
         private String supplierId;
         private String supplierName;
         private String contactNumber;
+        private String address;
+        private String email;
 
         public Builder setSupplierId(String supplierId) {
             this.supplierId = supplierId;
@@ -61,10 +78,33 @@ public class Supplier {
             return this;
         }
 
+        public Builder setAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "supplierId='" + supplierId + '\'' +
+                    ", supplierName='" + supplierName + '\'' +
+                    ", contactNumber='" + contactNumber + '\'' +
+                    ", address='" + address + '\'' +
+                    ", email='" + email + '\'' +
+                    '}';
+        }
+
         public Builder copy(Supplier supplier) {
-            this.supplierId = supplier.supplierId;
-            this.supplierName = supplier.supplierName;
-            this.contactNumber = supplier.contactNumber;
+            this.supplierId = supplier.getSupplierId();
+            this.supplierName = supplier.getSupplierName();
+            this.contactNumber = supplier.getContactNumber();
+            this.address = supplier.getAddress();
+            this.email = supplier.getEmail();
             return this;
         }
 
