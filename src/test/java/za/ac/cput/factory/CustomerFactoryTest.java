@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerFactoryTest {
     private CustomerFactory factory;
     private static Customer customer = CustomerFactory.createCustomer(
-            123456,
             "John",
             "Doe",
             "mengezi@gmail.com",
@@ -31,7 +30,6 @@ class CustomerFactoryTest {
     @Test
     void createCustomerWithInvalidEmail() {
         Customer invalidCustomer = CustomerFactory.createCustomer(
-                123457,
                 "Jane",
                 "Smith",
                 "invalid-email",

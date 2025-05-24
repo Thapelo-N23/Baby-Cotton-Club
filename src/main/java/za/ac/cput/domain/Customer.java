@@ -5,18 +5,25 @@
  * Date : 11 May 2025
  */
 
-
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Address> addresses;
 
-    private Address address;
 
     protected Customer() {
     }
@@ -27,6 +34,7 @@ public class Customer {
         this.lastName = builder.lastName;
         this.email = builder.email;
         this.phoneNumber = builder.phoneNumber;
+        this.addresses = builder.addresses;
 
 
     }
@@ -50,6 +58,9 @@ public class Customer {
         return phoneNumber;
     }
 
+    public List<Address> getAddresses() {return addresses;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -58,7 +69,7 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-
+                ", addresses=" + addresses +
                 '}';
     }
 
@@ -68,6 +79,7 @@ public class Customer {
         private String lastName;
         private String email;
         private String phoneNumber;
+        private List<Address> addresses;
 
 
         public Builder setCustomerId(int customerId) {
@@ -94,6 +106,10 @@ public class Customer {
             this.phoneNumber = phoneNumber;
             return this;
         }
+        public Builder setAddresses(List<Address> addresses) {
+            this.addresses = addresses;
+            return this;
+        }
 
         public Customer copy(Customer customer) {
 
@@ -102,6 +118,7 @@ public class Customer {
             this.lastName = customer.lastName;
             this.email = customer.email;
             this.phoneNumber = customer.phoneNumber;
+            this.addresses = customer.addresses;
             return customer;
 
 
