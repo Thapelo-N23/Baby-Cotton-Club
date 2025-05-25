@@ -40,6 +40,11 @@ public class OrderService implements IOrderService{
     }
 
     @Override
+    public boolean delete(String id) {
+        return false;
+    }
+
+    @Override
     public List<Order> getAll() {
         return null;
     }

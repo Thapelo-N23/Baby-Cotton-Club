@@ -39,6 +39,11 @@ public class OrderLineService implements IOrderLineService{
     }
 
     @Override
+    public boolean delete(String id) {
+        return false;
+    }
+
+    @Override
     public List<OrderLine> getAll() {
         return null;
     }

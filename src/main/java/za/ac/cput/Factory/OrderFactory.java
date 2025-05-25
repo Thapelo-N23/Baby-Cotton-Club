@@ -8,9 +8,11 @@ package za.ac.cput.factory;
 
 
 import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderLine;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class OrderFactory {
 
@@ -21,9 +23,12 @@ public class OrderFactory {
         }
 
         LocalDate date = Helper.isValidDate(orderDate);
-        if (date == null) {
+
+        OrderLine orderLine = OrderLineFactory.createOrderLine(orderId, orderId, customerId);
+        if (orderLine == null) {
             return null;
         }
+
 
 
         return new Order.Builder()
@@ -32,6 +37,7 @@ public class OrderFactory {
                 .setOrderDate(date)
                 .setTotalAmount(totalAmount)
                 .setDiscountId(discountId)
+                .setOrderLines(Arrays.asList(orderLine))
                 .build();
     }
 }

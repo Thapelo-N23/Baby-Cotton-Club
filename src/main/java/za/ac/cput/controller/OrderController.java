@@ -38,6 +38,10 @@ public class OrderController {
 
         return service.update(order);
     }
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable String orderId) {
+        return service.delete(orderId);
+    }
 
     @GetMapping("/getall")
     public List<Order> getAllOrders() {

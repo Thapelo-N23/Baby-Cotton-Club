@@ -36,9 +36,16 @@ public class OrderLineController {
     @PutMapping("/update")
     public OrderLine update(@RequestBody OrderLine orderLine)
     {
+
         return service.update(orderLine);
     }
+    public boolean delete(@PathVariable String orderLineId)
+    {
+        return service.delete(orderLineId);
+    }
     @GetMapping("/getall")
+
+
     public List<OrderLine> getAll()
     {
         return service.getAll();
