@@ -7,18 +7,26 @@ Date: 2025/05/10
 */
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
 public class Order {
-    private String orderId;
-    private String customerId;
-    private LocalDate orderDate;
-    private double totalAmount;
-    private int discountId;
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    protected String orderId;
+    protected String customerId;
+    protected LocalDate orderDate;
+    protected double totalAmount;
+    protected int discountId;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLine> orderLines;
 
 
-
-    public Order(){
+    protected Order(){
 
     }
 
@@ -28,6 +36,7 @@ public class Order {
         this.orderDate = builder.orderDate;
         this.totalAmount = builder.totalAmount;
         this.discountId = builder.discountId;
+        this.orderLines = builder.orderLines;
     }
     public String getOrderId() {
         return orderId;
@@ -44,15 +53,19 @@ public class Order {
     public int getDiscountId() {
         return discountId;
     }
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
 
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
-                ", customerId=" + customerId +
+                "orderId='" + orderId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
                 ", discountId=" + discountId +
+                ", orderLines=" + orderLines +
                 '}';
     }
 
@@ -62,6 +75,7 @@ public class Order {
         private LocalDate orderDate;
         private double totalAmount;
         private int discountId;
+        private List<OrderLine> orderLines;
 
         public Builder setOrderId(String orderId) {
             this.orderId = orderId;
@@ -86,12 +100,17 @@ public class Order {
             this.discountId = discountId;
             return this;
         }
+        public Builder setOrderLines(List<OrderLine> orderLines) {
+            this.orderLines = orderLines;
+            return this;
+        }
         public Builder copy(Order order) {
             this.orderId = order.orderId;
             this.customerId = order.customerId;
             this.orderDate = order.orderDate;
             this.totalAmount = order.totalAmount;
             this.discountId = order.discountId;
+            this.orderLines = order.orderLines;
             return this;
         }
 

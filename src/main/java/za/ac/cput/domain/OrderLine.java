@@ -10,6 +10,7 @@ package za.ac.cput.domain;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -17,13 +18,14 @@ import jakarta.persistence.Table;
 
 public class OrderLine {
     @Id
-    private String orderLineId;
-    private String orderId;
-    private String productId;
-    private int quantity;
-    private double unitPrice;
-    private double subTotal;
-    private int discountId;
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    protected String orderLineId;
+    protected String orderId;
+    protected String productId;
+    protected int quantity;
+    protected double unitPrice;
+    protected double subTotal;
+    protected int discountId;
 
     protected   OrderLine(){
 

@@ -1,45 +1,46 @@
 /*
 Baby Cotton Club
-OrderLineService
+OrderService
 Author: Tsireledzo Netshilonwe
 Student Number: 230666426
 Date: 2025/05/24
 */
+
 package za.ac.cput.service;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.OrderLine;
-import za.ac.cput.repository.OrderLineRepository;
+import za.ac.cput.domain.Order;
+import za.ac.cput.repository.OrderRespository;
 
 import java.util.List;
 
 @Service
-public class OrderLineService implements IOrderLineService{
-
-    private OrderLineRepository repository;
+public class OrderService implements IOrderService{
+    private OrderRespository repository;
 
     @Autowired
-    public OrderLineService(OrderLineRepository repository) {
+    public OrderService(OrderRespository repository) {
         this.repository = repository;
     }
-
     @Override
-    public OrderLine create(OrderLine orderLine) {
+    public Order create(Order order) {
         return null;
     }
 
     @Override
-    public OrderLine read(String id) {
+    public Order read(String id) {
         return null;
     }
 
     @Override
-    public OrderLine update(OrderLine orderLine) {
+    public Order update(Order order) {
         return null;
     }
 
     @Override
-    public List<OrderLine> getAll() {
+    public List<Order> getAll() {
         return null;
     }
 }

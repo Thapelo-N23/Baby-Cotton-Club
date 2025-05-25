@@ -1,4 +1,10 @@
-package za.ac.cput.Factory;
+/*
+Category.java
+CategoryFactory POJO class
+Author: Olwethu Nene(230277845)
+Date: 18 May 2025
+ */
+package za.ac.cput.factory;
 
 import za.ac.cput.domain.Category;
 import za.ac.cput.util.Helper;

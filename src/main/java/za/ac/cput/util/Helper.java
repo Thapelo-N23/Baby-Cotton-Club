@@ -55,5 +55,9 @@ public class Helper {
     public static boolean isValidId(int inventoryId) {
         return false;
     }
+
+    public static boolean isValidAmount(double amount) {
+        return amount >= 0.0;
+    }
 }
 
