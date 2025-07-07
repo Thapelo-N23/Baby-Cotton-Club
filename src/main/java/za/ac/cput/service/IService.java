@@ -9,7 +9,7 @@ public interface IService <T, ID> {
 
     T update(T t);
 
-    boolean delete(ID id);
+
 
 
 
