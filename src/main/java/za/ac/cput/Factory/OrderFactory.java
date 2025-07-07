@@ -16,28 +16,19 @@ import java.util.Arrays;
 
 public class OrderFactory {
 
-    public static Order createOrder(String orderId, String customerId, String orderDate, double totalAmount, int discountId) {
+    public static Order createOrder( String orderDate, double totalAmount,int quantity, double unitPrice) {
 
-        if (Helper.isNullOrEmpty(orderId) || Helper.isNullOrEmpty(customerId)) {
-            return null;
-        }
 
         LocalDate date = Helper.isValidDate(orderDate);
 
-        OrderLine orderLine = OrderLineFactory.createOrderLine(orderId, orderId, customerId);
-        if (orderLine == null) {
-            return null;
-        }
-
+        OrderLine orderLine = OrderLineFactory.createOrderLine(quantity, unitPrice);
 
 
         return new Order.Builder()
-                .setOrderId(orderId)
-                .setCustomerId(customerId)
                 .setOrderDate(date)
                 .setTotalAmount(totalAmount)
-                .setDiscountId(discountId)
                 .setOrderLines(Arrays.asList(orderLine))
                 .build();
+
     }
 }

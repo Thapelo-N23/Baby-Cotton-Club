@@ -23,8 +23,8 @@ class DiscountFactoryTest {
                 "Winter Sale",
                 "Percentage",
                 "20%",
-                startDate,
-                endDate
+                null,
+                null
         );
 
         assertNotNull(discount);
@@ -47,8 +47,9 @@ class DiscountFactoryTest {
                 "",
                 "Fixed",
                 "R50 off",
-                startDate,
-                endDate
+                null,
+                null
+
         );
 
         assertNull(discount);
@@ -64,8 +65,8 @@ class DiscountFactoryTest {
                 "Negative ID",
                 "Fixed",
                 "R20 off",
-                startDate,
-                endDate
+                null,
+                null
         );
 
         assertNull(discount);
@@ -81,8 +82,8 @@ class DiscountFactoryTest {
                 "Expired Deal",
                 "Fixed",
                 "R30 off",
-                startDate,
-                endDate
+                null,
+                null
         );
 
         assertNull(discount);

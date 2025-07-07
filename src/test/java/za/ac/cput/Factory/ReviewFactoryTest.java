@@ -1,4 +1,4 @@
-package za.ac.cput.Factory;
+package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
