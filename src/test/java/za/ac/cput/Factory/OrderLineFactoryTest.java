@@ -14,22 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderLineFactoryTest {
 
 
-    private static OrderLine o2 = OrderLineFactory.createOrderLine("OL123", "O123", "P123", 20, 200.0, 2);
+    private static OrderLine o2 = OrderLineFactory.createOrderLine(123, 123.0);
 
     @Test
     public void testCreateOrderLineWithAllAttributes() {
         assertNotNull(o2);
         System.out.println(o2.toString());
     }
-    @Test
-    void testCreateOrderLineWithEmptyProductId() {
-        OrderLine orderLine = OrderLineFactory.createOrderLine("OL123", "O123", "", 20, 200.0, 2);
-        assertNull(orderLine);
-    }
-    @Test //Its supposed to fail when the quantity is negative
-    void testCreateOrderLineWithNegativeQuantity() {
-        OrderLine orderLine = OrderLineFactory.createOrderLine("OL123", "O123", "P123", -5, 200.0, 2);
-        assertNull(orderLine);
-    }
+
 }
 

@@ -38,10 +38,7 @@ public class OrderLineController {
     {
 
         return service.update(orderLine);
-    }
-    public boolean delete(@PathVariable String orderLineId)
-    {
-        return service.delete(orderLineId);
+
     }
     @GetMapping("/getall")
 
