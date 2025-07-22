@@ -2,14 +2,21 @@
 Review.java
 Review POJO class
 Author: Olwethu Nene(230277845)
-Date: 11 May 2025
+Date: 21 July 2025
  */
 
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "reviews")
+
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer reviewId;
     private Integer customerId;
     private Integer productId;
@@ -17,7 +24,15 @@ public class Review {
     private String reviewComment;
     private LocalDate reviewDate;
 
-    public Review(){
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false, insertable = false, updatable = false)
+    protected Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false, insertable = false, updatable = false)
+    protected Product product;
+
+    protected Review(){
     }
     public Review (Builder builder){
        this.reviewId = builder.reviewId;
@@ -32,13 +47,9 @@ public class Review {
         return reviewId;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
+    public Integer getCustomerId() {return customerId;}
 
-    public Integer getProductId() {
-        return productId;
-    }
+    public Integer getProductId() {return productId;}
 
     public short getRating() {
         return rating;
@@ -51,6 +62,19 @@ public class Review {
     public LocalDate getReviewDate() {
         return reviewDate;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
+                ", rating=" + rating +
+                ", reviewComment='" + reviewComment + '\'' +
+                ", reviewDate=" + reviewDate +
+                '}';
+    }
+
 
     public static class Builder{
         private Integer reviewId;
@@ -65,16 +89,14 @@ public class Review {
         this.reviewId = reviewId;
         return this;
     }
-        public Builder setCustomerId(Integer customerId) {
+public Builder setCustomerId(Integer customerId) {
             this.customerId = customerId;
             return this;
         }
-
-        public Builder setProductId(Integer productId) {
+public Builder setProductId(Integer productId) {
             this.productId = productId;
             return this;
         }
-
         public Builder setRating(short rating) {
             this.rating = rating;
             return this;
@@ -90,19 +112,7 @@ public class Review {
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "reviewId=" + reviewId +
-                    ", customerId=" + customerId +
-                    ", productId=" + productId +
-                    ", rating=" + rating +
-                    ", reviewDate='" + reviewDate + '\'' +
-                    ", reviewComment='" + reviewComment + '\'' +
-                    '}';
-        }
-
-        public Builder copy(Builder builder){
+        public Builder copy(Review builder){
             this.reviewId = builder.reviewId;
             this.customerId = builder.customerId;
             this.productId = builder.productId;
