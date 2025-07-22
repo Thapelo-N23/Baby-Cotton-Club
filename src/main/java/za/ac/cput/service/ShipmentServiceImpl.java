@@ -29,7 +29,16 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentRepository.save(shipment);
     }
 
-    @Override
+ @Override
+ public boolean delete(String shipmentId) {
+  if (shipmentRepository.existsById(shipmentId)) {
+   shipmentRepository.deleteById(shipmentId);
+   return true;
+  }
+  return false;
+ }
+
+ @Override
     public List<Shipment> getAll() {
         return this.shipmentRepository.findAll();
     }
