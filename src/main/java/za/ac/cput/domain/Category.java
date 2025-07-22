@@ -7,12 +7,23 @@ Date: 11 May 2025
 
 package za.ac.cput.domain;
 
-public class Category {
+import jakarta.persistence.*;
 
+import java.util.List;
+
+@Entity
+@Table(name = "categories")
+
+public class Category {
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryId;
     private String categoryName;
 
-    public Category() {
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+    protected Category() {
 
     }
 public Category(Builder builder){
@@ -26,6 +37,14 @@ public Category(Builder builder){
 
     public String getCategoryName() {
         return categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId='" + categoryId + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
     }
 
     public static class Builder {
@@ -42,15 +61,7 @@ public Category(Builder builder){
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Category{" +
-                    "categoryId='" + categoryId + '\'' +
-                    ", categoryName='" + categoryName + '\'' +
-                    '}';
-        }
-
-        public Builder copy(Builder builder) {
+        public Builder copy(Category builder) {
             this.categoryId = builder.categoryId;
             this.categoryName = builder.categoryName;
             return this;
@@ -61,5 +72,8 @@ public Category(Builder builder){
         }
     }
     }
+
+
+
 
 
