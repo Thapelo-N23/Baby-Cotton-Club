@@ -6,24 +6,22 @@
  */
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-
+@Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private String productId;
-    private String productName;
-    private String color;
-    private short price;
-    private String inStock;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected String productId;
+    protected String productName;
+    protected String color;
+    protected short price;
+    protected String inStock;
 
-   protected Product(){
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
 
 
 private Product(Builder builder) {
@@ -34,6 +32,9 @@ private Product(Builder builder) {
         this.inStock = builder.inStock;
 
 }
+    public Product() {
+
+    }
 
     public String getProductId() {
         return productId;

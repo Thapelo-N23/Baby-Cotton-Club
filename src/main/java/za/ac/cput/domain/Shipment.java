@@ -7,11 +7,22 @@
 
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "shipments")
 public class Shipment {
-    private String shipmentId;
-    private String carrierName;
-    private String shipmentStatus;
-    private double shippingCost;
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected String shipmentId;
+    protected String carrierName;
+    protected String shipmentStatus;
+    protected double shippingCost;
+
+@OneToMany(mappedBy = "shipment")
+private List<Product>products;
 
     public Shipment() {
     }
