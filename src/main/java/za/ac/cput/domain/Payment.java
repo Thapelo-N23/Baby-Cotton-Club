@@ -6,35 +6,35 @@ Date: 2025/05/11
  */
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "payments")
 public class Payment {
-    private String paymentId;
-    private String orderId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int paymentId;
+
     private LocalDate paymentDate;
     private String paymentMethod;
-    private String paymentStatus;
-    private double amount;
 
-    public Payment() {
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-    }
+    protected Payment() {}
 
-    public Payment(Builder builder) {
+    private Payment(Builder builder) {
         this.paymentId = builder.paymentId;
-        this.orderId = builder.orderId;
         this.paymentDate = builder.paymentDate;
         this.paymentMethod = builder.paymentMethod;
-        this.paymentStatus = builder.paymentStatus;
-        this.amount = builder.amount;
+        this.order = builder.order;
     }
 
-    public String getPaymentId() {
+    public int getPaymentId() {
         return paymentId;
-    }
-
-    public String getOrderId() {
-        return orderId;
     }
 
     public LocalDate getPaymentDate() {
@@ -45,41 +45,28 @@ public class Payment {
         return paymentMethod;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public double getAmount() {
-        return amount;
+    public Order getOrder() {
+        return order;
     }
 
     @Override
     public String toString() {
         return "Payment{" +
-                "paymentId='" + paymentId + '\'' +
-                ", orderId='" + orderId + '\'' +
+                "paymentId=" + paymentId +
                 ", paymentDate=" + paymentDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
-                ", paymentStatus='" + paymentStatus + '\'' +
-                ", amount=" + amount +
+                ", order=" + (order != null ? order.getOrderId() : "null") +
                 '}';
     }
 
     public static class Builder {
-        private String paymentId;
-        private String orderId;
+        private int paymentId;
         private LocalDate paymentDate;
         private String paymentMethod;
-        private String paymentStatus;
-        private double amount;
+        private Order order;
 
-        public Builder setPaymentId(String paymentId) {
+        public Builder setPaymentId(int paymentId) {
             this.paymentId = paymentId;
-            return this;
-        }
-
-        public Builder setOrderId(String orderId) {
-            this.orderId = orderId;
             return this;
         }
 
@@ -93,35 +80,16 @@ public class Payment {
             return this;
         }
 
-        public Builder setPaymentStatus(String paymentStatus) {
-            this.paymentStatus = paymentStatus;
+        public Builder setOrder(Order order) {
+            this.order = order;
             return this;
-        }
-
-        public Builder setAmount(double amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "paymentId='" + paymentId + '\'' +
-                    ", orderId='" + orderId + '\'' +
-                    ", paymentDate=" + paymentDate +
-                    ", paymentMethod='" + paymentMethod + '\'' +
-                    ", paymentStatus='" + paymentStatus + '\'' +
-                    ", amount=" + amount +
-                    '}';
         }
 
         public Builder copy(Payment payment) {
             this.paymentId = payment.getPaymentId();
-            this.orderId = payment.getOrderId();
             this.paymentDate = payment.getPaymentDate();
             this.paymentMethod = payment.getPaymentMethod();
-            this.paymentStatus = payment.getPaymentStatus();
-            this.amount = payment.getAmount();
+            this.order = payment.getOrder();
             return this;
         }
 
@@ -130,4 +98,3 @@ public class Payment {
         }
     }
 }
-
