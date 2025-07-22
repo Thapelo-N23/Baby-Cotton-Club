@@ -10,7 +10,7 @@ package za.ac.cput.controller;
 
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.OrderLine;
-import za.ac.cput.service.OrderLineService;
+import za.ac.cput.service.impl.OrderLineService;
 
 import java.util.List;
 
