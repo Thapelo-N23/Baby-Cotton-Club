@@ -32,6 +32,7 @@ public class CustomerFactory {
             return null;
         }
 
+
         return new Customer.Builder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
