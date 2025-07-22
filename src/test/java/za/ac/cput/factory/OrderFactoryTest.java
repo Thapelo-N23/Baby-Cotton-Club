@@ -11,14 +11,31 @@ import za.ac.cput.domain.Order;
 
 import static org.junit.jupiter.api.Assertions.*;
 class OrderFactoryTest {
-
-    private OrderFactory order;
-    private static Order order1 = OrderFactory.createOrder("20250707", 23322, 20, 200.0);
+private static Order order = OrderFactory.createOrder(
+            "20250518",
+            250.00,
+            2,
+            20.00,
+            null // Customer will be set later
+    );
 
     @Test
-    public void testCreateOrderWithAllAttributes() {
-        assertNotNull(order1);
-        System.out.println(order1.toString());
+    void createOrder() {
+        assertNotNull(order);
+        System.out.println(order);
+    }
+
+    @Test
+    void createOrderWithInvalidDate() {
+        Order invalidOrder = OrderFactory.createOrder(
+                "invalid-date",
+                250.00,
+                2,
+                20.00,
+                null // Customer will be set later
+        );
+        assertNull(invalidOrder, "Order with invalid date should be null");
+        System.out.println(invalidOrder);
     }
 
 }
