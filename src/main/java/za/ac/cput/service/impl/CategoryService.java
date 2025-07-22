@@ -4,15 +4,14 @@ CategoryService POJO class
 Author: Olwethu Nene(230277845)
 Date: 25 May 2025
  */
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Category;
 import za.ac.cput.repository.CategoryRepository;
+import za.ac.cput.service.ICategoryService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

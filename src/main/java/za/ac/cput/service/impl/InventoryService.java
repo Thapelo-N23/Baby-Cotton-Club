@@ -3,12 +3,13 @@
  * Author: Onako Ntsaluba (230741754)
  * Date: 2025/05/25
  */
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Inventory;
 import za.ac.cput.repository.InventoryRepository;
+import za.ac.cput.service.IInventoryService;
 
 import java.util.List;
 
