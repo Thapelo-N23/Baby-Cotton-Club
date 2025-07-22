@@ -6,14 +6,22 @@
  */
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+
 public class Product {
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private String productId;
     private String productName;
     private String color;
     private short price;
     private String inStock;
 
-    private Product(){
+   protected Product(){
     }
 
 
