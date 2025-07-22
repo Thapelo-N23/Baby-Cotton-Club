@@ -9,11 +9,12 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Address;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.util.Helper;
 
 public class AddressFactory {
 
-    public static Address createAddress(String streetName, short streetNumber, String suburb, String city, short postalCode, String province) {
+    public static Address createAddress(String streetName, short streetNumber, String suburb, String city, short postalCode, String province, Customer customer) {
         if (Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(suburb)
                 || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province)) {
             return null;
@@ -35,6 +36,7 @@ public class AddressFactory {
                 .setCity(city)
                 .setPostalCode(postalCode)
                 .setProvince(province)
+                .setCustomer(null)
                 .build();
     }
 }
