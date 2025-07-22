@@ -1,7 +1,8 @@
 /*
 Category.java
 CategoryFactory POJO class
-Author: Olwethu Nene(230277845)
+Author: Olwethu Nene
+Student number:(230277845)
 Date: 18 May 2025
  */
 package za.ac.cput.factory;
