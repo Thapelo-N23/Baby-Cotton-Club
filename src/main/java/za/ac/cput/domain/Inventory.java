@@ -7,15 +7,15 @@
 
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Table(name = "inventories")
 public class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int inventoryId;
@@ -23,6 +23,13 @@ public class Inventory {
     private LocalDate receivedDate;
     private String stockAdded;
     private int supplierId;
+
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private List<Supplier> supplier;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     public Inventory() {
     }
@@ -33,6 +40,8 @@ public class Inventory {
         this.receivedDate = builder.receivedDate;
         this.stockAdded = builder.stockAdded;
         this.supplierId = builder.supplierId;
+        this.supplier = builder.supplier;
+        this.product = builder.product;
     }
 
     public int getInventoryId() {
@@ -55,7 +64,26 @@ public class Inventory {
         return supplierId;
     }
 
+    public List<Supplier> getSupplier() {
+        return supplier;
+    }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "inventoryId=" + inventoryId +
+                ", productId=" + productId +
+                ", receivedDate=" + receivedDate +
+                ", stockAdded='" + stockAdded + '\'' +
+                ", supplierId=" + supplierId +
+                ", supplier=" + supplier +
+                ", product=" + product +
+                '}';
+    }
 
     public static class Builder {
         private int inventoryId;
@@ -63,6 +91,8 @@ public class Inventory {
         private LocalDate receivedDate;
         private String stockAdded;
         private int supplierId;
+        private List<Supplier> supplier;
+        private Product product;
 
         public Builder setInventoryId(int inventoryId) {
             this.inventoryId = inventoryId;
@@ -89,15 +119,14 @@ public class Inventory {
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Inventory{" +
-                    "inventoryId=" + inventoryId +
-                    ", productId=" + productId +
-                    ", receivedDate=" + receivedDate +
-                    ", stockAdded='" + stockAdded + '\'' +
-                    ", supplierId=" + supplierId +
-                    '}';
+        public Builder setSupplier(List<Supplier> supplier) {
+            this.supplier = supplier;
+            return this;
+        }
+
+        public Builder setProduct(Product product) {
+            this.product = product;
+            return this;
         }
 
         public Builder copy(Inventory inventory) {
@@ -106,11 +135,12 @@ public class Inventory {
             this.receivedDate = inventory.receivedDate;
             this.stockAdded = inventory.stockAdded;
             this.supplierId = inventory.supplierId;
+            this.supplier = inventory.supplier;
+            this.product = inventory.product;
             return this;
         }
 
-        public Inventory build() {
-            return new Inventory(this);
+        public Inventory build() {return new Inventory(this);
         }
     }
 }
