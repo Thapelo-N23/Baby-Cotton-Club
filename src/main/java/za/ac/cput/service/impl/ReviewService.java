@@ -1,3 +1,11 @@
+/*
+ReviewService.java
+ReviewService POJO class
+Author: Olwethu Nene
+Student number:(230277845)
+Date: 22 July 2025
+ */
+
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
