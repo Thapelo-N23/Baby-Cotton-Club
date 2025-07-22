@@ -1,4 +1,4 @@
-/**
+/*
  * BabyCottonClub
  * Product.java
  * Author : Mengezi Junior Ngwenya - 230023967
@@ -7,13 +7,12 @@
 
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "addresses")
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int addressId;
@@ -25,11 +24,13 @@ public class Address {
     protected short postalCode;
     protected String province;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    protected Address (){
+    protected Address() {}
 
-    }
-    private Address (Builder builder){
+    private Address(Builder builder) {
         this.addressId = builder.addressId;
         this.streetNumber = builder.streetNumber;
         this.streetName = builder.streetName;
@@ -37,43 +38,29 @@ public class Address {
         this.city = builder.city;
         this.postalCode = builder.postalCode;
         this.province = builder.province;
-
+        this.customer = builder.customer;
     }
+
     public int getAddressId() { return addressId; }
-
-    public short getStreetNumber() {
-        return streetNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public String getSuburb() {
-        return suburb;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public short getPostalCode() {
-        return postalCode;
-    }
-
-    public String getProvince() {
-        return province;
-    }
+    public short getStreetNumber() { return streetNumber; }
+    public String getStreetName() { return streetName; }
+    public String getSuburb() { return suburb; }
+    public String getCity() { return city; }
+    public short getPostalCode() { return postalCode; }
+    public String getProvince() { return province; }
+    public Customer getCustomer() { return customer; }
 
     @Override
     public String toString() {
         return "Address{" +
-                "streetNumber=" + streetNumber +
+                "addressId=" + addressId +
+                ", streetNumber=" + streetNumber +
                 ", streetName='" + streetName + '\'' +
                 ", suburb='" + suburb + '\'' +
                 ", city='" + city + '\'' +
-                ", postalCode='" + postalCode + '\'' +
+                ", postalCode=" + postalCode +
                 ", province='" + province + '\'' +
+                ", customer=" + (customer != null ? customer.getCustomerId() : "null") +
                 '}';
     }
 
@@ -85,36 +72,17 @@ public class Address {
         private String city;
         private short postalCode;
         private String province;
+        private Customer customer;
 
-        public Builder setAddressId(int addressId) {
-            this.addressId = addressId;
-            return this;
-        }
+        public Builder setAddressId(int addressId) { this.addressId = addressId; return this; }
+        public Builder setStreetNumber(short streetNumber) { this.streetNumber = streetNumber; return this; }
+        public Builder setStreetName(String streetName) { this.streetName = streetName; return this; }
+        public Builder setSuburb(String suburb) { this.suburb = suburb; return this; }
+        public Builder setCity(String city) { this.city = city; return this; }
+        public Builder setPostalCode(short postalCode) { this.postalCode = postalCode; return this; }
+        public Builder setProvince(String province) { this.province = province; return this; }
+        public Builder setCustomer(Customer customer) { this.customer = customer; return this; }
 
-        public Builder setStreetNumber(short streetNumber) {
-            this.streetNumber = streetNumber;
-            return this;
-        }
-        public Builder setStreetName(String streetName) {
-            this.streetName = streetName;
-            return this;
-        }
-        public Builder setSuburb(String suburb) {
-            this.suburb = suburb;
-            return this;
-        }
-        public Builder setCity(String city) {
-            this.city = city;
-            return this;
-        }
-        public Builder setPostalCode(short postalCode) {
-            this.postalCode = postalCode;
-            return this;
-        }
-        public Builder setProvince(String province) {
-            this.province = province;
-            return this;
-        }
         public Builder copy(Address address) {
             this.addressId = address.addressId;
             this.streetNumber = address.streetNumber;
@@ -123,15 +91,10 @@ public class Address {
             this.city = address.city;
             this.postalCode = address.postalCode;
             this.province = address.province;
+            this.customer = address.customer;
             return this;
         }
-        public Address build (){
-            return new Address (this);
 
-        }
-
-
+        public Address build() { return new Address(this); }
     }
-
-
 }

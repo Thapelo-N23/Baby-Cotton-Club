@@ -5,7 +5,7 @@
  * Date : 18 May 2025
  */
 
-package za.ac.cput.Factory;
+package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Customer;
@@ -15,11 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerFactoryTest {
     private CustomerFactory factory;
     private static Customer customer = CustomerFactory.createCustomer(
-            123456,
             "John",
             "Doe",
             "mengezi@gmail.com",
-            "0781234567");
+            "0781234567",
+            "Main St",
+            (short)1234,
+            "Cape Town",
+            "South Africa",
+            (short)8000,
+            "Western Cape");
 
 
 

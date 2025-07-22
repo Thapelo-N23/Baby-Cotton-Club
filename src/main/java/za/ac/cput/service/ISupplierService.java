@@ -11,8 +11,5 @@ import za.ac.cput.domain.Supplier;
 import java.util.List;
 
 public interface ISupplierService extends IService<Supplier, String> {
-    boolean delete(String id);
-
     List<Supplier> getAll();
 }
-

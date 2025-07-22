@@ -7,10 +7,9 @@ Student Number: 230666426
 Date: 2025/05/24
 */
 package za.ac.cput.controller;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Order;
-import za.ac.cput.service.OrderService;
+import za.ac.cput.service.impl.OrderService;
 
 import java.util.List;
 
@@ -38,10 +37,7 @@ public class OrderController {
 
         return service.update(order);
     }
-    @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String orderId) {
-        return service.delete(orderId);
-    }
+
 
     @GetMapping("/getall")
     public List<Order> getAllOrders() {

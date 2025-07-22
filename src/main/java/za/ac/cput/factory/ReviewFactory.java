@@ -1,3 +1,10 @@
+/*
+Review.java
+ReviewFactory POJO class
+Author: Olwethu Nene
+Student number:(230277845)
+Date: 18 May 2025
+ */
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Review;

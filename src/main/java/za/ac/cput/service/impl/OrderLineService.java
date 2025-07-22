@@ -5,16 +5,17 @@ Author: Tsireledzo Netshilonwe
 Student Number: 230666426
 Date: 2025/05/24
 */
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.OrderLine;
 import za.ac.cput.repository.OrderLineRepository;
+import za.ac.cput.service.IOrderLineService;
 
 import java.util.List;
 
 @Service
-public class OrderLineService implements IOrderLineService{
+public class OrderLineService implements IOrderLineService {
 
     private OrderLineRepository repository;
 
@@ -36,11 +37,6 @@ public class OrderLineService implements IOrderLineService{
     @Override
     public OrderLine update(OrderLine orderLine) {
         return null;
-    }
-
-    @Override
-    public boolean delete(String id) {
-        return false;
     }
 
     @Override
