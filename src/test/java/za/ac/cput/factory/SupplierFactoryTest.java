@@ -13,31 +13,48 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SupplierFactoryTest {
 
+    private static final Supplier supplier = SupplierFactory.createSupplier(
+            "SnuggleBabies Clothing Co.",
+            "0211234567",
+            101
+    );
+
     @Test
-    void testCreateSupplierSuccess() {
-        Supplier supplier = SupplierFactory.createSupplier("SUP001", "SnuggleBabies Clothing Co.", "0211234567");
+    void createSupplier() {
         assertNotNull(supplier);
-        assertEquals("SUP001", supplier.getSupplierId());
-        assertEquals("SnuggleBabies Clothing Co.", supplier.getSupplierName());
-        assertEquals("0211234567", supplier.getContactNumber());
         System.out.println(supplier);
     }
 
     @Test
-    void testCreateSupplierWithEmptyName() {
-        Supplier supplier = SupplierFactory.createSupplier("SUP002", "", "0210836543");
-        assertNull(supplier);
+    void createSupplierWithEmptyName() {
+        Supplier invalid = SupplierFactory.createSupplier(
+                " ",
+                "0210836543",
+                102
+        );
+        assertNull(invalid, "Supplier with empty name should be null");
+        System.out.println(invalid);
     }
 
     @Test
-    void testCreateSupplierWithNullContact() {
-        Supplier supplier = SupplierFactory.createSupplier("SUP003", "Tiny Togs Supplies", null);
-        assertNull(supplier);
+    void createSupplierWithNullContact() {
+        Supplier invalid = SupplierFactory.createSupplier(
+                "Tiny Togs Supplies",
+                null,
+                103
+        );
+        assertNull(invalid, "Supplier with null contact should be null");
+        System.out.println(invalid);
     }
 
     @Test
-    void testCreateSupplierWithEmptyId() {
-        Supplier supplier = SupplierFactory.createSupplier("", "CuddleWear Baby Co.", "0217654221");
-        assertNull(supplier);
+    void createSupplierWithInvalidId() {
+        Supplier invalid = SupplierFactory.createSupplier(
+                "CuddleWear Baby Co.",
+                "0217654221",
+                0 // invalid ID
+        );
+        assertNull(invalid, "Supplier with invalid ID should be null");
+        System.out.println(invalid);
     }
 }

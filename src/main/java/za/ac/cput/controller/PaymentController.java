@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
+
     private PaymentService service;
 
     @Autowired
@@ -29,7 +30,7 @@ public class PaymentController {
     }
 
     @GetMapping("/read/{id}")
-    public Payment readPayment(@PathVariable String id) {
+    public Payment readPayment(@PathVariable Integer id) {
         return service.read(id);
     }
 
@@ -38,14 +39,8 @@ public class PaymentController {
         return service.update(payment);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean deletePayment(@PathVariable String id) {
-        return service.delete(id);
-    }
-
     @GetMapping("/getall")
     public List<Payment> getAllPayments() {
         return service.getAll();
     }
 }
-
