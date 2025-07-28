@@ -1,38 +1,28 @@
-/*
-OrderFactory Class
-Author: Tsireledzo Netshilonwe
-Student Number: 230666426
-Date: 2025/05/10
-*/
 package za.ac.cput.factory;
-
 
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderLine;
+import za.ac.cput.factory.OrderLineFactory;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderFactory {
 
-    public static Order createOrder( String orderDate, double totalAmount,int quantity, double unitPrice, Customer customer) {
-
+    public static Order createOrder(String orderDate, double totalAmount, List<OrderLine> orderLines, Customer customer) {
 
         LocalDate date = Helper.isValidDate(orderDate);
 
-        OrderLine orderLine = OrderLineFactory.createOrderLine(quantity, unitPrice);
-
-
-        return new Order.Builder()
+        Order order = new Order.Builder()
                 .setOrderDate(date)
                 .setTotalAmount(totalAmount)
-                .setOrderLines(Arrays.asList(orderLine))
-                .setCustomer(null)
+                .setOrderLine(orderLines)
+                .setCustomer(customer)
                 .build();
 
+        return order;
     }
-
-
 }

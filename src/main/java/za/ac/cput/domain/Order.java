@@ -23,7 +23,7 @@ public class Order {
     protected double totalAmount;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderLine> orderLines;
+    private List<OrderLine> orderLine;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -35,14 +35,14 @@ public class Order {
         this.orderId = builder.orderId;
         this.orderDate = builder.orderDate;
         this.totalAmount = builder.totalAmount;
-        this.orderLines = builder.orderLines;
+        this.orderLine = builder.orderLine;
         this.customer = builder.customer;
     }
 
     public int getOrderId() { return orderId; }
     public LocalDate getOrderDate() { return orderDate; }
     public double getTotalAmount() { return totalAmount; }
-    public List<OrderLine> getOrderLines() { return orderLines; }
+    public List<OrderLine> getOrderLine() { return orderLine; }
     public Customer getCustomer() { return customer; }
 
     @Override
@@ -51,7 +51,7 @@ public class Order {
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
-                ", orderLines=" + orderLines +
+                ", orderLines=" + orderLine +
                 ", customer=" + customer +
                 '}';
     }
@@ -60,7 +60,7 @@ public class Order {
         private int orderId;
         private LocalDate orderDate;
         private double totalAmount;
-        private List<OrderLine> orderLines;
+        private List<OrderLine> orderLine;
         private Customer customer;
 
         public Builder setOrderId(int orderId) {
@@ -72,8 +72,8 @@ public class Order {
         public Builder setTotalAmount(double totalAmount) {
             this.totalAmount = totalAmount; return this;
         }
-        public Builder setOrderLines(List<OrderLine> orderLines) {
-            this.orderLines = orderLines; return this;
+        public Builder setOrderLine(List<OrderLine> orderLine) {
+            this.orderLine = orderLine; return this;
         }
         public Builder setCustomer(Customer customer) {
             this.customer = customer; return this;
@@ -82,7 +82,7 @@ public class Order {
             this.orderId = order.orderId;
             this.orderDate = order.orderDate;
             this.totalAmount = order.totalAmount;
-            this.orderLines = order.orderLines;
+            this.orderLine = order.orderLine;
             this.customer = order.customer;
             return this;
         }

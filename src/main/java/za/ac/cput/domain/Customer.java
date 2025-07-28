@@ -31,7 +31,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    protected Customer() {}
+    public Customer() {}
 
     public Customer(Builder builder) {
         this.customerId = builder.customerId;
