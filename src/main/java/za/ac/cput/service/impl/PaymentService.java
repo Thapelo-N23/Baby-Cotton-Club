@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class PaymentService implements IPaymentService {
+
     private PaymentRepository repository;
 
     @Autowired
@@ -25,30 +26,21 @@ public class PaymentService implements IPaymentService {
 
     @Override
     public Payment create(Payment payment) {
-        return repository.save(payment);
+        return this.repository.save(payment);
     }
 
     @Override
-    public Payment read(String id) {
-        return repository.findById(id).orElse(null);
+    public Payment read(Integer id) {
+        return this.repository.findById(id).orElse(null);
     }
 
     @Override
     public Payment update(Payment payment) {
-        return repository.save(payment);
-    }
-
-    @Override
-    public boolean delete(String id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+        return this.repository.save(payment);
     }
 
     @Override
     public List<Payment> getAll() {
-        return repository.findAll();
+        return this.repository.findAll();
     }
 }

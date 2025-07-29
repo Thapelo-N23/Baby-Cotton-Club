@@ -6,16 +6,22 @@
  */
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
-    private String productId;
-    private String productName;
-    private String color;
-    private short price;
-    private String inStock;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected String productId;
+    protected String productName;
+    protected String color;
+    protected short price;
+    protected String inStock;
 
-    private Product(){
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
 
 
 private Product(Builder builder) {
@@ -26,6 +32,9 @@ private Product(Builder builder) {
         this.inStock = builder.inStock;
 
 }
+    public Product() {
+
+    }
 
     public String getProductId() {
         return productId;

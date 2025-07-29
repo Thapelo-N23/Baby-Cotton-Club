@@ -35,6 +35,15 @@ public ProductServiceImpl(ProductRepository productRepository) {
     }
 
     @Override
+    public boolean delete(String productId) {
+        if (productRepository.existsById(productId)) {
+            productRepository.deleteById(productId);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public List<Product> getall() {
         return
                 this.productRepository.findAll();

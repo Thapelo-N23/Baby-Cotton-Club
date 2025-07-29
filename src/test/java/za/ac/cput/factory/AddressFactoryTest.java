@@ -24,7 +24,8 @@ class AddressFactoryTest {
             "Soweto",
             "Johannesburg",
             (short) 1634,
-            "Gauteng"
+            "Gauteng",
+            null // Customer will be set later
     );
     @Test
     void createAddress() {
@@ -40,7 +41,8 @@ class AddressFactoryTest {
                 "Pretoria",
                 "Pretoria",
                 (short) -1,      // Invalid postal code (negative)
-                "Gauteng"
+                "Gauteng",
+                null // Customer will be set later
         );
         assertNull(invalidAddress, "Address with invalid postal code should be null");
         System.out.println(invalidAddress);

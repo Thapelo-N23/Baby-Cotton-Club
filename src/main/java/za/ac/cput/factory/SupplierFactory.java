@@ -11,15 +11,15 @@ import za.ac.cput.util.Helper;
 
 public class SupplierFactory {
 
-    public static Supplier createSupplier(String supplierId, String supplierName, String contactNumber) {
-        if (Helper.isNullOrEmpty(supplierId) || Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactNumber)) {
+    public static Supplier createSupplier(String supplierName, String contactDetails, int supplierId) {
+        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || supplierId <= 0) {
             return null;
         }
 
         return new Supplier.Builder()
-                .setSupplierId(supplierId)
                 .setSupplierName(supplierName)
-                .setContactNumber(contactNumber)
+                .setContactDetails(contactDetails)
+                .setSupplierId(supplierId)
                 .build();
     }
 }

@@ -14,40 +14,34 @@ import za.ac.cput.service.impl.SupplierService;
 
 import java.util.List;
 
-    @RestController
-    @RequestMapping("/supplier")
-    public class SupplierController {
-        private SupplierService service;
+@RestController
+@RequestMapping("/supplier")
+public class SupplierController {
 
-        @Autowired
-        public SupplierController(SupplierService service) {
-            this.service = service;
-        }
+    private SupplierService service;
 
-        @PostMapping("/create")
-        public Supplier createSupplier(@RequestBody Supplier supplier) {
-            return service.create(supplier);
-        }
-
-        @GetMapping("/read/{id}")
-        public Supplier readSupplier(@PathVariable String id) {
-            return service.read(id);
-        }
-
-        @PutMapping("/update")
-        public Supplier updateSupplier(@RequestBody Supplier supplier) {
-            return service.update(supplier);
-        }
-
-        @DeleteMapping("/delete/{id}")
-        public boolean deleteSupplier(@PathVariable String id) {
-            return service.delete(id);
-        }
-
-        @GetMapping("/getall")
-        public List<Supplier> getAllSuppliers() {
-            return service.getAll();
-        }
+    @Autowired
+    public SupplierController(SupplierService service) {
+        this.service = service;
     }
 
+    @PostMapping("/create")
+    public Supplier createSupplier(@RequestBody Supplier supplier) {
+        return service.create(supplier);
+    }
 
+    @GetMapping("/read/{id}")
+    public Supplier readSupplier(@PathVariable String id) {
+        return service.read(id);
+    }
+
+    @PutMapping("/update")
+    public Supplier updateSupplier(@RequestBody Supplier supplier) {
+        return service.update(supplier);
+    }
+
+    @GetMapping("/getall")
+    public List<Supplier> getAllSuppliers() {
+        return service.getAll();
+    }
+}

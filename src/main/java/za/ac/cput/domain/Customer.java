@@ -28,7 +28,10 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    protected Customer() {}
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    public Customer() {}
 
     public Customer(Builder builder) {
         this.customerId = builder.customerId;
@@ -47,6 +50,7 @@ public class Customer {
     public String getPhoneNumber() { return phoneNumber; }
     public List<Address> getAddresses() { return addresses; }
     public List<Order> getOrders() { return orders; }
+    public List<Review> getReviews() { return reviews; }
 
     @Override
     public String toString() {
@@ -58,6 +62,7 @@ public class Customer {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", addresses=" + addresses +
                 ", orders=" + orders +
+                ", reviews=" + reviews +
                 '}';
     }
 
@@ -69,6 +74,7 @@ public class Customer {
         private String phoneNumber;
         private List<Address> addresses;
         private List<Order> orders;
+        private List<Review> reviews;
 
         public Builder setCustomerId(int customerId) { this.customerId = customerId; return this; }
         public Builder setFirstName(String firstName) { this.firstName = firstName; return this; }
@@ -77,6 +83,7 @@ public class Customer {
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
         public Builder setAddresses(List<Address> addresses) { this.addresses = addresses; return this; }
         public Builder setOrders(List<Order> orders) { this.orders = orders; return this; }
+        public Builder setReviews(List<Review> reviews) { this.reviews = reviews; return this; }
 
         public Builder copy(Customer customer) {
             this.customerId = customer.customerId;
@@ -86,6 +93,7 @@ public class Customer {
             this.phoneNumber = customer.phoneNumber;
             this.addresses = customer.addresses;
             this.orders = customer.orders;
+            this.reviews = customer.reviews;
             return this;
         }
 

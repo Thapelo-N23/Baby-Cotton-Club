@@ -59,5 +59,9 @@ public class Helper {
     public static boolean isValidAmount(double amount) {
         return amount >= 0.0;
     }
+    public static boolean isNullOrEmpty(int supplierId) {
+        return false;
+    }
 }
+
 
