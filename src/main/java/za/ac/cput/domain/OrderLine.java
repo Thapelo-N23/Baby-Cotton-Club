@@ -10,6 +10,8 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "order_lines")
 public class OrderLine {
@@ -17,20 +19,17 @@ public class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long orderLineId;
-
     protected int quantity;
     protected double unitPrice;
     protected double subTotal;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     protected Order order;
-
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     protected Product product;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "discount_id")
     protected Discount discount;
 
