@@ -40,7 +40,7 @@ class OrderLineFactoryTest {
         Customer customer = new Customer();
         List<OrderLine> orderLines = new ArrayList<>();
         Order order = OrderFactory.createOrder("20250729", 200.0, orderLines, customer);
-        product = ProductFactory.createProduct("P12345", "Nike", "Black", (short) 42, "available");
+        product = ProductFactory.createProduct( "Nike", "Black", (short) 42, "available");
         discount = DiscountFactory.createDiscount(13, "Spring Sale", "Percentage", "20%", "2025-05-01", "2025-05-31");
         OrderLine orderLine = OrderLineFactory.createOrderLine(
                 5,

@@ -50,6 +50,7 @@ public class Address {
     public String getProvince() { return province; }
     public Customer getCustomer() { return customer; }
 
+
     @Override
     public String toString() {
         return "Address{" +
@@ -60,7 +61,7 @@ public class Address {
                 ", city='" + city + '\'' +
                 ", postalCode=" + postalCode +
                 ", province='" + province + '\'' +
-                ", customer=" + (customer != null ? customer.getCustomerId() : "null") +
+                ", customer=" +  customer +
                 '}';
     }
 

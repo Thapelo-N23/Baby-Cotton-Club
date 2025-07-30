@@ -36,7 +36,7 @@ public class AddressFactory {
                 .setCity(city)
                 .setPostalCode(postalCode)
                 .setProvince(province)
-                .setCustomer(null)
+                .setCustomer(customer)
                 .build();
     }
 }

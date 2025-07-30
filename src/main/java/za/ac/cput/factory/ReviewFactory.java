@@ -7,18 +7,16 @@ Date: 18 May 2025
  */
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.Customer;
+import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Review;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
 
 public class ReviewFactory {
-    public static Review createReview( Integer reviewId,Integer customerId,Integer productId,
-                                       short rating, String reviewComment, String reviewDate){
+    public static Review createReview(short rating, String reviewComment, String reviewDate, Customer customer) {
         if(Helper.isNullOrEmpty(reviewComment)){
-            return null;
-        }
-        if(!Helper.isValidReviewId(reviewId)){
             return null;
         }
 
@@ -28,11 +26,10 @@ public class ReviewFactory {
         }
 
         return new Review.Builder()
-                .setReviewId(reviewId)
-                .setCustomerId(customerId)
-                .setProductId(productId)
+                .setRating(rating)
                 .setReviewComment(reviewComment)
                 .setReviewDate(date)
+                .setCustomer(customer)
                 .build();
     }
 }
