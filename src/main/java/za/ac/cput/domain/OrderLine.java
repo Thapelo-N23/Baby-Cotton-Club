@@ -44,12 +44,18 @@ public class OrderLine {
         this.discount = builder.discount;
     }
 
-    public int getQuantity() { return quantity; }
-    public double getUnitPrice() { return unitPrice; }
-    public double getSubTotal() { return subTotal; }
-    public Order getOrder() { return order; }
-    public Product getProduct() { return product; }
-    public Discount getDiscount() { return discount; }
+    public int getQuantity() {
+        return quantity; }
+    public double getUnitPrice() {
+        return unitPrice; }
+    public double getSubTotal() {
+        return subTotal; }
+    public Order getOrder() {
+        return order; }
+    public Product getProduct() {
+        return product; }
+    public Discount getDiscount() {
+        return discount; }
 
     @Override
     public String toString() {
@@ -58,9 +64,9 @@ public class OrderLine {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", subTotal=" + subTotal +
-                ", order=" + (order != null ? order.getOrderId() : null) +
-                ", product=" + (product != null ? product.getProductId() : null) +
-                ", discount=" + (discount != null ? discount.getDiscountId() : null) +
+                ", order=" + order +
+                ", product=" + product +
+                ", discount=" + discount +
                 '}';
     }
 

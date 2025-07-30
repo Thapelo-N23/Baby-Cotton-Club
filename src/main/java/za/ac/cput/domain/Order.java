@@ -37,11 +37,16 @@ public class Order {
         this.customer = builder.customer;
     }
 
-    public int getOrderId() { return orderId; }
-    public LocalDate getOrderDate() { return orderDate; }
-    public double getTotalAmount() { return totalAmount; }
-    public List<OrderLine> getOrderLine() { return orderLine; }
-    public Customer getCustomer() { return customer; }
+    public int getOrderId() {
+        return orderId; }
+    public LocalDate getOrderDate() {
+        return orderDate; }
+    public double getTotalAmount() {
+        return totalAmount; }
+    public List<OrderLine> getOrderLine() {
+        return orderLine; }
+    public Customer getCustomer() {
+        return customer; }
 
     @Override
     public String toString() {
@@ -62,19 +67,24 @@ public class Order {
         private Customer customer;
 
         public Builder setOrderId(int orderId) {
-            this.orderId = orderId; return this;
+            this.orderId = orderId;
+            return this;
         }
         public Builder setOrderDate(LocalDate orderDate) {
-            this.orderDate = orderDate; return this;
+            this.orderDate = orderDate;
+            return this;
         }
         public Builder setTotalAmount(double totalAmount) {
-            this.totalAmount = totalAmount; return this;
+            this.totalAmount = totalAmount;
+            return this;
         }
         public Builder setOrderLine(List<OrderLine> orderLine) {
-            this.orderLine = orderLine; return this;
+            this.orderLine = orderLine;
+            return this;
         }
         public Builder setCustomer(Customer customer) {
-            this.customer = customer; return this;
+            this.customer = customer;
+            return this;
         }
         public Builder copy(Order order) {
             this.orderId = order.orderId;

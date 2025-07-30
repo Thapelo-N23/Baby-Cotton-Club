@@ -16,13 +16,14 @@ public class OrderFactory {
 
         LocalDate date = Helper.isValidDate(orderDate);
 
-        Order order = new Order.Builder()
+
+
+        return new Order.Builder()
                 .setOrderDate(date)
                 .setTotalAmount(totalAmount)
                 .setOrderLine(orderLines)
                 .setCustomer(customer)
                 .build();
 
-        return order;
     }
 }
