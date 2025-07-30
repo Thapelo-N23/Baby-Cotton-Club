@@ -28,6 +28,10 @@ public class AddressFactory {
             return null;
         }
 
+        if (customer == null) {
+            return null;
+        }
+
 
         return new Address.Builder()
                 .setStreetName(streetName)

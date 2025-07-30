@@ -1,6 +1,9 @@
 package za.ac.cput.service.impl;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Customer;
@@ -12,6 +15,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CustomerServiceTest {
 
 
@@ -27,18 +31,21 @@ private ICustomerService service;
             Collections.emptyList()
     );
     @Test
+    @Order(1)
     void create() {
         Customer created = service.create(customer);
         assertNotNull(created);
         System.out.println("Created: " + created);
     }
     @Test
+    @Order(2)
     void read() {
         Customer read = service.read(customer.getCustomerId());
         assertNotNull(read);
         System.out.println("Read: " + read);
     }
     @Test
+    @Order(3)
     void update() {
         Customer updated = new Customer.Builder()
                 .copy(customer)
@@ -47,6 +54,7 @@ private ICustomerService service;
                 .build();
     }
     @Test
+    @Order(4)
     void getAll() {
         assertNotNull(service.getAll());
         System.out.println("All Customers: " + service.getAll());
