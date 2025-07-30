@@ -16,11 +16,14 @@ import java.time.LocalDate;
 
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer reviewId;
+    private Integer customerId;
+    private Integer productId;
     private short rating;
     private String reviewComment;
     private LocalDate reviewDate;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -33,29 +36,40 @@ public class Review {
     protected Review(){
     }
     public Review (Builder builder){
-       this.reviewId = builder.reviewId;
-       this.rating = builder.rating;
-       this.reviewComment = builder.reviewComment;
-       this.reviewDate = builder.reviewDate;
-         this.customer = builder.customer;
-         this.product = builder.product;
+        this.reviewId = builder.reviewId;
+        this.customerId = builder.customerId;
+        this.productId = builder.productId;
+        this.rating = builder.rating;
+        this.reviewComment = builder.reviewComment;
+        this.reviewDate = builder.reviewDate;
+        this.customer = builder.customer;
+        this.product = builder.product;
     }
 
-    public int getReviewId() {
+    public Integer getReviewId() {
         return reviewId;
     }
+
+    public Integer getCustomerId() {
+        return customerId;}
+
+    public Integer getProductId() {
+        return productId;}
 
     public short getRating() {
         return rating;
     }
 
     public String getReviewComment() {
+
         return reviewComment;
     }
 
     public LocalDate getReviewDate() {
+
         return reviewDate;
     }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -67,6 +81,8 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewId=" + reviewId +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
                 ", rating=" + rating +
                 ", reviewComment='" + reviewComment + '\'' +
                 ", reviewDate=" + reviewDate +
@@ -75,19 +91,29 @@ public class Review {
                 '}';
     }
 
+
     public static class Builder{
-        private int reviewId;
+        private Integer reviewId;
+        private Integer customerId;
+        private Integer productId;
         private short rating;
         private LocalDate reviewDate;
         private String reviewComment;
         private Customer customer;
         private Product product;
 
-
-    public Builder setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-        return this;
-    }
+        public Builder setReviewId(Integer reviewId) {
+            this.reviewId = reviewId;
+            return this;
+        }
+        public Builder setCustomerId(Integer customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+        public Builder setProductId(Integer productId) {
+            this.productId = productId;
+            return this;
+        }
         public Builder setRating(short rating) {
             this.rating = rating;
             return this;
@@ -113,16 +139,17 @@ public class Review {
 
         public Builder copy(Review builder){
             this.reviewId = builder.reviewId;
+            this.customerId = builder.customerId;
+            this.productId = builder.productId;
             this.rating = builder.rating;
             this.reviewDate = builder.reviewDate;
             this.reviewComment = builder.reviewComment;
-            this.customer = builder.customer;
-            this.product = builder.product;
             return this;
 
+        }
+        public Review build(){
+            return new Review(this);
+        }
+
     }
-    public Review build(){
-    return new Review(this);
-       }
-     }
 }

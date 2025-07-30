@@ -15,10 +15,11 @@ import java.util.List;
 @Table(name = "categories")
 
 public class Category {
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryId;
     private String categoryName;
+    private Product product;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
@@ -26,10 +27,10 @@ public class Category {
     protected Category() {
 
     }
-public Category(Builder builder){
+    public Category(Builder builder){
         this.categoryId = builder.categoryId;
         this.categoryName = builder.categoryName;
-}
+    }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -47,9 +48,14 @@ public Category(Builder builder){
                 '}';
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
     public static class Builder {
         private Integer categoryId;
         private String categoryName;
+        private Product product;
 
         public Builder setCategoryId(Integer categoryId) {
             this.categoryId = categoryId;
@@ -60,10 +66,15 @@ public Category(Builder builder){
             this.categoryName = categoryName;
             return this;
         }
+        public Builder setProduct(Product product) {
+            this.product = product;
+            return this;
+        }
 
         public Builder copy(Category builder) {
             this.categoryId = builder.categoryId;
             this.categoryName = builder.categoryName;
+            this.product = builder.product;
             return this;
         }
 
@@ -71,9 +82,4 @@ public Category(Builder builder){
             return new Category(this);
         }
     }
-    }
-
-
-
-
-
+}
