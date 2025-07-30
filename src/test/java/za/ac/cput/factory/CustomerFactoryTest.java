@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
+import za.ac.cput.domain.Review;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,8 +12,17 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerFactoryTest {
-
-    // Create Address objects with dummy data
+    // Create a customer
+    private static Customer customer = CustomerFactory.createCustomer(
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList()
+    );
+    //create an address
     public static Address address1 = AddressFactory.createAddress(
             "Bush St",
             (short) 123,
@@ -20,46 +30,33 @@ class CustomerFactoryTest {
             "Johannesburg",
             (short) 1634,
             "Gauteng",
-            null // Customer will be set later if needed
+            customer
     );
-
-    public static Address address2 = AddressFactory.createAddress(
-            "Bush St",
-            (short) 456,
-            "Soweto",
-            "Johannesburg",
-            (short) 1634,
-            "Gauteng",
-            null
-
-    );
-
-    // Create a customer without orders
-    private static Customer customer = CustomerFactory.createCustomer(
-            "John",
-            "Doe",
-            "mengezi@gmail.com",
-            "0781234567",
-            Arrays.asList(address1, address2),
-            Collections.emptyList()
-    );
-
     // Create an order
     public static Order order1 = OrderFactory.createOrder(
-            "20250518",  // Use valid date format consistent with your OrderFactory
+            "20250518",
             250.00,
-            new java.util.ArrayList<>(),  // empty orderLines list (adjust as needed)
-            customer                      // link customer to order
+            new java.util.ArrayList<>(),  // empty orderLines list
+            customer
+    );
+// Create a review
+    public static Review review1 = ReviewFactory.createReview(
+         (short)4,
+         "Great service!",
+         "20250518",
+                   customer,
+         null
     );
 
-    // Create a customer with orders
-    private static Customer customerWithOrders = CustomerFactory.createCustomer(
+    // Create a customer with orders, address  and reviews
+    private static Customer customerWithRelationships = CustomerFactory.createCustomer(
             "John",
             "Doe",
             "mengezi@gmail.com",
             "0781234567",
-            Arrays.asList(address1, address2),
-            Arrays.asList(order1)
+            Arrays.asList(address1),
+            Arrays.asList(order1),
+            Arrays.asList(review1)
     );
 
     @Test
@@ -70,8 +67,8 @@ class CustomerFactoryTest {
 
     @Test
     void createCustomerWithOrders() {
-        assertNotNull(customerWithOrders);
-        assertFalse(customerWithOrders.getOrders().isEmpty());
-        System.out.println(customerWithOrders.toString());
+        assertNotNull(customerWithRelationships);
+        assertFalse(customerWithRelationships.getOrders().isEmpty());
+        System.out.println(customerWithRelationships.toString());
     }
 }
