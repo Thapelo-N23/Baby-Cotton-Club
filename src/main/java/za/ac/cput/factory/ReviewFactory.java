@@ -15,7 +15,10 @@ import za.ac.cput.util.Helper;
 import java.time.LocalDate;
 
 public class ReviewFactory {
-    public static Review createReview(short rating, String reviewComment, String reviewDate, Customer customer) {
+
+    private static int reviewCounter = 1;
+
+    public static Review createReview(short rating, String reviewComment, String reviewDate, Customer customer, Product product){
         if(Helper.isNullOrEmpty(reviewComment)){
             return null;
         }
@@ -25,11 +28,10 @@ public class ReviewFactory {
             return null;
         }
 
-        return new Review.Builder()
-                .setRating(rating)
+        return new Review.Builder().setRating(rating)
+                .setReviewId(reviewCounter++)
                 .setReviewComment(reviewComment)
-                .setReviewDate(date)
-                .setCustomer(customer)
+                .setReviewDate(date).setCustomer(customer).setProduct(product)
                 .build();
     }
 }
