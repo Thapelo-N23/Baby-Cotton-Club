@@ -16,18 +16,18 @@ import java.time.LocalDate;
 
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer reviewId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int reviewId;
     private short rating;
     private String reviewComment;
     private LocalDate reviewDate;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     protected Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     protected Product product;
 
     protected Review(){
@@ -41,7 +41,7 @@ public class Review {
          this.product = builder.product;
     }
 
-    public Integer getReviewId() {
+    public int getReviewId() {
         return reviewId;
     }
 
@@ -76,7 +76,7 @@ public class Review {
     }
 
     public static class Builder{
-        private Integer reviewId;
+        private int reviewId;
         private short rating;
         private LocalDate reviewDate;
         private String reviewComment;
@@ -84,7 +84,7 @@ public class Review {
         private Product product;
 
 
-    public Builder setReviewId(Integer reviewId) {
+    public Builder setReviewId(int reviewId) {
         this.reviewId = reviewId;
         return this;
     }

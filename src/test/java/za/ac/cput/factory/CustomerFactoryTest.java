@@ -32,6 +32,7 @@ class CustomerFactoryTest {
             "Gauteng",
             customer
     );
+
     // Create an order
     public static Order order1 = OrderFactory.createOrder(
             "20250518",
@@ -39,13 +40,13 @@ class CustomerFactoryTest {
             new java.util.ArrayList<>(),  // empty orderLines list
             customer
     );
-// Create a review
-    public static Review review1 = ReviewFactory.createReview(
-         (short)4,
-         "Great service!",
-         "20250518",
-                   customer,
-         null
+
+    // Create a review
+    public static Review review = ReviewFactory.createReview(
+            (short) 4,
+            "Great service!",
+            "20250503",
+            customer
     );
 
     // Create a customer with orders, address  and reviews
@@ -56,7 +57,7 @@ class CustomerFactoryTest {
             "0781234567",
             Arrays.asList(address1),
             Arrays.asList(order1),
-            Arrays.asList(review1)
+            Arrays.asList(review)
     );
 
     @Test
