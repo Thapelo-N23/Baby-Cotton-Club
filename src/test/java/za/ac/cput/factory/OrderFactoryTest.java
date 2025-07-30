@@ -1,41 +1,80 @@
-/*
-OrderFactoryTest Class
-Author: Tsireledzo Netshilonwe
-Student Number: 230666426
-Date: 2025/05/10
-*/
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderLine;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static za.ac.cput.factory.CustomerFactoryTest.*;
+
 class OrderFactoryTest {
-private static Order order = OrderFactory.createOrder(
-            "20250518",
-            250.00,
-            2,
-            20.00,
-            null // Customer will be set later
-    );
 
     @Test
     void createOrder() {
-        assertNotNull(order);
+        List<OrderLine> orderLines = new ArrayList<>();
+        orderLines.add(OrderLineFactory.createOrderLine(2, 50.00));
+        orderLines.add(OrderLineFactory.createOrderLine(1, 150.00));
+
+        Customer customer = CustomerFactory.createCustomer(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "0712345678",
+                null,
+                null
+        );
+
+        Order order = OrderFactory.createOrder(
+                "20250518",
+                250.00,
+                orderLines,
+                customer
+        );
+
+        assertNotNull(order, "Order should not be null");
+        assertEquals(LocalDate.of(2025, 5, 18), order.getOrderDate());
+        assertEquals(250.00, order.getTotalAmount(), 0.001);
+        assertEquals(orderLines, order.getOrderLine());
+        assertEquals(customer, order.getCustomer());
+
         System.out.println(order);
     }
 
     @Test
-    void createOrderWithInvalidDate() {
-        Order invalidOrder = OrderFactory.createOrder(
-                "invalid-date",
-                250.00,
-                2,
-                20.00,
-                null // Customer will be set later
+    void createOrderWithCustomer() {
+        List<OrderLine> orderLines = new ArrayList<>();
+        orderLines.add(OrderLineFactory.createOrderLine(1, 99.99));
+
+        Customer customer = CustomerFactory.createCustomer(
+                "John",
+                "Doe",
+                "mengezi@gmail.com",
+                "0781234567",
+                Arrays.asList(address1, address2),
+                Arrays.asList(order1)
         );
-        assertNull(invalidOrder, "Order with invalid date should be null");
-        System.out.println(invalidOrder);
+
+        Order order = OrderFactory.createOrder(
+                "20250729",
+                99.99,
+                orderLines,
+                customer
+        );
+
+        assertNotNull(order, "Order should not be null when customer is valid");
+        assertEquals(LocalDate.of(2025, 7, 29), order.getOrderDate());
+        assertEquals(99.99, order.getTotalAmount(), 0.001);
+        assertEquals(orderLines, order.getOrderLine());
+        assertEquals(customer, order.getCustomer());
+
+        System.out.println(order);
     }
+
 
 }
