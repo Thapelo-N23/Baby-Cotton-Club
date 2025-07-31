@@ -22,7 +22,7 @@ public class Supplier {
     private String contactDetails;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<Inventory> inventoryList;
+    private List<Inventory> inventoryId;
 
     protected Supplier() {}
 
@@ -30,23 +30,39 @@ public class Supplier {
         this.supplierId = builder.supplierId;
         this.supplierName = builder.supplierName;
         this.contactDetails = builder.contactDetails;
-        this.inventoryList = builder.inventoryList;
+        this.inventoryId = builder.inventoryId;
     }
 
     public int getSupplierId() {
         return supplierId;
     }
 
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
+    }
+
     public String getSupplierName() {
         return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public String getContactDetails() {
         return contactDetails;
     }
 
+    public void setContactDetails(String contactDetails) {
+        this.contactDetails = contactDetails;
+    }
+
     public List<Inventory> getInventoryList() {
-        return inventoryList;
+        return inventoryId;
+    }
+
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryId = inventoryList;
     }
 
     @Override
@@ -55,7 +71,7 @@ public class Supplier {
                 "supplierId=" + supplierId +
                 ", supplierName='" + supplierName + '\'' +
                 ", contactDetails='" + contactDetails + '\'' +
-                ", inventoryList=" + (inventoryList != null ? inventoryList.size() : 0) +
+                ", inventoryList=" + (inventoryId != null ? inventoryId.size() : 0) +
                 '}';
     }
 
@@ -63,7 +79,7 @@ public class Supplier {
         private int supplierId;
         private String supplierName;
         private String contactDetails;
-        private List<Inventory> inventoryList;
+        private List<Inventory> inventoryId;
 
         public Builder setSupplierId(int supplierId) {
             this.supplierId = supplierId;
@@ -80,8 +96,8 @@ public class Supplier {
             return this;
         }
 
-        public Builder setInventoryList(List<Inventory> inventoryList) {
-            this.inventoryList = inventoryList;
+        public Builder setInventoryId(List<Inventory> inventoryId) {
+            this.inventoryId = inventoryId;
             return this;
         }
 
@@ -89,7 +105,7 @@ public class Supplier {
             this.supplierId = supplier.getSupplierId();
             this.supplierName = supplier.getSupplierName();
             this.contactDetails = supplier.getContactDetails();
-            this.inventoryList = supplier.getInventoryList();
+            this.inventoryId = supplier.getInventoryList();
             return this;
         }
 
