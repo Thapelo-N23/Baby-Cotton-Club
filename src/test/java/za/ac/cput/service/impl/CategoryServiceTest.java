@@ -15,17 +15,22 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
+import za.ac.cput.Main;
 import za.ac.cput.domain.Category;
 import za.ac.cput.factory.CategoryFactory;
 
 
-@SpringBootTest
+@SpringBootTest(classes = Main.class)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 
-class CategoryServiceTest {
+
+public class CategoryServiceTest{
+
     @Autowired
     private CategoryService service;
-    private Category category = CategoryFactory.createCategory(12,"Clothes");
+    private Category category = CategoryFactory.createCategory("Clothes",null);
+
 
     @Test
     void create() {
@@ -57,5 +62,6 @@ class CategoryServiceTest {
         System.out.println("All Categories: " + service.getAll());
         assertFalse(service.getAll().isEmpty(), "Category list should not be empty");
     }
+
 }
 

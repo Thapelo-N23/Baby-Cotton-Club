@@ -1,38 +1,36 @@
-package za.ac.cput.factory;
+/*
+ * Discount.java
+ * DiscountFactory POJO class
+ * Author: O Ntsaluba (230741754)
+ * Date: 18 May 2025
+ */
 
+package za.ac.cput.factory;
 
 import za.ac.cput.domain.Discount;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class DiscountFactory {
+    private static int discountCounter = 1;
 
-    public static Discount createDiscount(int discountId, String discountName, String discountType,
-
+    public static Discount createDiscount(String discountName, String discountType,
                                           String discountValue, String startDate, String endDate) {
         if (Helper.isNullOrEmpty(discountName) || Helper.isNullOrEmpty(discountType) ||
-                Helper.isNullOrEmpty(discountValue) ) {
+                Helper.isNullOrEmpty(discountValue)) {
             return null;
         }
-      
-      if(!Helper.isValidId(discountId)){
-        return null;
-      }
 
         LocalDate start = Helper.isValidDate(startDate);
-        if (start == null) {
-            return null;
-        }
-
         LocalDate end = Helper.isValidDate(endDate);
-        if (end == null) {
+
+        if (start == null || end == null) {
             return null;
         }
 
         return new Discount.Builder()
-                .setDiscountId(discountId)
+                .setDiscountId(discountCounter++)
                 .setDiscountName(discountName)
                 .setDiscountType(discountType)
                 .setDiscountValue(discountValue)

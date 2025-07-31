@@ -8,6 +8,7 @@ import za.ac.cput.domain.OrderLine;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +27,7 @@ class OrderFactoryTest {
                 "Doe",
                 "john.doe@example.com",
                 "0712345678",
+                null,
                 null,
                 null
         );
@@ -56,8 +58,9 @@ class OrderFactoryTest {
                 "Doe",
                 "mengezi@gmail.com",
                 "0781234567",
-                Arrays.asList(address1, address2),
-                Arrays.asList(order1)
+                Arrays.asList(address1),
+                Arrays.asList(order1),
+                Collections.emptyList()
         );
 
         Order order = OrderFactory.createOrder(

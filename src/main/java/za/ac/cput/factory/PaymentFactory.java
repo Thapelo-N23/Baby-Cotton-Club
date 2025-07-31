@@ -14,22 +14,24 @@ import java.time.LocalDate;
 
 public class PaymentFactory {
 
+    private static int paymentCounter = 1;
+
     public static Payment createPayment(String paymentDate,
-                                        String paymentMethod,int paymentId,
+                                        String paymentMethod,
                                         Order order) {
-        if (Helper.isNullOrEmpty(paymentMethod) || Helper.isNullOrEmpty(paymentMethod) || order == null) {
+        if (Helper.isNullOrEmpty(paymentMethod)) {
             return null;
         }
 
         LocalDate date = Helper.isValidDate(paymentDate);
-        if (date == null) {
+        if (date == null || order == null) {
             return null;
         }
 
         return new Payment.Builder()
+                .setPaymentId(paymentCounter++)
                 .setPaymentDate(date)
                 .setPaymentMethod(paymentMethod)
-                .setPaymentId(paymentId)
                 .setOrder(order)
                 .build();
     }

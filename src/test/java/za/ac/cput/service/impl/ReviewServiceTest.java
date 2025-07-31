@@ -23,7 +23,8 @@ import za.ac.cput.factory.ReviewFactory;
 class ReviewServiceTest {
     @Autowired
     private ReviewService service;
-    private Review review = ReviewFactory.createReview(12, 1, 5, (short)5, "Great product!", "2023-10-01");
+    private Review review = ReviewFactory.createReview((short) 5, "Excellent product!", "20250101",null,null);
+
 
     @Test
     void create() {
@@ -53,7 +54,9 @@ class ReviewServiceTest {
 
     @Test
     void getAll() {
-        assertFalse(service.getAll().isEmpty(), "Review list should not be empty");
+        assertNotNull(service.getAll());
         System.out.println("All Reviews: " + service.getAll());
+        assertFalse(service.getAll().isEmpty(), "Review list should not be empty");
+
     }
 }

@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected String productId;
+    protected int productId;
     protected String productName;
     protected String color;
     protected short price;
@@ -36,7 +36,7 @@ private Product(Builder builder) {
 
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
@@ -67,14 +67,14 @@ private Product(Builder builder) {
                 '}';
     }
     public static class Builder {
-        private String productId;
+        private int productId;
         private String productName;
         private String color;
         private short price;
         private String inStock;
 
 
-        public Builder setProductId(String productId) {
+        public Builder setProductId(int productId) {
             this.productId = productId;
             return this;
         }

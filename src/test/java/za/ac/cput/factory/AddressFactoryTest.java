@@ -10,25 +10,36 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Address;
+import za.ac.cput.domain.Customer;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class AddressFactoryTest {
 
-
-    private AddressFactory addressFactory;
-    private static Address address = AddressFactory.createAddress(
-            "Bush St",
-            (short) 123,
-            "Soweto",
-            "Johannesburg",
-            (short) 1634,
-            "Gauteng",
-            null // Customer will be set later
+    private static  Customer customer = CustomerFactory.createCustomer(
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList()
     );
+
     @Test
     void createAddress() {
+        Address address = AddressFactory.createAddress(
+                "Bush St",
+                (short) 123,
+                "Soweto",
+                "Johannesburg",
+                (short) 1634,
+                "Gauteng",
+                customer
+        );
+
         assertNotNull(address);
         System.out.println(address);
     }
@@ -40,12 +51,12 @@ class AddressFactoryTest {
                 (short) 10,
                 "Pretoria",
                 "Pretoria",
-                (short) -1,      // Invalid postal code (negative)
+                (short) -1, // Invalid postal code
                 "Gauteng",
-                null // Customer will be set later
+                customer
         );
+
         assertNull(invalidAddress, "Address with invalid postal code should be null");
         System.out.println(invalidAddress);
     }
 }
-
