@@ -99,16 +99,7 @@ private Product(Builder builder) {
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "productId='" + productId + '\'' +
-                    ", productName='" + productName + '\'' +
-                    ", color='" + color + '\'' +
-                    ", price=" + price +
-                    ", inStock='" + inStock + '\'' +
-                    '}';
-        }
+
         public Builder copy(Product product) {
             this.productId = product.getProductId();
             this.productName = product.getProductName();

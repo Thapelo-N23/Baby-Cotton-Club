@@ -11,11 +11,13 @@ import za.ac.cput.domain.Category;
 import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
+import java.util.List;
+
 
 public class CategoryFactory {
     private static int categoryCounter = 1;
 
-    public static Category createCategory(String categoryName, Product product) {
+    public static Category createCategory(String categoryName,  List<Product> product) {
         if (Helper.isNullOrEmpty(categoryName)) {
             return null;
 

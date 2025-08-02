@@ -14,7 +14,7 @@ import za.ac.cput.util.Helper;
 
 public class OrderLineFactory {
 
-    // Simplified version without product, discount or order
+
     public static OrderLine createOrderLine(int quantity, double unitPrice) {
         double subTotal = Helper.calculateSubTotal(quantity, unitPrice);
 
@@ -25,7 +25,7 @@ public class OrderLineFactory {
                 .build();
     }
 
-    // Full version with all associations
+
     public static OrderLine createOrderLine(int quantity, double unitPrice, Order order, Product product, Discount discount) {
         double subTotal = Helper.calculateSubTotal(quantity, unitPrice);
 
