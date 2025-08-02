@@ -10,20 +10,22 @@ import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Supplier;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SupplierFactoryTest {
 
-    private static final List<Inventory> inventoryId = Collections.emptyList();
+    private static final Inventory testInventory = InventoryFactory.createInventory(
+            1,
+            "2025-07-31",
+            "100 units",
+            1
+    );
 
     private static final Supplier supplier = SupplierFactory.createSupplier(
             "SnuggleBabies Clothing Co.",
             "0211234567",
-            inventoryId
+            testInventory
     );
 
     @Test
@@ -32,7 +34,8 @@ class SupplierFactoryTest {
         assertNotNull(supplier);
         assertEquals("SnuggleBabies Clothing Co.", supplier.getSupplierName());
         assertEquals("0211234567", supplier.getContactDetails());
-        assertEquals(inventoryId, supplier.getInventoryList());
+        assertNotNull(supplier.getInventory());
+        assertEquals(testInventory.getInventoryId(), supplier.getInventoryId());
         System.out.println(supplier);
     }
 
@@ -42,7 +45,7 @@ class SupplierFactoryTest {
         Supplier invalid = SupplierFactory.createSupplier(
                 " ",
                 "0210836543",
-                inventoryId
+                testInventory
         );
         assertNull(invalid, "Supplier with empty name should be null");
         System.out.println(invalid);
@@ -54,7 +57,7 @@ class SupplierFactoryTest {
         Supplier invalid = SupplierFactory.createSupplier(
                 "Tiny Togs Supplies",
                 null,
-                inventoryId
+                testInventory
         );
         assertNull(invalid, "Supplier with null contact should be null");
         System.out.println(invalid);
@@ -67,9 +70,8 @@ class SupplierFactoryTest {
                 "CuddleWear Baby Co.",
                 "0217654221",
                 null
-
         );
-        assertNull(invalid, "Supplier with null inventory list should be null");
+        assertNull(invalid, "Supplier with null inventory should be null");
         System.out.println(invalid);
     }
 }

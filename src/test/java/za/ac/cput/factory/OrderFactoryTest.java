@@ -25,11 +25,12 @@ class OrderFactoryTest {
         Customer customer = CustomerFactory.createCustomer(
                 "John",
                 "Doe",
-                "john.doe@example.com",
-                "0712345678",
-                null,
-                null,
-                null
+                "mengezi@gmail.com",
+                "0781234567",
+                Arrays.asList(address1),
+                Arrays.asList(order1),
+                Arrays.asList(review)
+
         );
 
         Order order = OrderFactory.createOrder(

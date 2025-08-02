@@ -10,16 +10,14 @@ import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
 
-import java.util.List;
-
 public class SupplierFactory {
 
     private static int supplierCounter = 1;
 
     public static Supplier createSupplier(String supplierName,
                                           String contactDetails,
-                                          List<Inventory> inventoryId) {
-        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || inventoryId == null) {
+                                          Inventory inventory) {
+        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || inventory == null) {
             return null;
         }
 
@@ -27,8 +25,10 @@ public class SupplierFactory {
                 .setSupplierId(supplierCounter++)
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
-                .setInventoryId(inventoryId)
+                .setInventoryId(inventory.getInventoryId())
+                .setInventory(inventory)
                 .build();
     }
 }
+
 

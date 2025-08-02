@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
+//import za.ac.cput.domain.Order;
 import za.ac.cput.domain.Payment;
 
 import java.time.LocalDate;
@@ -36,10 +37,10 @@ class PaymentFactoryTest {
     @Test
     @Order(1)
     void createPayment() {
-        assertNotNull(payment);
+        assertNotNull(payment, "Payment should not be null");
         assertEquals(LocalDate.of(2025, 7, 22), payment.getPaymentDate());
         assertEquals("Credit Card", payment.getPaymentMethod());
-        assertEquals(order, payment.getOrder());
+        assertEquals(order, payment.getOrder(), "Payment should be linked to the correct Order");
         System.out.println(payment);
     }
 
@@ -50,9 +51,33 @@ class PaymentFactoryTest {
                 "invalid-date",
                 "EFT",
                 null
-
         );
         assertNull(invalid, "Payment with invalid date should be null");
+        System.out.println(invalid);
+    }
+
+    @Test
+    @Order(3)
+    void createPaymentWithNullMethod() {
+        Payment invalid = PaymentFactory.createPayment(
+                "2025-07-22",
+                "",
+                null
+
+        );
+        assertNull(invalid, "Payment with null or empty method should be null");
+        System.out.println(invalid);
+    }
+
+    @Test
+    @Order(4)
+    void createPaymentWithNullOrder() {
+        Payment invalid = PaymentFactory.createPayment(
+                "2025-07-22",
+                "Cash",
+                null
+        );
+        assertNull(invalid, "Payment with null order should be null");
         System.out.println(invalid);
     }
 }

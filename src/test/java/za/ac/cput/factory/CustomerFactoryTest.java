@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static za.ac.cput.factory.ReviewFactoryTest.product1;
 
 class CustomerFactoryTest {
     // Create a customer
@@ -46,8 +47,8 @@ class CustomerFactoryTest {
             (short) 4,
             "Great service!",
             "20250503",
-            customer
-    );
+            customer,
+            product1);
 
     // Create a customer with orders, address  and reviews
     private static Customer customerWithRelationships = CustomerFactory.createCustomer(
