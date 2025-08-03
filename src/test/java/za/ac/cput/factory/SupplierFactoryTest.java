@@ -8,18 +8,23 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Supplier;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SupplierFactoryTest {
 
+    private static final Product testProduct = new Product();
+
     private static final Inventory testInventory = InventoryFactory.createInventory(
-            1,
             "2025-07-31",
             "100 units",
-            1
+            Collections.emptyList(),
+            testProduct
     );
 
     private static final Supplier supplier = SupplierFactory.createSupplier(
@@ -35,7 +40,7 @@ class SupplierFactoryTest {
         assertEquals("SnuggleBabies Clothing Co.", supplier.getSupplierName());
         assertEquals("0211234567", supplier.getContactDetails());
         assertNotNull(supplier.getInventory());
-        assertEquals(testInventory.getInventoryId(), supplier.getInventoryId());
+        assertEquals(testInventory.getInventoryId(), supplier.getInventory().getInventoryId());
         System.out.println(supplier);
     }
 

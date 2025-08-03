@@ -14,8 +14,6 @@ import java.time.LocalDate;
 
 public class PaymentFactory {
 
-    private static int paymentCounter = 1;
-
     public static Payment createPayment(String paymentDate,
                                         String paymentMethod,
                                         Order order) {
@@ -29,10 +27,10 @@ public class PaymentFactory {
         }
 
         return new Payment.Builder()
-                .setPaymentId(paymentCounter++)
                 .setPaymentDate(date)
                 .setPaymentMethod(paymentMethod)
                 .setOrder(order)
                 .build();
     }
 }
+

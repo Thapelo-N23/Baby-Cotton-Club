@@ -25,7 +25,6 @@ public class SupplierFactory {
                 .setSupplierId(supplierCounter++)
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
-                .setInventoryId(inventory.getInventoryId())
                 .setInventory(inventory)
                 .build();
     }
