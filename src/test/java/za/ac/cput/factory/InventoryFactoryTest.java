@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryFactoryTest {
 
     private static final Product testProduct = ProductFactory.createProduct(
-            "Organic Cotton Onesie",
+            78659L,"Organic Cotton Onesie",
             "White with blue stars",
             (short) 5,
             "Yes"

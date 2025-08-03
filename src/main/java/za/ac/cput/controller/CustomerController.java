@@ -8,35 +8,40 @@ package za.ac.cput.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.service.impl.CustomerService;
 
-@RestController
-@RequestMapping("customer")
+import java.util.List;
 
+@RestController
+@RequestMapping("/api/customer")
 public class CustomerController {
-    private CustomerService service;
+
+    private final CustomerService service;
+
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.service = customerService;
+    public CustomerController(CustomerService service) {
+        this.service = service;
     }
-    @RequestMapping("/create")
-    public Customer createCustomer(Customer customer) {
+
+    @PostMapping("/create")
+    public Customer createCustomer(@RequestBody Customer customer) {
         return service.create(customer);
     }
-    @GetMapping("/read")
-    public Customer readCustomer(Integer customerId) {
+
+    @GetMapping("/read/{id}")
+    public Customer readCustomer(@PathVariable("id") Integer customerId) {
         return service.read(customerId);
     }
-    @RequestMapping("/update")
-    public Customer updateCustomer(Customer customer) {
+
+    @PutMapping("/update")
+    public Customer updateCustomer(@RequestBody Customer customer) {
         return service.update(customer);
     }
-    @GetMapping("/getall")
-    public Iterable<Customer> getAllCustomers() {
+
+    @GetMapping("/findAll")
+    public List<Customer> getAllCustomers() {
         return service.getAll();
     }
 

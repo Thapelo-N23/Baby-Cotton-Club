@@ -17,7 +17,7 @@ public class ShipmentFactory {
             return null;
         }
         return new Shipment.Builder()
-                .setShipmentId(shipmentId)
+                .setShipmentId(Long.valueOf(shipmentId))
                 .setCarrierName(carrierName)
                 .setShipmentStatus(shipmentStatus)
                 .setShippingCost(shippingCost)

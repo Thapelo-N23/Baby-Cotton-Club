@@ -24,6 +24,7 @@ public class Discount {
     private LocalDate startDate;
     private LocalDate endDate;
 
+
     @OneToOne(mappedBy = "discount")
     private OrderLine orderLine;
 

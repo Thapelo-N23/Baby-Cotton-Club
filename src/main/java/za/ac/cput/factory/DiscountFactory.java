@@ -27,9 +27,8 @@ public class DiscountFactory {
         LocalDate start = Helper.isValidDate(startDate);
         LocalDate end = Helper.isValidDate(endDate);
 
-        if (start == null || end == null) {
-            return null;
-        }
+
+
 
         return new Discount.Builder()
                 .setDiscountId(discountCounter++)

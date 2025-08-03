@@ -6,21 +6,28 @@ Date: 2025/05/18
  */
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
 
 public class SupplierFactory {
 
-    public static Supplier createSupplier(String supplierName, String contactDetails, int supplierId) {
-        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || supplierId <= 0) {
+    private static int supplierCounter = 1;
+
+    public static Supplier createSupplier(String supplierName,
+                                          String contactDetails,
+                                          Inventory inventory) {
+        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || inventory == null) {
             return null;
         }
 
         return new Supplier.Builder()
+                .setSupplierId(supplierCounter++)
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
-                .setSupplierId(supplierId)
+                .setInventory(inventory)
                 .build();
     }
 }
+
 
