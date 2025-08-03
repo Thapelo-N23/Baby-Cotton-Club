@@ -26,8 +26,8 @@ private static Product p2 = ProductFactory.createProduct("Coke", "Red", new Shor
 @Test
     @Order(2)
     public void testCreateProductWithAllAttributes() {
-    assertNotNull(p1);
-    System.out.println(p1);
+    assertNotNull(p2);
+    System.out.println(p2);
     }
 @Test
     @Order(3)
