@@ -24,8 +24,7 @@ public class Discount {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @OneToOne(mappedBy = "discount")
-    private Order order;
+
 
     @OneToOne(mappedBy = "discount")
     private OrderLine orderLine;
@@ -43,7 +42,7 @@ public class Discount {
         this.discountValue = builder.discountValue;
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
-        this.order = builder.order;
+
         this.orderLine = builder.orderLine;
         this.product = builder.product;
     }
@@ -72,9 +71,7 @@ public class Discount {
         return endDate;
     }
 
-    public Order getOrder() {
-        return order;
-    }
+
 
     public OrderLine getOrderLine() {
         return orderLine;
@@ -93,7 +90,7 @@ public class Discount {
                 ", discountValue='" + discountValue + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", order=" + order +
+
                 ", orderLine=" + orderLine +
                 ", product=" + product +
                 '}';
@@ -106,7 +103,7 @@ public class Discount {
         private String discountValue;
         private LocalDate startDate;
         private LocalDate endDate;
-        private Order order;
+
         private OrderLine orderLine;
         private Product product;
 
@@ -140,10 +137,7 @@ public class Discount {
             return this;
         }
 
-        public Builder setOrder(Order order) {
-            this.order = order;
-            return this;
-        }
+
 
         public Builder setOrderLine(OrderLine orderLine) {
             this.orderLine = orderLine;
@@ -162,7 +156,6 @@ public class Discount {
             this.discountValue = discount.discountValue;
             this.startDate = discount.startDate;
             this.endDate = discount.endDate;
-            this.order = discount.order;
             this.orderLine = discount.orderLine;
             this.product = discount.product;
             return discount;

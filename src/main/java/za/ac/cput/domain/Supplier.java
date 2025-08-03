@@ -21,7 +21,7 @@ public class Supplier {
 
     private String contactDetails;
 
-    private Integer inventoryId;
+//    private Integer inventoryId;
 
     @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)
@@ -34,7 +34,7 @@ public class Supplier {
         this.supplierId = builder.supplierId;
         this.supplierName = builder.supplierName;
         this.contactDetails = builder.contactDetails;
-        this.inventoryId = builder.inventoryId;
+//        this.inventoryId = builder.inventoryId;
         this.inventory = builder.inventory;
     }
 
@@ -50,9 +50,9 @@ public class Supplier {
         return contactDetails;
     }
 
-    public Integer getInventoryId() {
-        return inventoryId;
-    }
+//    public Integer getInventoryId() {
+//        return inventoryId;
+//    }
 
     public Inventory getInventory() {
         return inventory;
@@ -64,7 +64,7 @@ public class Supplier {
                 "supplierId=" + supplierId +
                 ", supplierName='" + supplierName + '\'' +
                 ", contactDetails='" + contactDetails + '\'' +
-                ", inventoryId=" + inventoryId +
+//                ", inventoryId=" + inventoryId +
                 ", inventory=" + (inventory != null ? inventory.getInventoryId() : null) +
                 '}';
     }
@@ -90,11 +90,11 @@ public class Supplier {
             this.contactDetails = contactDetails;
             return this;
         }
-
-        public Builder setInventoryId(Integer inventoryId) {
-            this.inventoryId = inventoryId;
-            return this;
-        }
+//
+//        public Builder setInventoryId(Integer inventoryId) {
+//            this.inventoryId = inventoryId;
+//            return this;
+//        }
 
         public Builder setInventory(Inventory inventory) {
             this.inventory = inventory;
@@ -105,7 +105,7 @@ public class Supplier {
             this.supplierId = supplier.supplierId;
             this.supplierName = supplier.supplierName;
             this.contactDetails = supplier.contactDetails;
-            this.inventoryId = supplier.inventoryId;
+//            this.inventoryId = supplier.inventoryId;
             this.inventory = supplier.inventory;
             return this;
         }

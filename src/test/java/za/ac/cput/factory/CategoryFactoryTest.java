@@ -45,7 +45,7 @@ class CategoryFactoryTest {
     @Order(3)
     void testCreateCategoryWithProducts() {
         products.add(product1);
-        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", product1);
+        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", products);
         assertNotNull(categoryWithProducts);
         assertEquals("Clothes", categoryWithProducts.getCategoryName());
         System.out.println("Category with Products: " + categoryWithProducts);
