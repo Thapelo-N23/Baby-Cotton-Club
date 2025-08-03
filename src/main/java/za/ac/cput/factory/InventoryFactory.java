@@ -7,16 +7,16 @@
 
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.*;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class InventoryFactory {
     private static int inventoryCounter = 1;
 
-    public static Inventory createInventory(int productId, String receivedDate,
-                                            String stockAdded, int supplierId) {
+    public static Inventory createInventory(String receivedDate, String stockAdded, List<Supplier> supplier, Product product) {
         if (Helper.isNullOrEmpty(stockAdded)) {
             return null;
         }
@@ -26,12 +26,16 @@ public class InventoryFactory {
             return null;
         }
 
+        if (supplier == null) {
+            return null;
+        }
+
         return new Inventory.Builder()
                 .setInventoryId(inventoryCounter++)
-                .setProductId(productId)
                 .setReceivedDate(date)
                 .setStockAdded(stockAdded)
-                .setSupplierId(supplierId)
+                .setSupplier(supplier)
+                .setProduct(product)
                 .build();
     }
 }
