@@ -14,8 +14,8 @@ import za.ac.cput.domain.Product;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductFactoryTest {
-private static Product p1 = ProductFactory.createProduct("Lancewood", "Yellow", new Short(String.valueOf(50)), "OUT OF STOCK");
-private static Product p2 = ProductFactory.createProduct("Coke", "Red", new Short("R" + 500), "OUT OF STOCK");
+private static Product p1 = ProductFactory.createProduct( 90099L,"Lancewood", "Yellow", new Short(String.valueOf(50)), "OUT OF STOCK");
+private static Product p2 = ProductFactory.createProduct(787890L,"Coke", "Red", new Short("R" + 500), "OUT OF STOCK");
 
 @Test
     @Order(1)
