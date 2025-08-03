@@ -20,17 +20,20 @@ public class OrderLineController {
 
     private OrderLineService service;
     public OrderLineController(OrderLineService service) {
+
         this.service = service;
     }
     @PostMapping("/create")
     public OrderLine create(@RequestBody OrderLine orderLine)
     {
+
         return service.create(orderLine);
     }
 
     @GetMapping("/read")
     public OrderLine read(@PathVariable String orderLineId)
     {
+
         return service.read(orderLineId);
     }
     @PutMapping("/update")
@@ -45,6 +48,7 @@ public class OrderLineController {
 
     public List<OrderLine> getAll()
     {
+
         return service.getAll();
     }
 
