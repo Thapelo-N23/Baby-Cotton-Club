@@ -6,37 +6,41 @@
 
 package za.ac.cput.factory;
 
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
 import za.ac.cput.domain.Discount;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DiscountFactoryTest {
 
-    private static Discount discount1 = DiscountFactory.createDiscount(
-            "Winter Sale",
-            "Percentage",
-            "20%",
-            LocalDate.now().toString(),
-            LocalDate.now().plusDays(7).toString()
-    );
+    private static Discount discount1;
+    private static Discount discount2;
 
-    private static Discount discount2 = DiscountFactory.createDiscount(
-            "Summer Special",
-            "Fixed",
-            "R50 off",
-            LocalDate.now().toString(),
-            LocalDate.now().plusDays(14).toString()
-    );
+    @BeforeAll
+    public static void setup() {
+
+        discount1 = DiscountFactory.createDiscount(
+                "Winter Sale",
+                "Percentage",
+                "20%",
+                "2025-08-01",
+                "2025-08-31",
+                null
+        );
+
+        discount2 = DiscountFactory.createDiscount(
+                "Summer Special",
+                "Fixed",
+                "R50 off",
+                "2025-08-01",
+                "2025-08-15",
+                null
+        );
+    }
 
     @Test
-    @Order(1)
-    public void testCreateDiscount() {
+    public void testCreateValidDiscount1() {
         assertNotNull(discount1);
         assertEquals("Winter Sale", discount1.getDiscountName());
         assertEquals("Percentage", discount1.getDiscountType());
@@ -44,8 +48,7 @@ class DiscountFactoryTest {
     }
 
     @Test
-    @Order(2)
-    public void testCreateSecondDiscount() {
+    public void testCreateValidDiscount2() {
         assertNotNull(discount2);
         assertEquals("Summer Special", discount2.getDiscountName());
         assertEquals("Fixed", discount2.getDiscountType());
@@ -53,42 +56,42 @@ class DiscountFactoryTest {
     }
 
     @Test
-    @Order(3)
-    void testCreateDiscountWithEmptyName() {
+    public void testCreateDiscountWithEmptyName() {
         Discount discount = DiscountFactory.createDiscount(
                 "",
                 "Fixed",
                 "R50 off",
-                LocalDate.now().toString(),
-                LocalDate.now().plusDays(5).toString()
+                "2025-08-01",
+                "2025-08-06",
+                null
         );
         assertNull(discount);
         System.out.println("Test for empty name passed");
     }
 
     @Test
-    @Order(4)
-    void testCreateDiscountWithInvalidDates() {
+    public void testCreateDiscountWithInvalidDates() {
         Discount discount = DiscountFactory.createDiscount(
                 "Expired Deal",
                 "Fixed",
                 "R30 off",
-                LocalDate.now().plusDays(3).toString(),
-                LocalDate.now().toString()  // End date before start date
+                "2025-08-10",
+                "2025-09-01",
+                null
         );
         assertNull(discount);
         System.out.println("Test for invalid dates passed");
     }
 
     @Test
-    @Order(5)
-    void testCreateDiscountWithNullName() {
+    public void testCreateDiscountWithNullName() {
         Discount discount = DiscountFactory.createDiscount(
                 null,
                 "Percentage",
                 "15%",
-                LocalDate.now().toString(),
-                LocalDate.now().plusDays(10).toString()
+                "2025-08-01",
+                "2025-08-10",
+                null
         );
         assertNull(discount);
         System.out.println("Test for null name passed");
