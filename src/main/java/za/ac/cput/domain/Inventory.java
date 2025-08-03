@@ -19,10 +19,8 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int inventoryId;
-    private int productId;
     private LocalDate receivedDate;
     private String stockAdded;
-    private int supplierId;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<Supplier> supplier;
@@ -36,10 +34,8 @@ public class Inventory {
 
     private Inventory(Builder builder) {
         this.inventoryId = builder.inventoryId;
-        this.productId = builder.productId;
         this.receivedDate = builder.receivedDate;
         this.stockAdded = builder.stockAdded;
-        this.supplierId = builder.supplierId;
         this.supplier = builder.supplier;
         this.product = builder.product;
     }
@@ -48,20 +44,12 @@ public class Inventory {
         return inventoryId;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
     public LocalDate getReceivedDate() {
         return receivedDate;
     }
 
     public String getStockAdded() {
         return stockAdded;
-    }
-
-    public int getSupplierId() {
-        return supplierId;
     }
 
     public List<Supplier> getSupplier() {
@@ -76,10 +64,8 @@ public class Inventory {
     public String toString() {
         return "Inventory{" +
                 "inventoryId=" + inventoryId +
-                ", productId=" + productId +
                 ", receivedDate=" + receivedDate +
                 ", stockAdded='" + stockAdded + '\'' +
-                ", supplierId=" + supplierId +
                 ", supplier=" + supplier +
                 ", product=" + product +
                 '}';
@@ -87,20 +73,13 @@ public class Inventory {
 
     public static class Builder {
         private int inventoryId;
-        private int productId;
         private LocalDate receivedDate;
         private String stockAdded;
-        private int supplierId;
         private List<Supplier> supplier;
         private Product product;
 
         public Builder setInventoryId(int inventoryId) {
             this.inventoryId = inventoryId;
-            return this;
-        }
-
-        public Builder setProductId(int productId) {
-            this.productId = productId;
             return this;
         }
 
@@ -111,11 +90,6 @@ public class Inventory {
 
         public Builder setStockAdded(String stockAdded) {
             this.stockAdded = stockAdded;
-            return this;
-        }
-
-        public Builder setSupplierId(int supplierId) {
-            this.supplierId = supplierId;
             return this;
         }
 
@@ -131,10 +105,8 @@ public class Inventory {
 
         public Builder copy(Inventory inventory) {
             this.inventoryId = inventory.inventoryId;
-            this.productId = inventory.productId;
             this.receivedDate = inventory.receivedDate;
             this.stockAdded = inventory.stockAdded;
-            this.supplierId = inventory.supplierId;
             this.supplier = inventory.supplier;
             this.product = inventory.product;
             return this;
