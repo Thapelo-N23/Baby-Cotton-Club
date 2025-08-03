@@ -8,32 +8,37 @@ Date: 2025/05/11
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int supplierId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer supplierId;
 
     private String supplierName;
+
     private String contactDetails;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<Inventory> inventoryList;
+    private Integer inventoryId;
 
-    protected Supplier() {}
+    @ManyToOne
+    @JoinColumn(name = "inventory_id", nullable = false)
+    protected Inventory inventory;
 
-    private Supplier(Builder builder) {
+    protected Supplier() {
+    }
+
+    public Supplier(Builder builder) {
         this.supplierId = builder.supplierId;
         this.supplierName = builder.supplierName;
         this.contactDetails = builder.contactDetails;
-        this.inventoryList = builder.inventoryList;
+        this.inventoryId = builder.inventoryId;
+        this.inventory = builder.inventory;
     }
 
-    public int getSupplierId() {
+    public Integer getSupplierId() {
         return supplierId;
     }
 
@@ -45,8 +50,12 @@ public class Supplier {
         return contactDetails;
     }
 
-    public List<Inventory> getInventoryList() {
-        return inventoryList;
+    public Integer getInventoryId() {
+        return inventoryId;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     @Override
@@ -55,17 +64,19 @@ public class Supplier {
                 "supplierId=" + supplierId +
                 ", supplierName='" + supplierName + '\'' +
                 ", contactDetails='" + contactDetails + '\'' +
-                ", inventoryList=" + (inventoryList != null ? inventoryList.size() : 0) +
+                ", inventoryId=" + inventoryId +
+                ", inventory=" + (inventory != null ? inventory.getInventoryId() : null) +
                 '}';
     }
 
     public static class Builder {
-        private int supplierId;
+        private Integer supplierId;
         private String supplierName;
         private String contactDetails;
-        private List<Inventory> inventoryList;
+        private Integer inventoryId;
+        private Inventory inventory;
 
-        public Builder setSupplierId(int supplierId) {
+        public Builder setSupplierId(Integer supplierId) {
             this.supplierId = supplierId;
             return this;
         }
@@ -80,20 +91,25 @@ public class Supplier {
             return this;
         }
 
-        public Builder setInventoryList(List<Inventory> inventoryList) {
-            this.inventoryList = inventoryList;
+        public Builder setInventoryId(Integer inventoryId) {
+            this.inventoryId = inventoryId;
+            return this;
+        }
+
+        public Builder setInventory(Inventory inventory) {
+            this.inventory = inventory;
             return this;
         }
 
         public Builder copy(Supplier supplier) {
-            this.supplierId = supplier.getSupplierId();
-            this.supplierName = supplier.getSupplierName();
-            this.contactDetails = supplier.getContactDetails();
-            this.inventoryList = supplier.getInventoryList();
+            this.supplierId = supplier.supplierId;
+            this.supplierName = supplier.supplierName;
+            this.contactDetails = supplier.contactDetails;
+            this.inventoryId = supplier.inventoryId;
+            this.inventory = supplier.inventory;
             return this;
         }
-
-        public Supplier build() {
+        public Supplier build(){
             return new Supplier(this);
         }
     }

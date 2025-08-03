@@ -1,40 +1,68 @@
+/*
+Review.java
+ReviewFactoryTest POJO class
+Author: Olwethu Nene
+Student number:(230277845)
+Date: 20 June 2025
+ */
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import za.ac.cput.domain.Customer;
+import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Review;
-import za.ac.cput.factory.ReviewFactory;
+import java.util.Collections;
+
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReviewFactoryTest {
 
-    private static Review review1 = ReviewFactory.createReview(3, 44, 4, (short) 10,
-            "Good", "20250516");
-
-    private static Review review2 = ReviewFactory.createReview(2, 13, 10, (short) 12,
-            "Bad", "20250115");
-
-    private static Review review3 = ReviewFactory.createReview(2, 2, 34, (short) 6,
-            "The material is great", "20250505");
+    private static Customer customer1 = CustomerFactory.createCustomer("John", "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList()
+    );
+    public static Product product1 = ProductFactory.createProduct(
+            "T-Shirt",
+            "Blue",
+            (short) 200,
+            "Yes"
+    );
+    public static Review review1 = ReviewFactory.createReview(
+            (short) 4,
+            "Great service!",
+            "20250503",
+            customer1,product1);
 
     @Test
     @Order(1)
     public void testCreateReview() {
         assertNotNull(review1);
         System.out.println(review1);
+
     }
 
     @Test
     @Order(2)
-    public void testWithAllAttributes() {
-        assertNotNull(review2);
-        System.out.println(review2);
-    }
+    public void testCustomerWithReview() {
+        Review reviewWithCustomer = ReviewFactory.createReview((short) 5, "Excellent product!", "20250101", customer1, product1);
+        assertNotNull(reviewWithCustomer);
+        assertEquals("Excellent product!", reviewWithCustomer.getReviewComment());
+        assertEquals(customer1, reviewWithCustomer.getCustomer());
+        System.out.println("Review with Customer: " + reviewWithCustomer);
 
+    }
     @Test
     @Order(3)
-    public void testWithReviewThatFail() {
-        assertNotNull(review3);
-        System.out.println(review3);
+    public void testProductWithReview() {
+        Review reviewWithProduct = ReviewFactory.createReview((short) 5, "Excellent product!", "20250101", customer1, product1);
+        assertNotNull(reviewWithProduct);
+        assertEquals("Excellent product!", reviewWithProduct.getReviewComment());
+        assertEquals(product1, reviewWithProduct.getProduct());
+        System.out.println("Review with Product: " + reviewWithProduct);
     }
+
 }

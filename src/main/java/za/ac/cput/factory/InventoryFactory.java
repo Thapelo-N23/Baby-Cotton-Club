@@ -1,40 +1,41 @@
 /*
- * InventoryFactory POJO Class
- * Author: [Your Name]
- * Student Number: [Your Student Number]
- * Date: 2025/05/18
+ * Inventory.java
+ * InventoryFactory POJO class
+ * Author: O Ntsaluba (230741754)
+ * Date: 18 May 2025
  */
+
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.*;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class InventoryFactory {
+    private static int inventoryCounter = 1;
 
-    public static Inventory createInventory(int inventoryId, int productId, String receivedDate,
-                                            String stockAdded, int supplierId) {
-
+    public static Inventory createInventory(String receivedDate, String stockAdded, List<Supplier> supplier, Product product) {
         if (Helper.isNullOrEmpty(stockAdded)) {
             return null;
         }
-
-
-
 
         LocalDate date = Helper.isValidDate(receivedDate);
         if (date == null) {
             return null;
         }
 
+        if (supplier == null) {
+            return null;
+        }
 
         return new Inventory.Builder()
-                .setInventoryId(inventoryId)
-                .setProductId(productId)
+                .setInventoryId(inventoryCounter++)
                 .setReceivedDate(date)
                 .setStockAdded(stockAdded)
-                .setSupplierId(supplierId)
+                .setSupplier(supplier)
+                .setProduct(product)
                 .build();
     }
 }

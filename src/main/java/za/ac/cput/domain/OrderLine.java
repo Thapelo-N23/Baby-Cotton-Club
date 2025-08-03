@@ -18,7 +18,7 @@ public class OrderLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long orderLineId;
+    protected int orderLineId;
     protected int quantity;
     protected double unitPrice;
     protected double subTotal;
@@ -36,6 +36,7 @@ public class OrderLine {
     protected OrderLine() {}
 
     private OrderLine(Builder builder) {
+        this.orderLineId = builder.orderLineId;
         this.quantity = builder.quantity;
         this.unitPrice = builder.unitPrice;
         this.subTotal = builder.subTotal;
@@ -44,6 +45,8 @@ public class OrderLine {
         this.discount = builder.discount;
     }
 
+    public int getOrderLineId() {
+        return orderLineId; }
     public int getQuantity() {
         return quantity; }
     public double getUnitPrice() {
@@ -71,6 +74,7 @@ public class OrderLine {
     }
 
     public static class Builder {
+        private int orderLineId;
         private int quantity;
         private double unitPrice;
         private double subTotal;
@@ -78,6 +82,9 @@ public class OrderLine {
         private Product product;
         private Discount discount;
 
+        public Builder setOrderLineId(int orderLineId) {
+            this.orderLineId = orderLineId;
+            return this; }
         public Builder setQuantity(int quantity) {
             this.quantity = quantity;
             return this; }
@@ -98,6 +105,7 @@ public class OrderLine {
             return this; }
 
         public Builder copy(OrderLine orderLine) {
+            this.orderLineId = orderLine.orderLineId;
             this.quantity = orderLine.quantity;
             this.unitPrice = orderLine.unitPrice;
             this.subTotal = orderLine.subTotal;

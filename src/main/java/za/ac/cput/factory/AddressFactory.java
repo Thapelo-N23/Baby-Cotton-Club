@@ -28,7 +28,6 @@ public class AddressFactory {
             return null;
         }
 
-
         return new Address.Builder()
                 .setStreetName(streetName)
                 .setStreetNumber(streetNumber)
@@ -36,7 +35,7 @@ public class AddressFactory {
                 .setCity(city)
                 .setPostalCode(postalCode)
                 .setProvince(province)
-                .setCustomer(null)
+                .setCustomer(customer)
                 .build();
     }
 }

@@ -41,6 +41,7 @@ public class Customer {
         this.phoneNumber = builder.phoneNumber;
         this.addresses = builder.addresses;
         this.orders = builder.orders;
+        this.reviews = builder.reviews;
     }
 
     public int getCustomerId() { return customerId; }
