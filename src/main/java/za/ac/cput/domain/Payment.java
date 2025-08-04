@@ -24,10 +24,11 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    protected Payment() {}
+    protected Payment() {
+
+    }
 
     private Payment(Builder builder) {
-        this.paymentId = builder.paymentId;
         this.paymentDate = builder.paymentDate;
         this.paymentMethod = builder.paymentMethod;
         this.order = builder.order;
@@ -48,9 +49,6 @@ public class Payment {
     public Order getOrder() {
         return order;
     }
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     @Override
     public String toString() {
@@ -63,15 +61,9 @@ public class Payment {
     }
 
     public static class Builder {
-        private int paymentId;
         private LocalDate paymentDate;
         private String paymentMethod;
         private Order order;
-
-        public Builder setPaymentId(int paymentId) {
-            this.paymentId = paymentId;
-            return this;
-        }
 
         public Builder setPaymentDate(LocalDate paymentDate) {
             this.paymentDate = paymentDate;
@@ -89,7 +81,6 @@ public class Payment {
         }
 
         public Builder copy(Payment payment) {
-            this.paymentId = payment.getPaymentId();
             this.paymentDate = payment.getPaymentDate();
             this.paymentMethod = payment.getPaymentMethod();
             this.order = payment.getOrder();
@@ -101,3 +92,4 @@ public class Payment {
         }
     }
 }
+

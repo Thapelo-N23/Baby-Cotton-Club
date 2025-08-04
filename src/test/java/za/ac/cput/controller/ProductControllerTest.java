@@ -24,7 +24,7 @@ class ProductControllerTest {
 
     @BeforeAll
     public static void setUp() {
-        product = ProductFactory.createProduct("P09876", "ZARA", "white", (short) 19, "out of stock");
+        product = ProductFactory.createProduct(90087L, "ZARA", "white", (short) 19, "out of stock");
     }
 
     @Test
@@ -42,7 +42,7 @@ class ProductControllerTest {
     @Test
     @Order(2)
     void readProduct() {
-        String productId = product.getProductId();
+        Long productId = product.getProductId();
         String readProductUrl = url + "/product/" + productId;
         System.out.println("Product read " + readProductUrl);
         ResponseEntity<Product> readResponseEntity = restTemplate.getForEntity(readProductUrl, Product.class);

@@ -1,10 +1,3 @@
-/*
-Baby Cotton Club
-Order POJO Class
-Author: Tsireledzo Netshilonwe
-Student Number: 230666426
-Date: 2025/05/10
-*/
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
@@ -18,11 +11,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int orderId;
+
     protected LocalDate orderDate;
     protected double totalAmount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderLine> orderLine;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<OrderLine> orderLines;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -33,20 +28,29 @@ public class Order {
         this.orderId = builder.orderId;
         this.orderDate = builder.orderDate;
         this.totalAmount = builder.totalAmount;
-        this.orderLine = builder.orderLine;
+        this.orderLines = builder.orderLines;
         this.customer = builder.customer;
     }
 
     public int getOrderId() {
-        return orderId; }
+        return orderId;
+    }
+
     public LocalDate getOrderDate() {
-        return orderDate; }
+        return orderDate;
+    }
+
     public double getTotalAmount() {
-        return totalAmount; }
-    public List<OrderLine> getOrderLine() {
-        return orderLine; }
+        return totalAmount;
+    }
+
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
     public Customer getCustomer() {
-        return customer; }
+        return customer;
+    }
 
     @Override
     public String toString() {
@@ -54,7 +58,7 @@ public class Order {
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
-                ", orderLines=" + orderLine +
+                ", orderLines=" + (orderLines != null ? orderLines.size() + " lines" : "null") +
                 ", customer=" + customer +
                 '}';
     }
@@ -63,37 +67,43 @@ public class Order {
         private int orderId;
         private LocalDate orderDate;
         private double totalAmount;
-        private List<OrderLine> orderLine;
+        private List<OrderLine> orderLines;
         private Customer customer;
 
         public Builder setOrderId(int orderId) {
             this.orderId = orderId;
             return this;
         }
+
         public Builder setOrderDate(LocalDate orderDate) {
             this.orderDate = orderDate;
             return this;
         }
+
         public Builder setTotalAmount(double totalAmount) {
             this.totalAmount = totalAmount;
             return this;
         }
-        public Builder setOrderLine(List<OrderLine> orderLine) {
-            this.orderLine = orderLine;
+
+        public Builder setOrderLines(List<OrderLine> orderLines) {
+            this.orderLines = orderLines;
             return this;
         }
+
         public Builder setCustomer(Customer customer) {
             this.customer = customer;
             return this;
         }
+
         public Builder copy(Order order) {
             this.orderId = order.orderId;
             this.orderDate = order.orderDate;
             this.totalAmount = order.totalAmount;
-            this.orderLine = order.orderLine;
+            this.orderLines = order.orderLines;
             this.customer = order.customer;
             return this;
         }
+
         public Order build() {
             return new Order(this);
         }

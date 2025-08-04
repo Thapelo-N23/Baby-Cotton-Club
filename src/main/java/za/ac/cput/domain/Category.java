@@ -19,15 +19,13 @@ public class Category {
     protected int categoryId;
     protected String categoryName;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-//    private List<Product> product;
 
     protected Category() {}
 
     private Category(Builder builder) {
         this.categoryId = builder.categoryId;
         this.categoryName = builder.categoryName;
-//        this.product = builder.product;
+
     }
 
     public int getCategoryId() {
@@ -38,23 +36,19 @@ public class Category {
         return categoryName;
     }
 
-//    public List<Product> getProduct() {
-//        return product;
-//    }
+
 
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
-//                ", product=" + product +
                 '}';
     }
 
     public static class Builder {
         private int categoryId;
         private String categoryName;
-//        private List<Product> product;
 
         public Builder setCategoryId(int categoryId) {
             this.categoryId = categoryId;
@@ -66,15 +60,11 @@ public class Category {
             return this;
         }
 
-//        public Builder setProduct(List<Product> product) {
-//            this.product = product;
-//            return this;
-//        }
 
         public Builder copy(Category category) {
             this.categoryId = category.categoryId;
             this.categoryName = category.categoryName;
-//            this.product = category.product;
+
             return this;
         }
 
