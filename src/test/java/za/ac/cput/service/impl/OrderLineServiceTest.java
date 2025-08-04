@@ -34,7 +34,7 @@ class OrderLineServiceTest {
     @Test
     @Order(2)
     void read() {
-        OrderLine read = service.read(String.valueOf(orderLine.getOrderLineId()));
+        OrderLine read = service.read(Integer.valueOf(String.valueOf(orderLine.getOrderLineId())));
         assertNotNull(read);
         System.out.println("Read OrderLine: " + read);
     }

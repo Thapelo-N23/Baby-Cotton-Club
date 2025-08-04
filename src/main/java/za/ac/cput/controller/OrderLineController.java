@@ -31,7 +31,7 @@ public class OrderLineController {
     }
 
     @GetMapping("/read")
-    public OrderLine read(@PathVariable String orderLineId)
+    public OrderLine read(@PathVariable Integer orderLineId)
     {
 
         return service.read(orderLineId);

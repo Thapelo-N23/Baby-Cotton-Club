@@ -12,6 +12,6 @@ import za.ac.cput.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface OrderRespository extends JpaRepository<Order, String>{
-    String findOrderIdByCustomerId(String customerId);
+public interface OrderRepository extends JpaRepository<Order, Integer>{
+    Integer findOrderIdByCustomerId(Integer customerId);
 }

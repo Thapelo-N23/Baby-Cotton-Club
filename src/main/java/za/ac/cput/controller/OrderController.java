@@ -28,7 +28,7 @@ public class OrderController {
         return service.create(order);
     }
     @GetMapping("/read/{id}")
-    public Order read(@PathVariable String orderId) {
+    public Order read(@PathVariable Integer orderId) {
 
         return service.read(orderId);
     }
