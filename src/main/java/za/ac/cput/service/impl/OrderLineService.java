@@ -32,7 +32,7 @@ public class OrderLineService implements IOrderLineService {
     }
 
     @Override
-    public OrderLine read(String id) {
+    public OrderLine read(Integer id) {
 
         return null;
     }

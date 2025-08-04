@@ -12,16 +12,16 @@ package za.ac.cput.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Order;
-import za.ac.cput.repository.OrderRespository;
+import za.ac.cput.repository.OrderRepository;
 import za.ac.cput.service.IOrderService;
 
 import java.util.List;
 
 @Service
 public class OrderService implements IOrderService {
-    private OrderRespository repository;
+    private OrderRepository repository;
     @Autowired
-    public OrderService(OrderRespository repository) {
+    public OrderService(OrderRepository repository) {
 
         this.repository = repository;
     }
@@ -32,7 +32,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order read(String id) {
+    public Order read(Integer id) {
 
         return null;
     }

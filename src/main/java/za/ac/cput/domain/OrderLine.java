@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "order_lines")
+@Table(name = "order_line")
 public class OrderLine {
 
     @Id
