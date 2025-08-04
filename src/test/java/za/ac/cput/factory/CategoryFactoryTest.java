@@ -25,7 +25,7 @@ class CategoryFactoryTest {
 
     private static List<Product> products = new ArrayList<>();
     private static Category category1 = CategoryFactory.createCategory("Clothes", null);
-    private static Product product1 = ProductFactory.createProduct(78659L,"T-Shirt", "Blue", (short) 200, "Yes");
+    private static Product product1 = ProductFactory.createProduct("T-Shirt", "Blue", (short) 200, "Yes");
 
     @Test
     @Order(1)
@@ -45,7 +45,7 @@ class CategoryFactoryTest {
     @Order(3)
     void testCreateCategoryWithProducts() {
         products.add(product1);
-        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", (List<Product>) product1);
+        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", products);
         assertNotNull(categoryWithProducts);
         assertEquals("Clothes", categoryWithProducts.getCategoryName());
         System.out.println("Category with Products: " + categoryWithProducts);
