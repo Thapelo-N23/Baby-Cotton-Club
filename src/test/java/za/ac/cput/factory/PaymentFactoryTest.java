@@ -7,31 +7,44 @@ Date: 18 May 2025
 
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
 //import za.ac.cput.domain.Order;
-import za.ac.cput.domain.Payment;
-
+import za.ac.cput.domain.*;
 import java.time.LocalDate;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PaymentFactoryTest {
 
+    private static final List<OrderLine> orderLines = new ArrayList<>(
+            List.of(OrderLineFactory.createOrderLine(1, 100.00))
+    );
+
+    private static final Customer customer = CustomerFactory.createCustomer(
+            "Olwethu",
+            "Nene",
+            "olwethunene43@gmail.com",
+            "0821234567",
+            new ArrayList<>(),
+            new ArrayList<>(),
+            new ArrayList<>()
+    );
+
     private static final Order order = (Order) OrderFactory.createOrder(
-            LocalDate.now().toString(),
+            "2025-07-22",
             100.00,
-            null,
-            null
+            orderLines,
+            customer
     );
 
     private static final Payment payment = PaymentFactory.createPayment(
             "2025-07-22",
             "Credit Card",
             null
+
     );
 
     @Test
@@ -51,6 +64,7 @@ class PaymentFactoryTest {
                 "invalid-date",
                 "EFT",
                 null
+
         );
         assertNull(invalid, "Payment with invalid date should be null");
         System.out.println(invalid);

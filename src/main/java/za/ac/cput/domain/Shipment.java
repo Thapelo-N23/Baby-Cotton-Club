@@ -14,28 +14,36 @@ import java.util.List;
 @Entity
 @Table(name = "shipments")
 public class Shipment {
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected String shipmentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long shipmentId;
     protected String carrierName;
     protected String shipmentStatus;
     protected double shippingCost;
 
-@OneToMany(mappedBy = "shipment")
-private List<Product>products;
+    @OneToMany(mappedBy = "shipment")
+    private List<Product>products;
+
+    @OneToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
+    private Order order;
 
     public Shipment() {
     }
 
     private Shipment(Builder builder) {
-        this.shipmentId = builder.shipmentId;
+        this.shipmentId = Long.valueOf(builder.shipmentId);
         this.carrierName = builder.carrierName;
         this.shipmentStatus = builder.shipmentStatus;
         this.shippingCost = builder.shippingCost;
     }
 
-    public String getShipmentId() {
+    public Long getShipmentId() {
         return shipmentId;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     public String getCarrierName() {
@@ -53,19 +61,22 @@ private List<Product>products;
     @Override
     public String toString() {
         return "Shipment{" +
-                "shipmentId='" + shipmentId + '\'' +
+                "shipmentId=" + shipmentId +
                 ", carrierName='" + carrierName + '\'' +
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
+                ", products=" + products +
+                ", order=" + order +
                 '}';
     }
+
     public static class Builder {
-        private String shipmentId;
+        private Long shipmentId;
         private String carrierName;
         private String shipmentStatus;
         private double shippingCost;
 
-        public Builder setShipmentId(String shipmentId) {
+        public Builder setShipmentId(Long shipmentId) {
             this.shipmentId = shipmentId;
             return this;
         }
@@ -95,18 +106,18 @@ private List<Product>products;
                     '}';
         }
 
-public Builder copy (Shipment shipment){
+    public Builder copy (Shipment shipment){
             this.shipmentId = shipment.getShipmentId();
             this.carrierName = shipment.getCarrierName();
             this.shipmentStatus = shipment.getShipmentStatus();
             this.shippingCost = shipment.getShippingCost();
             return this;
 
-}
-public Shipment build() {
+    }
+    public Shipment build() {
             return new Shipment(this);
 }
     }
 
-}
+    }
 

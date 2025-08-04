@@ -62,6 +62,16 @@ public class Helper {
     public static boolean isNullOrEmpty(int supplierId) {
         return false;
     }
+
+    public static boolean isValidProductId(Long productId) {
+        return productId != null && productId > 0;
+    }
+
+    public static boolean isValidPrice(Short price) {
+        return price != null && price > 0;
+    }
+
+
 }
 
 

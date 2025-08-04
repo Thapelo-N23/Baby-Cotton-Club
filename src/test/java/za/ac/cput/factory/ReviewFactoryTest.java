@@ -26,7 +26,7 @@ class ReviewFactoryTest {
             Collections.emptyList()
     );
     public static Product product1 = ProductFactory.createProduct(
-            "T-Shirt",
+            78979L,"T-Shirt",
             "Blue",
             (short) 200,
             "Yes"
