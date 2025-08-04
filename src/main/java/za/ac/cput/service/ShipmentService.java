@@ -13,5 +13,7 @@ import za.ac.cput.domain.Shipment;
 import java.util.List;
 
 public interface ShipmentService extends IService<Shipment, String> {
+    boolean delete(String shipmentId);
+
     List<Shipment>getAll();
 }
