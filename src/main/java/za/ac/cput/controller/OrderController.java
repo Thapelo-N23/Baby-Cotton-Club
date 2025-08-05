@@ -14,7 +14,7 @@ import za.ac.cput.service.impl.OrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orderline")
+@RequestMapping("/order")
 
 public class OrderController {
     private OrderService service;
