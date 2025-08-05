@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
-        Integer findOrderLineIdByProductId(Integer productId);
+
 
 }

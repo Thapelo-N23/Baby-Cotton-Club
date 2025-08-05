@@ -1,10 +1,9 @@
-/**
+/*
  * BabyCottonClub
- * Shipment.java
+ * ShipmentController.java
  * Author : Thapelo Ngwenya - 222260971
  * Date : 11 May 2025
  */
-
 
 package za.ac.cput.controller;
 
@@ -14,21 +13,25 @@ import za.ac.cput.domain.Shipment;
 import za.ac.cput.service.ShipmentService;
 
 import java.util.List;
+
 @RestController
-@RequestMapping("shipment")
+@RequestMapping("/shipment")
 public class ShipmentController {
-    private ShipmentService shipmentService;
+
+    private final ShipmentService shipmentService;
 
     @Autowired
     public ShipmentController(ShipmentService shipmentService) {
         this.shipmentService = shipmentService;
     }
-    @PostMapping("create")
+
+    @PostMapping("/create")
     public Shipment create(@RequestBody Shipment shipment) {
         return shipmentService.create(shipment);
     }
-    @GetMapping("/read{shipmentId}")
-    public Shipment read(@PathVariable("shipmentId") String shipmentId) {
+
+    @GetMapping("/read/{shipmentId}")
+    public Shipment read(@PathVariable("shipmentId") Long shipmentId) {
         return shipmentService.read(shipmentId);
     }
 
@@ -37,8 +40,13 @@ public class ShipmentController {
         return shipmentService.update(shipment);
     }
 
+    @DeleteMapping("/delete/{shipmentId}")
+    public boolean delete(@PathVariable("shipmentId") Long shipmentId) {
+        return shipmentService.delete(shipmentId);
+    }
+
     @GetMapping("/getall")
-    public List<Shipment> getall() {
+    public List<Shipment> getAll() {
         return shipmentService.getAll();
     }
 }
