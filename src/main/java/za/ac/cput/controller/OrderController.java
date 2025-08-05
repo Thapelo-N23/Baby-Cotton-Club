@@ -14,7 +14,7 @@ import za.ac.cput.service.impl.OrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orderline")
+@RequestMapping("/order")
 
 public class OrderController {
     private OrderService service;
@@ -28,7 +28,7 @@ public class OrderController {
         return service.create(order);
     }
     @GetMapping("/read/{id}")
-    public Order read(@PathVariable String orderId) {
+    public Order read(@PathVariable Integer orderId) {
 
         return service.read(orderId);
     }

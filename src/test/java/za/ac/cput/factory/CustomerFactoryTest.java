@@ -12,7 +12,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 import static za.ac.cput.factory.ReviewFactoryTest.product1;
 
-class CustomerFactoryTest {
+public class CustomerFactoryTest {
     // Create a customer
     private static Customer customer = CustomerFactory.createCustomer(
             "John",

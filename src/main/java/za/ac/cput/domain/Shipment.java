@@ -1,4 +1,4 @@
-/**
+/*
  * BabyCottonClub
  * Shipment.java
  * Author : Thapelo Ngwenya - 222260971
@@ -14,15 +14,17 @@ import java.util.List;
 @Entity
 @Table(name = "shipments")
 public class Shipment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shipmentId;
-    protected String carrierName;
-    protected String shipmentStatus;
-    protected double shippingCost;
 
-    @OneToMany(mappedBy = "shipment")
-    private List<Product>products;
+    private String carrierName;
+    private String shipmentStatus;
+    private double shippingCost;
+
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+    private List<Product> products;
 
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
@@ -32,7 +34,7 @@ public class Shipment {
     }
 
     private Shipment(Builder builder) {
-        this.shipmentId = Long.valueOf(builder.shipmentId);
+        this.shipmentId = builder.shipmentId;
         this.carrierName = builder.carrierName;
         this.shipmentStatus = builder.shipmentStatus;
         this.shippingCost = builder.shippingCost;
@@ -40,10 +42,6 @@ public class Shipment {
 
     public Long getShipmentId() {
         return shipmentId;
-    }
-
-    public Order getOrder() {
-        return order;
     }
 
     public String getCarrierName() {
@@ -58,6 +56,14 @@ public class Shipment {
         return shippingCost;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
     @Override
     public String toString() {
         return "Shipment{" +
@@ -65,7 +71,7 @@ public class Shipment {
                 ", carrierName='" + carrierName + '\'' +
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
-                ", products=" + products +
+                ", products=" + (products != null ? products.size() : 0) +
                 ", order=" + order +
                 '}';
     }
@@ -96,28 +102,16 @@ public class Shipment {
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "shipmentId='" + shipmentId + '\'' +
-                    ", carrierName='" + carrierName + '\'' +
-                    ", shipmentStatus='" + shipmentStatus + '\'' +
-                    ", shippingCost=" + shippingCost +
-                    '}';
-        }
-
-    public Builder copy (Shipment shipment){
+        public Builder copy(Shipment shipment) {
             this.shipmentId = shipment.getShipmentId();
             this.carrierName = shipment.getCarrierName();
             this.shipmentStatus = shipment.getShipmentStatus();
             this.shippingCost = shipment.getShippingCost();
             return this;
+        }
 
-    }
-    public Shipment build() {
+        public Shipment build() {
             return new Shipment(this);
+        }
+    }
 }
-    }
-
-    }
-

@@ -15,7 +15,7 @@ public class Order {
     protected LocalDate orderDate;
     protected double totalAmount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderLine> orderLines;
 
     @ManyToOne

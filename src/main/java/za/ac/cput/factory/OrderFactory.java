@@ -21,7 +21,7 @@ public class OrderFactory {
         return new Order.Builder()
                 .setOrderDate(date)
                 .setTotalAmount(totalAmount)
-                .setOrderLine(orderLines)
+                .setOrderLines(orderLines)
                 .setCustomer(customer)
                 .build();
 

@@ -43,7 +43,7 @@ class OrderFactoryTest {
         assertNotNull(order, "Order should not be null");
         assertEquals(LocalDate.of(2025, 5, 18), order.getOrderDate());
         assertEquals(250.00, order.getTotalAmount(), 0.001);
-        assertEquals(orderLines, order.getOrderLine());
+        assertEquals(orderLines, order.getOrderLines());
         assertEquals(customer, order.getCustomer());
 
         System.out.println(order);
@@ -74,7 +74,7 @@ class OrderFactoryTest {
         assertNotNull(order, "Order should not be null when customer is valid");
         assertEquals(LocalDate.of(2025, 7, 29), order.getOrderDate());
         assertEquals(99.99, order.getTotalAmount(), 0.001);
-        assertEquals(orderLines, order.getOrderLine());
+        assertEquals(orderLines, order.getOrderLines());
         assertEquals(customer, order.getCustomer());
 
         System.out.println(order);

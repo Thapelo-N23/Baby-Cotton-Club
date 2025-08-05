@@ -33,38 +33,38 @@ class OrderLineFactoryTest {
 
         System.out.println(orderLine);
     }
-//    @Test
-//    public void testCreateOrderLineWithAllAttributes() {
-//
-//        Customer customer = new Customer();
-//        List<OrderLine> orderLines = new ArrayList<>();
-//        Order order = OrderFactory.createOrder("20250729", 200.0, orderLines, customer);
-//        Product product = ProductFactory.createProduct( "Nike", "Black", (short) 42, "available");
-//        Discount discount = DiscountFactory.createDiscount("Expired Deal",
-//                "Fixed",
-//                "R30 off",
-//                LocalDate.now().toString(),
-//                LocalDate.now().plusDays(3).toString()
-//
-//        );
-//        OrderLine orderLine = OrderLineFactory.createOrderLine(
-//                5,
-//                200.0,
-//                order,
-//                product,
-//                discount
-//        );
-//
-//        assertNotNull(orderLine);
-//        assertEquals(5, orderLine.getQuantity());
-//        assertEquals(200.0, orderLine.getUnitPrice());
-//        assertEquals(1000.0, orderLine.getSubTotal());
-//        assertEquals(product, orderLine.getProduct());
-//        assertEquals(discount, orderLine.getDiscount());
-//        assertEquals(order, orderLine.getOrder());
-//
-//        System.out.println(orderLine);
-//    }
+    @Test
+    public void testCreateOrderLineWithAllAttributes() {
+
+        Customer customer = new Customer();
+        List<OrderLine> orderLines = new ArrayList<>();
+        Order order = OrderFactory.createOrder("20250729", 200.0, orderLines, customer);
+        Product product = ProductFactory.createProduct( 90099L,"Lancewood", "Yellow", new Short(String.valueOf(50)), "OUT OF STOCK");
+        Discount discount = DiscountFactory.createDiscount(        "Winter Sale",
+                "Percentage",
+                "20%",
+                "2025-08-01",
+                "2025-08-31",
+                null
+        );
+        OrderLine orderLine = OrderLineFactory.createOrderLine(
+                5,
+                200.0,
+                order,
+                product,
+                discount
+        );
+
+        assertNotNull(orderLine);
+        assertEquals(5, orderLine.getQuantity());
+        assertEquals(200.0, orderLine.getUnitPrice());
+        assertEquals(1000.0, orderLine.getSubTotal());
+        assertEquals(product, orderLine.getProduct());
+        assertEquals(discount, orderLine.getDiscount());
+        assertEquals(order, orderLine.getOrder());
+
+        System.out.println(orderLine);
+    }
 
 
     @Test
