@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryFactoryTest {
 
     private static List<Product> products = new ArrayList<>();
-    private static Category category1 = CategoryFactory.createCategory("Clothes", null);
-    private static Product product1 = ProductFactory.createProduct("T-Shirt", "Blue", (short) 200, "Yes");
+    private static Category category1 = CategoryFactory.createCategory("Clothes");
+    private static Product product1 = ProductFactory.createProduct(787890L,"Coke", "Red", new Short("R" + 500), "OUT OF STOCK");
 
     @Test
     @Order(1)
@@ -45,7 +45,7 @@ class CategoryFactoryTest {
     @Order(3)
     void testCreateCategoryWithProducts() {
         products.add(product1);
-        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", products);
+        Category categoryWithProducts = CategoryFactory.createCategory("Clothes");
         assertNotNull(categoryWithProducts);
         assertEquals("Clothes", categoryWithProducts.getCategoryName());
         System.out.println("Category with Products: " + categoryWithProducts);
