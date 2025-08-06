@@ -23,7 +23,7 @@ class InventoryFactoryTest {
     private static final Supplier testSupplier = SupplierFactory.createSupplier(
             "Tiny Tots Clothing Co.",
             "supply@tinytots.com",
-            101
+             null
     );
 
     private static final List<Supplier> testSuppliers = List.of(testSupplier);
