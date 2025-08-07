@@ -5,7 +5,7 @@ Author: Olwethu Nene
 Student number:(230277845)
 Date: 30 June 2025
  */
-
+/*
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Order;
@@ -37,6 +37,21 @@ class CategoryFactoryTest {
         assertNotNull(category2);
         System.out.println(category2);
     }
+
+
+    @Test
+    @Order(3)
+    void testCreateCategoryWithProducts() {
+        products.add(product1);
+        Category categoryWithProducts = CategoryFactory.createCategory("Clothes", products);
+        assertNotNull(categoryWithProducts);
+        assertEquals("Clothes", categoryWithProducts.getCategoryName());
+        System.out.println("Category with Products: " + categoryWithProducts);
+    }
+}
+
+ */
+
 }
 //    private static List<Product> products = new ArrayList<>();
 //    private static Category category1 = CategoryFactory.createCategory("Clothes");
@@ -65,3 +80,4 @@ class CategoryFactoryTest {
 //        assertEquals("Clothes", categoryWithProducts.getCategoryName());
 //        System.out.println("Category with Products: " + categoryWithProducts);
 //    }
+

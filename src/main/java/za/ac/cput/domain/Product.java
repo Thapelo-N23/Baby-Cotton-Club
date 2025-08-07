@@ -15,7 +15,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private int productId;
     protected String productName;
     protected String color;
     protected short price;
@@ -27,13 +27,13 @@ public class Product {
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
 
- @ManyToOne
- @JoinColumn(name = "category_id")
- private Category category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
 
- private Product(Builder builder) {
+    private Product(Builder builder) {
         this.productId = builder.productId;
         this.productName = builder.productName;
         this.color = builder.color;
@@ -44,13 +44,13 @@ public class Product {
         this.category = builder.category;
 
 
- }
+    }
     public Product() {
 
     }
 
 
-    public Long getProductId() {
+    public int getProductId() {
         return productId;
     }
 
@@ -79,7 +79,7 @@ public class Product {
 
 
 
- @Override
+    @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
@@ -93,7 +93,7 @@ public class Product {
     }
 
     public static class Builder {
-        private Long productId;
+        private int productId;
         private String productName;
         private String color;
         private short price;
@@ -103,11 +103,11 @@ public class Product {
         private Category category;
 
         public Builder setCategory(Category category) {
-        this.category = category;
-        return this;
-       }
+            this.category = category;
+            return this;
+        }
 
-     public Builder setReviews(List<Review> reviews) {
+        public Builder setReviews(List<Review> reviews) {
             this.reviews = reviews;
             return this;
         }
@@ -117,13 +117,13 @@ public class Product {
             return this;
         }
 
-     public Builder setProductId(Long productId) {
-      this.productId = productId;
-      return this;
-     }
+        public Builder setProductId(int productId) {
+            this.productId = productId;
+            return this;
+        }
 
 
-     public Builder setProductName(String productName) {
+        public Builder setProductName(String productName) {
             this.productName = productName;
             return this;
         }
@@ -144,21 +144,21 @@ public class Product {
         }
 
 
-     @Override
-     public String toString() {
-      return "Builder{" +
-              "productId=" + productId +
-              ", productName='" + productName + '\'' +
-              ", color='" + color + '\'' +
-              ", price=" + price +
-              ", inStock='" + inStock + '\'' +
-              ", reviews=" + reviews +
-              ", shipment=" + shipment +
-              ", category=" + category +
-              '}';
-     }
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "productId=" + productId +
+                    ", productName='" + productName + '\'' +
+                    ", color='" + color + '\'' +
+                    ", price=" + price +
+                    ", inStock='" + inStock + '\'' +
+                    ", reviews=" + reviews +
+                    ", shipment=" + shipment +
+                    ", category=" + category +
+                    '}';
+        }
 
-     public Builder copy(Product product) {
+        public Builder copy(Product product) {
             this.productId = product.getProductId();
             this.productName = product.getProductName();
             this.color = product.getColor();
@@ -166,7 +166,7 @@ public class Product {
             this.inStock = product.getInStock();
             this.reviews = product.getReviews();
             this.category = product.getCategory();
-         return this;
+            return this;
         }
         public Product build() {
             return new Product(this);

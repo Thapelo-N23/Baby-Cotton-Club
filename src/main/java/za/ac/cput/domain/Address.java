@@ -61,9 +61,10 @@ public class Address {
                 ", city='" + city + '\'' +
                 ", postalCode=" + postalCode +
                 ", province='" + province + '\'' +
-                ", customer=" +  customer +
+                ", customerId=" + (customer != null ? customer.getCustomerId() : "null") +
                 '}';
     }
+
 
     public static class Builder {
         private int addressId;

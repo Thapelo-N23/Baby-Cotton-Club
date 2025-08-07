@@ -25,7 +25,7 @@ public ProductServiceImpl(ProductRepository productRepository) {
     }
 
     @Override
-    public Product read(String productId) {
+    public Product read(Integer productId) {
         return this.productRepository.findById(productId).orElse(null);
     }
 

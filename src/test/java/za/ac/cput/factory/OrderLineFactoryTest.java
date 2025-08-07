@@ -39,7 +39,7 @@ class OrderLineFactoryTest {
         Customer customer = new Customer();
         List<OrderLine> orderLines = new ArrayList<>();
         Order order = OrderFactory.createOrder("20250729", 200.0, orderLines, customer);
-        Product product = ProductFactory.createProduct( 90099L,"Lancewood", "Yellow", new Short(String.valueOf(50)), "OUT OF STOCK");
+        Product product = ProductFactory.createProduct( "Lancewood", "Yellow",  (short) 50, "OUT OF STOCK");
         Discount discount = DiscountFactory.createDiscount(        "Winter Sale",
                 "Percentage",
                 "20%",

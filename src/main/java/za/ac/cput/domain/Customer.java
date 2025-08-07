@@ -61,11 +61,12 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", addresses=" + addresses +
-                ", orders=" + orders +
-                ", reviews=" + reviews +
+                ", addressCount=" + (addresses != null ? addresses.size() : 0) +
+                ", orderCount=" + (orders != null ? orders.size() : 0) +
+                ", reviewCount=" + (reviews != null ? reviews.size() : 0) +
                 '}';
     }
+
 
     public static class Builder {
         private int customerId;
