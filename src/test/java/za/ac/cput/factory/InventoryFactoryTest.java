@@ -21,6 +21,13 @@ class InventoryFactoryTest {
     );
 
 
+    private static final Supplier testSupplier = SupplierFactory.createSupplier(
+            "Tiny Tots Clothing Co.",
+            "supply@tinytots.com",
+             null
+    );
+
+
 
 
     private static final Inventory testInventory = InventoryFactory.createInventory(
