@@ -14,26 +14,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryFactoryTest {
 
     private static final Product testProduct = ProductFactory.createProduct(
-            78659L,"Organic Cotton Onesie",
+            "Organic Cotton Onesie",
             "White with blue stars",
             (short) 5,
             "Yes"
     );
 
-    private static final Supplier testSupplier = SupplierFactory.createSupplier(
-            "Tiny Tots Clothing Co.",
-            "supply@tinytots.com",
-            101
-    );
 
-    private static final List<Supplier> testSuppliers = List.of(testSupplier);
+
 
     private static final Inventory testInventory = InventoryFactory.createInventory(
             LocalDate.now().toString(),
             "50 onesies",
-            testSuppliers,
+            null,
             testProduct
     );
+
+    private static final Supplier testSupplier = SupplierFactory.createSupplier(
+            "Tiny Tots Clothing Co.",
+            "supply@tinytots.com",
+            testInventory
+    );
+
+    private static final List<Supplier> testSuppliers = List.of(testSupplier);
+
 
     @Test
     void createInventory() {

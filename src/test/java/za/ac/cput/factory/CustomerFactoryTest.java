@@ -34,6 +34,7 @@ public class CustomerFactoryTest {
             customer
     );
 
+    //
     // Create an order
     public static Order order1 = OrderFactory.createOrder(
             "20250518",
@@ -41,6 +42,8 @@ public class CustomerFactoryTest {
             new java.util.ArrayList<>(),  // empty orderLines list
             customer
     );
+
+
 
     // Create a review
     public static Review review = ReviewFactory.createReview(

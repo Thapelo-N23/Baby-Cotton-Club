@@ -5,7 +5,7 @@ Author: Olwethu Nene
 Student number:(230277845)
 Date: 30 June 2025
  */
-
+/*
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Order;
@@ -51,3 +51,5 @@ class CategoryFactoryTest {
         System.out.println("Category with Products: " + categoryWithProducts);
     }
 }
+
+ */

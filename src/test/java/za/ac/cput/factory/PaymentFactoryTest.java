@@ -34,14 +34,14 @@ class PaymentFactoryTest {
     );
 
     private static final Order order = (Order) OrderFactory.createOrder(
-            "2025-07-22",
+            "20250722",
             100.00,
             orderLines,
             customer
     );
 
     private static final Payment payment = PaymentFactory.createPayment(
-            "2025-07-22",
+            "20250722",
             "Credit Card",
             null
 
@@ -74,7 +74,7 @@ class PaymentFactoryTest {
     @Order(3)
     void createPaymentWithNullMethod() {
         Payment invalid = PaymentFactory.createPayment(
-                "2025-07-22",
+                "20250722",
                 "",
                 null
 
@@ -87,7 +87,7 @@ class PaymentFactoryTest {
     @Order(4)
     void createPaymentWithNullOrder() {
         Payment invalid = PaymentFactory.createPayment(
-                "2025-07-22",
+                "20250722",
                 "Cash",
                 null
         );

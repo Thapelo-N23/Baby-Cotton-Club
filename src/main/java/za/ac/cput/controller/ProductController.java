@@ -30,7 +30,7 @@ private ProductService productService;
     return productService.create(product);
 }
 @GetMapping("/read{productId}")
-    public Product read(@PathVariable String productId) {
+    public Product read(@PathVariable Integer productId) {
     return productService.read(productId);
 }
     @PutMapping("/update")
