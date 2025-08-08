@@ -14,7 +14,7 @@ import za.ac.cput.domain.Shipment;
 
 import static org.junit.jupiter.api.Assertions.*;
 class ShipmentFactoryTest {
-    private static Shipment s1 = ShipmentFactory.createShipment("222260971T", "DHL", "OUT OF STOCK", 23);
+    private static Shipment s1 = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
 
     @Test
     @Order(1)

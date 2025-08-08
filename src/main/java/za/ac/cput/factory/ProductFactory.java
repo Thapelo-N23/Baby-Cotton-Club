@@ -12,10 +12,12 @@ import za.ac.cput.util.Helper;
 
 public class ProductFactory {
     public static Product createProduct(String productName, String color, short price, String inStock) {
-        if (Helper.isNullOrEmpty(productName) || Helper.isNullOrEmpty(color) || Helper.isValidPrice(price) ||  Helper.isNullOrEmpty(inStock))   {
+        if (Helper.isNullOrEmpty(productName)
+                || Helper.isNullOrEmpty(color)
+                || !Helper.isValidPrice(price)
+                || Helper.isNullOrEmpty(inStock)) {
             return null;
         }
-
 
         return new Product.Builder()
                 .setProductName(productName)
@@ -25,6 +27,5 @@ public class ProductFactory {
                 .build();
     }
 }
-//updated
 
 

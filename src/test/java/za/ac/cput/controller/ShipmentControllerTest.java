@@ -29,7 +29,7 @@ class ShipmentControllerTest {
 
     @BeforeAll
     public static void setUp() {
-        shipment = ShipmentFactory.createShipment("S2345", "POSTNET", "enroute", 70);
+        shipment = ShipmentFactory.createShipment( "POSTNET", "enroute", 70);
     }
 
     @Test
@@ -46,7 +46,7 @@ class ShipmentControllerTest {
     @Test
     @Order(2)
     void readShipment() {
-        Long shipmentId = shipment.getShipmentId();
+        Integer shipmentId = shipment.getShipmentId();
         String readShipmentUrl = Base_URL + "/readShipment/" + shipmentId;
         System.out.println("Reading shipment " + readShipmentUrl);
         ResponseEntity<Shipment> response = testRestTemplate.getForEntity(readShipmentUrl, Shipment.class);

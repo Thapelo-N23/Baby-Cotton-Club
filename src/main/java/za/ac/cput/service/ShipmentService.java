@@ -4,7 +4,7 @@ import za.ac.cput.domain.Shipment;
 
 import java.util.List;
 
-public interface ShipmentService extends IService<Shipment, Long> {
-    boolean delete(Long shipmentId);
+public interface ShipmentService extends IService<Shipment, Integer> {
+    boolean delete(Integer shipmentId);
     List<Shipment> getAll();
 }
