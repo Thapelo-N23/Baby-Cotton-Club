@@ -31,7 +31,7 @@ public class ShipmentController {
     }
 
     @GetMapping("/read/{shipmentId}")
-    public Shipment read(@PathVariable("shipmentId") Long shipmentId) {
+    public Shipment read(@PathVariable("shipmentId") Integer shipmentId) {
         return shipmentService.read(shipmentId);
     }
 
@@ -41,7 +41,7 @@ public class ShipmentController {
     }
 
     @DeleteMapping("/delete/{shipmentId}")
-    public boolean delete(@PathVariable("shipmentId") Long shipmentId) {
+    public boolean delete(@PathVariable("shipmentId") Integer shipmentId) {
         return shipmentService.delete(shipmentId);
     }
 

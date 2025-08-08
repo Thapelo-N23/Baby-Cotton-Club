@@ -46,7 +46,7 @@ class ShipmentControllerTest {
     @Test
     @Order(2)
     void readShipment() {
-        Long shipmentId = shipment.getShipmentId();
+        Integer shipmentId = shipment.getShipmentId();
         String readShipmentUrl = Base_URL + "/readShipment/" + shipmentId;
         System.out.println("Reading shipment " + readShipmentUrl);
         ResponseEntity<Shipment> response = testRestTemplate.getForEntity(readShipmentUrl, Shipment.class);

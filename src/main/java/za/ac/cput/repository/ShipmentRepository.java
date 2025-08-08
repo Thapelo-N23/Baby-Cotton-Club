@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 import za.ac.cput.domain.Shipment;
 
 @Repository
-public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
+public interface ShipmentRepository extends JpaRepository<Shipment, Integer> {
 }
