@@ -24,7 +24,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-    public Shipment read(Long shipmentId) {
+    public Shipment read(Integer shipmentId) {
         return shipmentRepository.findById(shipmentId).orElse(null);
     }
 
@@ -34,7 +34,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-    public boolean delete(Long shipmentId) {
+    public boolean delete(Integer shipmentId) {
         if (shipmentRepository.existsById(shipmentId)) {
             shipmentRepository.deleteById(shipmentId);
             return true;

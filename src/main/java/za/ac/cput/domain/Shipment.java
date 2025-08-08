@@ -17,7 +17,7 @@ public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long shipmentId;
+    private int shipmentId;
 
     private String carrierName;
     private String shipmentStatus;
@@ -40,7 +40,7 @@ public class Shipment {
         this.shippingCost = builder.shippingCost;
     }
 
-    public Long getShipmentId() {
+    public int getShipmentId() {
         return shipmentId;
     }
 
@@ -77,12 +77,12 @@ public class Shipment {
     }
 
     public static class Builder {
-        private Long shipmentId;
+        private int shipmentId;
         private String carrierName;
         private String shipmentStatus;
         private double shippingCost;
 
-        public Builder setShipmentId(Long shipmentId) {
+        public Builder setShipmentId(int shipmentId) {
             this.shipmentId = shipmentId;
             return this;
         }
