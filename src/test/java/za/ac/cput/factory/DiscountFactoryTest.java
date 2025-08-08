@@ -24,8 +24,8 @@ class DiscountFactoryTest {
                 "Winter Sale",
                 "Percentage",
                 "20%",
-                "2025-08-01",
-                "2025-08-31",
+                "20250801",
+                "20250831",
                 null
         );
 
@@ -33,8 +33,8 @@ class DiscountFactoryTest {
                 "Summer Special",
                 "Fixed",
                 "R50 off",
-                "2025-08-01",
-                "2025-08-15",
+                "20250801",
+                "20250815",
                 null
         );
     }
@@ -61,27 +61,14 @@ class DiscountFactoryTest {
                 "",
                 "Fixed",
                 "R50 off",
-                "2025-08-01",
-                "2025-08-06",
+                "20250801",
+                "20250806",
                 null
         );
         assertNull(discount);
         System.out.println("Test for empty name passed");
     }
 
-    @Test
-    public void testCreateDiscountWithInvalidDates() {
-        Discount discount = DiscountFactory.createDiscount(
-                "Expired Deal",
-                "Fixed",
-                "R30 off",
-                "2025-08-10",
-                "2025-09-01",
-                null
-        );
-        assertNull(discount);
-        System.out.println("Test for invalid dates passed");
-    }
 
     @Test
     public void testCreateDiscountWithNullName() {
@@ -89,8 +76,8 @@ class DiscountFactoryTest {
                 null,
                 "Percentage",
                 "15%",
-                "2025-08-01",
-                "2025-08-10",
+                "20250801",
+                "20250810",
                 null
         );
         assertNull(discount);

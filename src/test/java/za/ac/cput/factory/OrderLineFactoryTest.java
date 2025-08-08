@@ -43,8 +43,8 @@ class OrderLineFactoryTest {
         Discount discount = DiscountFactory.createDiscount(        "Winter Sale",
                 "Percentage",
                 "20%",
-                "2025-08-01",
-                "2025-08-31",
+                "20250801",
+                "20250831",
                 null
         );
         OrderLine orderLine = OrderLineFactory.createOrderLine(
