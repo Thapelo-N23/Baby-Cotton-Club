@@ -29,7 +29,7 @@ class ShipmentControllerTest {
 
     @BeforeAll
     public static void setUp() {
-        shipment = ShipmentFactory.createShipment("S2345", "POSTNET", "enroute", 70);
+        shipment = ShipmentFactory.createShipment( "POSTNET", "enroute", 70);
     }
 
     @Test
