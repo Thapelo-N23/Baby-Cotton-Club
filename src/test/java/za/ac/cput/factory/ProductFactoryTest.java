@@ -7,7 +7,6 @@
 
 package za.ac.cput.factory;
 
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Product;
 
@@ -22,14 +21,14 @@ class ProductFactoryTest {
     );
 
     @Test
-    @Order(1)
+
     public void testCreateProduct() {
         assertNotNull(p1);
         System.out.println(p1);
     }
 
     @Test
-    @Order(2)
+
     public void testCreateProductWithAllAttributes() {
         assertNotNull(p2);
         System.out.println(p2);
