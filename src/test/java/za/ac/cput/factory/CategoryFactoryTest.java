@@ -52,7 +52,7 @@ class CategoryFactoryTest {
 
  */
 
-}
+
 //    private static List<Product> products = new ArrayList<>();
 //    private static Category category1 = CategoryFactory.createCategory("Clothes");
 //    private static Product product1 = ProductFactory.createProduct(26547L, "T-Shirt","Blue", (short)2,"Yes");

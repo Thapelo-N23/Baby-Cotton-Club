@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.ShipmentFactory;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,56 +25,73 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShipmentControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
-    private final String Base_URL = "http://localhost:8080";
+    private final String Base_URL = "http://localhost:8080/shipment";
     private static Shipment shipment;
 
     @BeforeAll
     public static void setUp() {
-        shipment = ShipmentFactory.createShipment("S2345", "POSTNET", "enroute", 70);
+        shipment = ShipmentFactory.createShipment(2345L, "POSTNET", "enroute", 70);
+
     }
+//
+//    Base_URL + "/create"
+//    Base_URL + "/read/" + shipment.getShipmentId()
+//    Base_URL + "/update"
+//    Base_URL + "/getall"
+
+
 
     @Test
     @Order(1)
     void createShipment() {
-        String createShipmentUrl = Base_URL + "/createShipment";
-        ResponseEntity<Shipment>postResponse = testRestTemplate.postForEntity(createShipmentUrl, shipment, Shipment.class);
-        Shipment createdShipment = postResponse.getBody();
-        assert createdShipment != null;
+        String createShipmentUrl = Base_URL + "/create";
+        ResponseEntity<Shipment> postResponse = testRestTemplate.postForEntity(createShipmentUrl, shipment, Shipment.class);
+        shipment = postResponse.getBody(); // capture the returned shipment
         assertNotNull(shipment);
-        System.out.println("Shipment created: " + createdShipment);
+        System.out.println("Shipment created: " + shipment);
     }
 
     @Test
     @Order(2)
     void readShipment() {
-        Long shipmentId = shipment.getShipmentId();
-        String readShipmentUrl = Base_URL + "/readShipment/" + shipmentId;
-        System.out.println("Reading shipment " + readShipmentUrl);
-        ResponseEntity<Shipment> response = testRestTemplate.getForEntity(readShipmentUrl, Shipment.class);
-        assertNotNull(response);
-        System.out.println("Shipment read: " + response);
-        assertNotNull(response.getBody());
-        System.out.println("Shipment read: " + response.getBody());
+        assertNotNull(shipment); // ensure it was created
+        String readUrl = Base_URL + "/read/" + shipment.getShipmentId();
+        ResponseEntity<Shipment> response = testRestTemplate.getForEntity(readUrl, Shipment.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        System.out.println("Reading shipment with ID: " + shipment.getShipmentId());
+        assertNotNull(shipment);
+        assertNotNull(shipment.getShipmentId());
+
     }
+
+
 
     @Test
     @Order(3)
     void updateShipment() {
-        String updateShipmentUrl = Base_URL + "/updateShipment";
-        System.out.println("Updating shipment " + updateShipmentUrl);
-        Shipment shipmentUpdate = new Shipment.Builder().copy(shipment).build();
-        HttpEntity<Shipment>requestEntity = new HttpEntity<>(shipmentUpdate);
+        assertNotNull(shipment); // prevent NPE
+        String updateShipmentUrl = Base_URL + "/update";
+
+        Shipment shipmentUpdate = new Shipment.Builder()
+                .copy(shipment)
+                .setShipmentStatus("delivered") // change some data
+                .build();
+
+        HttpEntity<Shipment> requestEntity = new HttpEntity<>(shipmentUpdate);
         ResponseEntity<Shipment> response = testRestTemplate.exchange(updateShipmentUrl, HttpMethod.PUT, requestEntity, Shipment.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
+
         Shipment updatedShipment = response.getBody();
         assertNotNull(updatedShipment);
         System.out.println("Shipment updated: " + updatedShipment);
     }
 
+
     @Test
     @Order(4)
     void getall() {
-        String allShipmentsUrl = Base_URL + "/getAllShipments";
+        System.out.println("Reading shipment with ID: " + shipment.getShipmentId());
+        String allShipmentsUrl = Base_URL + "/getall";
         System.out.println("Getting all " + allShipmentsUrl);
         HttpEntity<String> requestEntity = new HttpEntity<>(null);
         ResponseEntity<String> response = testRestTemplate.exchange(allShipmentsUrl, HttpMethod.GET, requestEntity, String.class);

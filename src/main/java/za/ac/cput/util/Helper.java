@@ -71,6 +71,9 @@ public class Helper {
         return price != null && price > 0;
     }
 
+    public static boolean isValidShipmentId(Long shipmentId) {
+        return shipmentId != null && shipmentId > 0;
+    }
 
 }
 
