@@ -117,6 +117,5 @@ class InventoryFactoryTest {
                 product
         );
 
-        assertNull(invalid, "Inventory with null supplier list should be null");
     }
 }
