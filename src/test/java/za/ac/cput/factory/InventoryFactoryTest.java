@@ -127,8 +127,6 @@ class InventoryFactoryTest {
                 List.of(supplier),
                 null
         );
-
-        // Since factory doesn't validate null product, this will pass
         assertNotNull(inventory, "Inventory with null product will still be created unless validated");
         assertNull(inventory.getProduct());
     }
