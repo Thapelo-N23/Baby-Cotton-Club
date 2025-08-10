@@ -14,7 +14,6 @@ import za.ac.cput.util.Helper;
 import java.time.LocalDate;
 
 public class DiscountFactory {
-    private static int discountCounter = 1;
 
     public static Discount createDiscount(String discountName, String discountType,
                                           String discountValue, String startDate, String endDate, OrderLine orderLine) {
@@ -31,7 +30,6 @@ public class DiscountFactory {
 
 
         return new Discount.Builder()
-                .setDiscountId(discountCounter++)
                 .setDiscountName(discountName)
                 .setDiscountType(discountType)
                 .setDiscountValue(discountValue)
