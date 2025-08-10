@@ -25,8 +25,8 @@ class CategoryFactoryTest {
 
     private static final List<Product> products = new ArrayList<>();
 
-    private static final Category category1 = CategoryFactory.createCategory("Clothes");
-    private static final Category category2 = CategoryFactory.createCategory("Shoes");
+    private static final Category category1 = CategoryFactory.createCategory("Clothes", products);
+    private static final Category category2 = CategoryFactory.createCategory("Shoes",products);
 
     @Test
     @Order(1)

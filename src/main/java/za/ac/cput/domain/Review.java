@@ -16,19 +16,18 @@ import java.time.LocalDate;
 
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewId;
     protected short rating;
     private String reviewComment;
     private LocalDate reviewDate;
 
-
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     protected Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     protected Product product;
 
     protected Review(){
