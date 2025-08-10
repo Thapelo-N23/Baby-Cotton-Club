@@ -7,27 +7,18 @@ import za.ac.cput.util.Helper;
 import java.util.List;
 
 public class CategoryFactory {
-    private static int categoryCounter = 1;
 
-    public static Category createCategory(String categoryName) {
+    public static Category createCategory(String categoryName, List<Product> products) {
         if (Helper.isNullOrEmpty(categoryName)) {
             return null;
         }
-        return new Category.Builder()
-                .setCategoryId(categoryCounter++)
-                .setCategoryName(categoryName)
-                .build();
-    }
-
-
-    public static Category createCategory(String categoryName, List<Product> products) {
-        if (Helper.isNullOrEmpty(categoryName) ) {
+        if (products == null) {
             return null;
         }
         return new Category.Builder()
-                .setCategoryId(categoryCounter++)
-                .setCategoryName(categoryName)
-                .setProducts(products)
+                .setCategoryName(categoryName).setProducts(products)
                 .build();
     }
 }
+
+
