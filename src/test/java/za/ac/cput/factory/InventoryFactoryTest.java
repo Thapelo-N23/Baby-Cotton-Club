@@ -50,7 +50,7 @@ class InventoryFactoryTest {
         Product product = ProductFactory.createProduct(
                 "Baby Booties",
                 "Soft pink with bows",
-                (short) 3,
+                (short) 4,
                 "Yes"
         );
 
