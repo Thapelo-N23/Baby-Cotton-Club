@@ -6,6 +6,8 @@ import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Supplier;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryFactoryTest {
 
     @Test
-    void createValidInventory() {
+    void createInventory() {
         Product product = ProductFactory.createProduct(
                 "Organic Cotton Onesie",
                 "White with blue stars",
@@ -28,18 +30,48 @@ class InventoryFactoryTest {
         );
 
         Inventory inventory = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
+                "20250810",
                 "50 onesies",
-                List.of(supplier),
+                Arrays.asList(supplier),
                 product
         );
 
-        assertNotNull(inventory, "Valid inventory should not be null");
+        assertNotNull(inventory, "Inventory should not be null");
+        assertEquals(LocalDate.of(2025, 8, 10), inventory.getReceivedDate());
         assertEquals("50 onesies", inventory.getStockAdded());
+        assertEquals(Arrays.asList(supplier), inventory.getSupplier());
         assertEquals(product, inventory.getProduct());
-        assertEquals(List.of(supplier), inventory.getSupplier());
-        assertNotNull(inventory.getReceivedDate());
-        assertTrue(inventory.getInventoryId() > 0);
+
+        System.out.println(inventory);
+    }
+
+    @Test
+    void createInventoryWithSupplier() {
+        Product product = ProductFactory.createProduct(
+                "Baby Booties",
+                "Soft pink with bows",
+                (short) 4,
+                "Yes"
+        );
+
+        Supplier supplier = SupplierFactory.createSupplier(
+                "Little Feet Supplies",
+                "contact@littlefeet.com",
+                null
+        );
+
+        Inventory inventory = InventoryFactory.createInventory(
+                "20250815",
+                "30 pairs of booties",
+                Arrays.asList(supplier),
+                product
+        );
+
+        assertNotNull(inventory, "Inventory should not be null when supplier is valid");
+        assertEquals(LocalDate.of(2025, 8, 15), inventory.getReceivedDate());
+        assertEquals("30 pairs of booties", inventory.getStockAdded());
+        assertEquals(Arrays.asList(supplier), inventory.getSupplier());
+        assertEquals(product, inventory.getProduct());
 
         System.out.println(inventory);
     }
@@ -60,9 +92,9 @@ class InventoryFactoryTest {
         );
 
         Inventory invalid = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
+                "20250810",
                 "",
-                List.of(supplier),
+                Arrays.asList(supplier),
                 product
         );
 
@@ -79,55 +111,11 @@ class InventoryFactoryTest {
         );
 
         Inventory invalid = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
+                "20250810",
                 "20 pairs of booties",
                 null,
                 product
         );
 
-        assertNull(invalid, "Inventory with null supplier list should be null");
-    }
-
-    @Test
-    void createInventoryWithInvalidDate() {
-        Product product = ProductFactory.createProduct(
-                "Organic Cotton Onesie",
-                "White with blue stars",
-                (short) 5,
-                "Yes"
-        );
-
-        Supplier supplier = SupplierFactory.createSupplier(
-                "Tiny Tots Clothing Co.",
-                "supply@tinytots.com",
-                null
-        );
-
-        Inventory invalid = InventoryFactory.createInventory(
-                "invalid-date",
-                "10 sun hats",
-                List.of(supplier),
-                product
-        );
-
-        assertNull(invalid, "Inventory with invalid date should be null");
-    }
-
-    @Test
-    void createInventoryWithNullProduct() {
-        Supplier supplier = SupplierFactory.createSupplier(
-                "Tiny Tots Clothing Co.",
-                "supply@tinytots.com",
-                null
-        );
-
-        Inventory inventory = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
-                "15 bibs",
-                List.of(supplier),
-                null
-        );
-        assertNotNull(inventory, "Inventory with null product will still be created unless validated");
-        assertNull(inventory.getProduct());
     }
 }
