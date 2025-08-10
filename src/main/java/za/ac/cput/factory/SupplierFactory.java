@@ -12,8 +12,6 @@ import za.ac.cput.util.Helper;
 
 public class SupplierFactory {
 
-    private static int supplierCounter = 1;
-
     public static Supplier createSupplier(String supplierName,
                                           String contactDetails,
                                           Inventory inventory) {
@@ -21,8 +19,12 @@ public class SupplierFactory {
             return null;
         }
 
+        if (inventory == null) {
+            return null;
+        }
+
+
         return new Supplier.Builder()
-                .setSupplierId(supplierCounter++)
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
                 .setInventory(inventory)
