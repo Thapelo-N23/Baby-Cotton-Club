@@ -27,9 +27,11 @@ public class ShipmentController {
     }
 
     @PostMapping("/create")
-    public Shipment create(@RequestBody Shipment shipment) {
-        return shipmentService.create(shipment);
+    public ResponseEntity<Shipment> create(@RequestBody Shipment shipment) {
+        Shipment created = shipmentService.create(shipment);
+        return ResponseEntity.ok(created);
     }
+
 
     @GetMapping("/read/{shipmentId}")
     public ResponseEntity<Shipment> read(@PathVariable("shipmentId") Long shipmentId) {

@@ -28,6 +28,7 @@ private static Product p2 = ProductFactory.createProduct("Coke", "Red",(short) 9
     public void testCreateProductWithAllAttributes() {
     assertNotNull(p2);
     System.out.println(p2);
+    System.out.println(p1);
     }
 @Test
     @Order(3)
