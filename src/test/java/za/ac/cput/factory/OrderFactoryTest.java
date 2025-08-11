@@ -19,8 +19,8 @@ class OrderFactoryTest {
     @Test
     void createOrder() {
         List<OrderLine> orderLines = new ArrayList<>();
-        orderLines.add(OrderLineFactory.createOrderLine(2, 50.00));
-        orderLines.add(OrderLineFactory.createOrderLine(1, 150.00));
+
+        OrderLine orderLine = OrderLineFactory.createOrderLine(2, 50.00);
 
         Customer customer = CustomerFactory.createCustomer(
                 "John",

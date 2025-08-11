@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class OrderService implements IOrderService {
 
-    private final OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     public OrderService(OrderRepository orderRepository) {
