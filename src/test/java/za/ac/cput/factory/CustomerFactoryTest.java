@@ -39,7 +39,7 @@ public class CustomerFactoryTest {
     public static Order order1 = OrderFactory.createOrder(
             "20250518",
             250.00,
-            new java.util.ArrayList<>(),  // empty orderLines list
+            new java.util.ArrayList<>(),
             customer
     );
 
