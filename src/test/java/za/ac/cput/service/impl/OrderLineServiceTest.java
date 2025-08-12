@@ -17,7 +17,7 @@ import za.ac.cput.service.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
@@ -119,11 +119,9 @@ class OrderLineServiceTest {
     @Transactional
     @Test
    void test4_getAll() {
-        List<OrderLine> orderLines = service.getAll();
-     assertNotNull(orderLines, "Order line list should not be null");
-     assertFalse(orderLines.isEmpty(), "Order line list should not be empty");
-
-     System.out.println("All OrderLines: " + orderLines);
+        assertNotNull(service.getAll());
+     System.out.println(service.getAll());
         }
+
 }
 

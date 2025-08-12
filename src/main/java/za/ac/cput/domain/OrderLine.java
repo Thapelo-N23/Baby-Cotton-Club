@@ -65,12 +65,11 @@ public class OrderLine {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", subTotal=" + subTotal +
-                ", order=" + customerOrder +
-                ", product=" + product +
-                ", discount=" + discount +
+                ", customerOrderId=" + (customerOrder != null ? customerOrder.getOrderId() : "null") +
+                ", productId=" + (product != null ? product.getProductId() : "null") +
+                ", discountId=" + (discount != null ? discount.getDiscountId() : "null") +
                 '}';
     }
-
 
 
     public static class Builder {
