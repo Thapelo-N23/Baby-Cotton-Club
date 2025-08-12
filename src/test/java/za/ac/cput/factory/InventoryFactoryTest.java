@@ -1,102 +1,121 @@
-/*
- * InventoryFactoryTest POJO Class
- * Author: O Ntsaluba (230741754)
- * Date: 30 July 2025
- */
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.*;
+import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Supplier;
+
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryFactoryTest {
 
-    private static final Product testProduct = ProductFactory.createProduct(
-            "Organic Cotton Onesie",
-            "White with blue stars",
-            (short) 5,
-            "Yes"
-    );
-
-
-    private static final Supplier testSupplier = SupplierFactory.createSupplier(
-            "Tiny Tots Clothing Co.",
-            "supply@tinytots.com",
-             null
-    );
-
-
-
-
-    private static final Inventory testInventory = InventoryFactory.createInventory(
-            LocalDate.now().toString(),
-            "50 onesies",
-            null,
-            testProduct
-    );
-
-//    private static final Supplier testSupplier = SupplierFactory.createSupplier(
-//            "Tiny Tots Clothing Co.",
-//            "supply@tinytots.com",
-//            testInventory
-//    );
-
-    private static final List<Supplier> testSuppliers = List.of(testSupplier);
-
-
     @Test
     void createInventory() {
-        assertNotNull(testInventory);
-        System.out.println(testInventory);
+        Product product = ProductFactory.createProduct(
+                "Organic Cotton Onesie",
+                "White with blue stars",
+                (short) 5,
+                "Yes"
+        );
+
+        Supplier supplier = SupplierFactory.createSupplier(
+                "Tiny Tots Clothing Co.",
+                "supply@tinytots.com",
+                null
+        );
+
+        Inventory inventory = InventoryFactory.createInventory(
+                "20250810",
+                "50 onesies",
+                Arrays.asList(supplier),
+                product
+        );
+
+        assertNotNull(inventory, "Inventory should not be null");
+        assertEquals(LocalDate.of(2025, 8, 10), inventory.getReceivedDate());
+        assertEquals("50 onesies", inventory.getStockAdded());
+        assertEquals(Arrays.asList(supplier), inventory.getSupplier());
+        assertEquals(product, inventory.getProduct());
+
+        System.out.println(inventory);
+    }
+
+    @Test
+    void createInventoryWithSupplier() {
+        Product product = ProductFactory.createProduct(
+                "Baby Booties",
+                "Soft pink with bows",
+                (short) 4,
+                "Yes"
+        );
+
+        Supplier supplier = SupplierFactory.createSupplier(
+                "Little Feet Supplies",
+                "contact@littlefeet.com",
+                null
+        );
+
+        Inventory inventory = InventoryFactory.createInventory(
+                "20250815",
+                "30 pairs of booties",
+                Arrays.asList(supplier),
+                product
+        );
+
+        assertNotNull(inventory, "Inventory should not be null when supplier is valid");
+        assertEquals(LocalDate.of(2025, 8, 15), inventory.getReceivedDate());
+        assertEquals("30 pairs of booties", inventory.getStockAdded());
+        assertEquals(Arrays.asList(supplier), inventory.getSupplier());
+        assertEquals(product, inventory.getProduct());
+
+        System.out.println(inventory);
     }
 
     @Test
     void createInventoryWithEmptyStock() {
-        Inventory invalid = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
-                "",
-                testSuppliers,
-                testProduct
+        Product product = ProductFactory.createProduct(
+                "Organic Cotton Onesie",
+                "White with blue stars",
+                (short) 5,
+                "Yes"
         );
-        assertNull(invalid, "Inventory with empty stock should be null");
-        System.out.println(invalid);
-    }
 
-    @Test
-    void createInventoryWithNullSupplier() {
-        Inventory invalid = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
-                "20 pairs of booties",
-                null,
-                testProduct
-        );
-        assertNull(invalid, "Inventory with null supplier should be null");
-        System.out.println(invalid);
-    }
-
-    @Test
-    void createInventoryWithInvalidDate() {
-        Inventory invalid = InventoryFactory.createInventory(
-                "invalid-date",
-                "10 sun hats",
-                testSuppliers,
-                testProduct
-        );
-        assertNull(invalid, "Inventory with invalid date should be null");
-        System.out.println(invalid);
-    }
-
-    @Test
-    void createInventoryWithNullProduct() {
-        Inventory invalid = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
-                "15 bibs",
-                testSuppliers,
+        Supplier supplier = SupplierFactory.createSupplier(
+                "Tiny Tots Clothing Co.",
+                "supply@tinytots.com",
                 null
         );
-        assertNull(invalid, "Inventory with null product should be null");
-        System.out.println(invalid);
+
+        Inventory invalid = InventoryFactory.createInventory(
+                "20250810",
+                "",
+                Arrays.asList(supplier),
+                product
+        );
+
+        assertNull(invalid, "Inventory with empty stock should be null");
+    }
+
+    @Test
+    void createInventoryWithNullSupplierList() {
+        Product product = ProductFactory.createProduct(
+                "Organic Cotton Onesie",
+                "White with blue stars",
+                (short) 5,
+                "Yes"
+        );
+
+        Inventory invalid = InventoryFactory.createInventory(
+                "20250810",
+                "20 pairs of booties",
+                null,
+                product
+        );
+
     }
 }

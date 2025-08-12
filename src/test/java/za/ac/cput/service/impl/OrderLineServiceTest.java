@@ -1,61 +1,138 @@
 package za.ac.cput.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.OrderLine;
+import za.ac.cput.domain.*;
+import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.OrderLineFactory;
-import za.ac.cput.service.IOrderLineService;
+import za.ac.cput.factory.ProductFactory;
+import za.ac.cput.factory.DiscountFactory;
+import za.ac.cput.service.*;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class OrderLineServiceTest {
 
     @Autowired
     private IOrderLineService service;
 
+    @Autowired
+    private ICustomerOrderService orderService;
+
+    @Autowired
+    private ICustomerService customerService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private IDiscountService discountService;
+
     private static OrderLine orderLine;
+    private static Product product;
+    private static Order order;
+    private static Customer customer;
+    private static Discount discount;
 
     @Test
-    @Order(1)
-    void create() {
-        orderLine = OrderLineFactory.createOrderLine(123, 123.0);
-        OrderLine created = service.create(orderLine);
-        assertNotNull(created);
-        orderLine = created;
+    void test1_create() {
+
+        customer = customerService.create(
+                CustomerFactory.createCustomer(
+                        "John",
+                        "Doe",
+                        "john.doe@gmail.com",
+                        "0781234567",
+                        List.of(),
+                        List.of(),
+                        List.of()
+                )
+        );
+
+        product = productService.create(
+                ProductFactory.createProduct(
+                        "Lancewood", "Yellow", (short) 50, "OUT OF STOCK"
+                )
+        );
+
+
+        discount = discountService.create(
+                DiscountFactory.createDiscount(
+                        "Winter Sale",
+                        "Percentage",
+                        "20%",
+                        "20250801",
+                        "20250831",
+                        orderLine
+                )
+        );
+        orderLine = service.create(
+                OrderLineFactory.createOrderLine(
+                        2,
+                        50.00,
+                        (CustomerOrder) order,
+                        product,
+                        discount
+                )
+        );
+
         System.out.println("Created OrderLine: " + orderLine);
     }
 
+    @Transactional
     @Test
-    @Order(2)
-    void read() {
-        OrderLine read = service.read(Integer.valueOf(String.valueOf(orderLine.getOrderLineId())));
+    void test2_read() {
+        List<OrderLine> allOrderLines = service.getAll();
+        assertFalse(allOrderLines.isEmpty(), "No order lines found in DB");
+
+        OrderLine existing = allOrderLines.get(0);
+        OrderLine read = service.read(existing.getOrderLineId());
+
         assertNotNull(read);
+        assertEquals(existing.getOrderLineId(), read.getOrderLineId());
+
         System.out.println("Read OrderLine: " + read);
     }
 
-    @Test
-    @Order(3)
-    void update() {
-        OrderLine updated = new OrderLine.Builder()
-                .copy(orderLine)
-                .setQuantity(200)
-                .setUnitPrice(99.99)
-                .build();
-        OrderLine result = service.update(updated);
-        assertNotNull(result);
-        orderLine = result;
-        System.out.println("Updated OrderLine: " + result);
-    }
 
     @Test
-    @Order(4)
-    void getAll() {
-        System.out.println("All OrderLines: " + service.getAll());
+    void test3_update() {
+        List<OrderLine> allOrderLines = service.getAll();
+        assertFalse(allOrderLines.isEmpty(), "No order lines found to update");
+
+        OrderLine existingOrderLine = allOrderLines.get(0);
+
+        OrderLine updatedOrderLine = new OrderLine.Builder()
+                .copy(existingOrderLine)
+                .setQuantity(5)
+                .build();
+
+        OrderLine updated = service.update(updatedOrderLine);
+        assertNotNull(updated, "Updated OrderLine should not be null");
+        assertEquals(5, updated.getQuantity());
+
+        System.out.println("Updated OrderLine: " + updated);
     }
+
+    @Transactional
+    @Test
+   void test4_getAll() {
+        List<OrderLine> orderLines = service.getAll();
+     assertNotNull(orderLines, "Order line list should not be null");
+     assertFalse(orderLines.isEmpty(), "Order line list should not be empty");
+
+     System.out.println("All OrderLines: " + orderLines);
+        }
 }
+

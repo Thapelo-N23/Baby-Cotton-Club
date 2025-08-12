@@ -17,15 +17,20 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int categoryId;
+
     protected String categoryName;
 
+    // New field for products
+    @OneToMany
+    @JoinColumn(name = "category_id") // foreign key in Product table
+    private List<Product> products;
 
     protected Category() {}
 
     private Category(Builder builder) {
         this.categoryId = builder.categoryId;
         this.categoryName = builder.categoryName;
-
+        this.products = builder.products;
     }
 
     public int getCategoryId() {
@@ -36,19 +41,24 @@ public class Category {
         return categoryName;
     }
 
-
+    // Getter for products
+    public List<Product> getProducts() {
+        return products;
+    }
 
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
+                ", products=" + products +
                 '}';
     }
 
     public static class Builder {
         private int categoryId;
         private String categoryName;
+        private List<Product> products;
 
         public Builder setCategoryId(int categoryId) {
             this.categoryId = categoryId;
@@ -61,10 +71,15 @@ public class Category {
         }
 
 
+        public Builder setProducts(List<Product> products) {
+            this.products = products;
+            return this;
+        }
+
         public Builder copy(Category category) {
             this.categoryId = category.categoryId;
             this.categoryName = category.categoryName;
-
+            this.products = category.products;
             return this;
         }
 

@@ -17,7 +17,7 @@ public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long shipmentId;
+    private int shipmentId;
 
     private String carrierName;
     private String shipmentStatus;
@@ -28,7 +28,7 @@ public class Shipment {
 
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
-    private Order order;
+    private CustomerOrder customerOrder;
 
     public Shipment() {
     }
@@ -40,7 +40,7 @@ public class Shipment {
         this.shippingCost = builder.shippingCost;
     }
 
-    public Long getShipmentId() {
+    public int getShipmentId() {
         return shipmentId;
     }
 
@@ -60,8 +60,8 @@ public class Shipment {
         return products;
     }
 
-    public Order getOrder() {
-        return order;
+    public CustomerOrder getOrder() {
+        return customerOrder;
     }
 
     @Override
@@ -72,17 +72,17 @@ public class Shipment {
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
                 ", products=" + (products != null ? products.size() : 0) +
-                ", order=" + order +
+                ", order=" + customerOrder +
                 '}';
     }
 
     public static class Builder {
-        private Long shipmentId;
+        private int shipmentId;
         private String carrierName;
         private String shipmentStatus;
         private double shippingCost;
 
-        public Builder setShipmentId(Long shipmentId) {
+        public Builder setShipmentId(int shipmentId) {
             this.shipmentId = shipmentId;
             return this;
         }

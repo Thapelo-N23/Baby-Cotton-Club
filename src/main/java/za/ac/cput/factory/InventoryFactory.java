@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class InventoryFactory {
-    private static int inventoryCounter = 1;
 
     public static Inventory createInventory(String receivedDate, String stockAdded, List<Supplier> supplier, Product product) {
         if (Helper.isNullOrEmpty(stockAdded)) {
@@ -31,7 +30,6 @@ public class InventoryFactory {
         }
 
         return new Inventory.Builder()
-                .setInventoryId(inventoryCounter++)
                 .setReceivedDate(date)
                 .setStockAdded(stockAdded)
                 .setSupplier(supplier)

@@ -26,7 +26,7 @@ public class Customer {
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<CustomerOrder> customerOrders;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Review> reviews;
@@ -40,7 +40,7 @@ public class Customer {
         this.email = builder.email;
         this.phoneNumber = builder.phoneNumber;
         this.addresses = builder.addresses;
-        this.orders = builder.orders;
+        this.customerOrders = builder.customerOrders;
         this.reviews = builder.reviews;
     }
 
@@ -50,7 +50,7 @@ public class Customer {
     public String getEmail() { return email; }
     public String getPhoneNumber() { return phoneNumber; }
     public List<Address> getAddresses() { return addresses; }
-    public List<Order> getOrders() { return orders; }
+    public List<CustomerOrder> getOrders() { return customerOrders; }
     public List<Review> getReviews() { return reviews; }
 
     @Override
@@ -62,7 +62,7 @@ public class Customer {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", addressCount=" + (addresses != null ? addresses.size() : 0) +
-                ", orderCount=" + (orders != null ? orders.size() : 0) +
+                ", orderCount=" + (customerOrders != null ? customerOrders.size() : 0) +
                 ", reviewCount=" + (reviews != null ? reviews.size() : 0) +
                 '}';
     }
@@ -75,7 +75,7 @@ public class Customer {
         private String email;
         private String phoneNumber;
         private List<Address> addresses;
-        private List<Order> orders;
+        private List<CustomerOrder> customerOrders;
         private List<Review> reviews;
 
         public Builder setCustomerId(int customerId) { this.customerId = customerId; return this; }
@@ -84,7 +84,7 @@ public class Customer {
         public Builder setEmail(String email) { this.email = email; return this; }
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
         public Builder setAddresses(List<Address> addresses) { this.addresses = addresses; return this; }
-        public Builder setOrders(List<Order> orders) { this.orders = orders; return this; }
+        public Builder setOrders(List<CustomerOrder> customerOrders) { this.customerOrders = customerOrders; return this; }
         public Builder setReviews(List<Review> reviews) { this.reviews = reviews; return this; }
 
         public Builder copy(Customer customer) {
@@ -94,7 +94,7 @@ public class Customer {
             this.email = customer.email;
             this.phoneNumber = customer.phoneNumber;
             this.addresses = customer.addresses;
-            this.orders = customer.orders;
+            this.customerOrders = customer.customerOrders;
             this.reviews = customer.reviews;
             return this;
         }
