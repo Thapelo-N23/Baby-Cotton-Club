@@ -2,7 +2,7 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.OrderLine;
 
 import java.time.LocalDate;
@@ -14,10 +14,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static za.ac.cput.factory.CustomerFactoryTest.*;
 
-class OrderFactoryTest {
+class CustomerCustomerOrderFactoryTest {
 
     @Test
-    void createOrder() {
+    void createCustomerOrder() {
         List<OrderLine> orderLines = new ArrayList<>();
 
         OrderLine orderLine = OrderLineFactory.createOrderLine(2, 50.00);
@@ -28,29 +28,29 @@ class OrderFactoryTest {
                 "mengezi@gmail.com",
                 "0781234567",
                 Arrays.asList(address1),
-                Arrays.asList(order1),
+                Arrays.asList(customerOrder1),
                 Arrays.asList(review)
 
         );
 
-        Order order = OrderFactory.createOrder(
+        CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250518",
                 250.00,
                 orderLines,
                 customer
         );
 
-        assertNotNull(order, "Order should not be null");
-        assertEquals(LocalDate.of(2025, 5, 18), order.getOrderDate());
-        assertEquals(250.00, order.getTotalAmount(), 0.001);
-        assertEquals(orderLines, order.getOrderLines());
-        assertEquals(customer, order.getCustomer());
+        assertNotNull(customerOrder, "Order should not be null");
+        assertEquals(LocalDate.of(2025, 5, 18), customerOrder.getOrderDate());
+        assertEquals(250.00, customerOrder.getTotalAmount(), 0.001);
+        assertEquals(orderLines, customerOrder.getOrderLines());
+        assertEquals(customer, customerOrder.getCustomer());
 
-        System.out.println(order);
+        System.out.println(customerOrder);
     }
 
     @Test
-    void createOrderWithCustomer() {
+    void createCustomerOrderWithCustomer() {
         List<OrderLine> orderLines = new ArrayList<>();
         orderLines.add(OrderLineFactory.createOrderLine(1, 99.99));
 
@@ -60,24 +60,24 @@ class OrderFactoryTest {
                 "mengezi@gmail.com",
                 "0781234567",
                 Arrays.asList(address1),
-                Arrays.asList(order1),
+                Arrays.asList(customerOrder1),
                 Collections.emptyList()
         );
 
-        Order order = OrderFactory.createOrder(
+        CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250729",
                 99.99,
                 orderLines,
                 customer
         );
 
-        assertNotNull(order, "Order should not be null when customer is valid");
-        assertEquals(LocalDate.of(2025, 7, 29), order.getOrderDate());
-        assertEquals(99.99, order.getTotalAmount(), 0.001);
-        assertEquals(orderLines, order.getOrderLines());
-        assertEquals(customer, order.getCustomer());
+        assertNotNull(customerOrder, "Order should not be null when customer is valid");
+        assertEquals(LocalDate.of(2025, 7, 29), customerOrder.getOrderDate());
+        assertEquals(99.99, customerOrder.getTotalAmount(), 0.001);
+        assertEquals(orderLines, customerOrder.getOrderLines());
+        assertEquals(customer, customerOrder.getCustomer());
 
-        System.out.println(order);
+        System.out.println(customerOrder);
     }
 
 

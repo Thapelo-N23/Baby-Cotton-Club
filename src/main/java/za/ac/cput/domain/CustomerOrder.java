@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +15,16 @@ public class Order {
     protected LocalDate orderDate;
     protected double totalAmount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
     private List<OrderLine> orderLines;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    protected Order() {}
+    protected CustomerOrder() {}
 
-    private Order(Builder builder) {
+    private CustomerOrder(Builder builder) {
         this.orderId = builder.orderId;
         this.orderDate = builder.orderDate;
         this.totalAmount = builder.totalAmount;
@@ -95,17 +95,17 @@ public class Order {
             return this;
         }
 
-        public Builder copy(Order order) {
-            this.orderId = order.orderId;
-            this.orderDate = order.orderDate;
-            this.totalAmount = order.totalAmount;
-            this.orderLines = order.orderLines;
-            this.customer = order.customer;
+        public Builder copy(CustomerOrder customerOrder) {
+            this.orderId = customerOrder.orderId;
+            this.orderDate = customerOrder.orderDate;
+            this.totalAmount = customerOrder.totalAmount;
+            this.orderLines = customerOrder.orderLines;
+            this.customer = customerOrder.customer;
             return this;
         }
 
-        public Order build() {
-            return new Order(this);
+        public CustomerOrder build() {
+            return new CustomerOrder(this);
         }
     }
 }

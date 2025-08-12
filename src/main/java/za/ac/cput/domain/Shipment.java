@@ -28,7 +28,7 @@ public class Shipment {
 
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "orderId")
-    private Order order;
+    private CustomerOrder customerOrder;
 
     public Shipment() {
     }
@@ -60,8 +60,8 @@ public class Shipment {
         return products;
     }
 
-    public Order getOrder() {
-        return order;
+    public CustomerOrder getOrder() {
+        return customerOrder;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Shipment {
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
                 ", products=" + (products != null ? products.size() : 0) +
-                ", order=" + order +
+                ", order=" + customerOrder +
                 '}';
     }
 

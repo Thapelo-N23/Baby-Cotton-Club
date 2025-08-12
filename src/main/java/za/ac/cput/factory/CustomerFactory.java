@@ -9,17 +9,16 @@ package za.ac.cput.factory;
 
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.Review;
 import za.ac.cput.util.Helper;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomerFactory {
 
     public static Customer createCustomer(String firstName, String lastName, String email, String phoneNumber,
-                                          List<Address> addresses, List<Order> orders, List<Review> reviews) {
+                                          List<Address> addresses, List<CustomerOrder> customerOrders, List<Review> reviews) {
 
         if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(phoneNumber)) {
             return null;
@@ -31,7 +30,7 @@ public class CustomerFactory {
         if (addresses == null) {
             return null;
         }
-        if (orders == null ) {
+        if (customerOrders == null ) {
             return null;
         }
         if (reviews == null) {
@@ -44,7 +43,7 @@ public class CustomerFactory {
                 .setEmail(email)
                 .setPhoneNumber(phoneNumber)
                 .setAddresses(addresses)
-                .setOrders(orders)
+                .setOrders(customerOrders)
                 .setReviews(reviews)
                 .build();
     }

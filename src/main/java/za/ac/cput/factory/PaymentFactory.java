@@ -6,7 +6,7 @@ Date: 2025/05/18
  */
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.Payment;
 import za.ac.cput.util.Helper;
 
@@ -16,20 +16,20 @@ public class PaymentFactory {
 
     public static Payment createPayment(String paymentDate,
                                         String paymentMethod,
-                                        Order order) {
+                                        CustomerOrder customerOrder) {
         if (Helper.isNullOrEmpty(paymentMethod)) {
             return null;
         }
 
         LocalDate date = Helper.isValidDate(paymentDate);
-        if (date == null || order == null) {
+        if (date == null || customerOrder == null) {
             return null;
         }
 
         return new Payment.Builder()
                 .setPaymentDate(date)
                 .setPaymentMethod(paymentMethod)
-                .setOrder(order)
+                .setOrder(customerOrder)
                 .build();
     }
 }

@@ -7,19 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.OrderLine;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Discount;
+import za.ac.cput.domain.*;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.OrderFactory;
 import za.ac.cput.factory.OrderLineFactory;
 import za.ac.cput.factory.ProductFactory;
 import za.ac.cput.factory.DiscountFactory;
 import za.ac.cput.service.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +28,7 @@ class OrderLineServiceTest {
     private IOrderLineService service;
 
     @Autowired
-    private IOrderService orderService;
+    private ICustomerOrderService orderService;
 
     @Autowired
     private ICustomerService customerService;
@@ -87,7 +81,7 @@ class OrderLineServiceTest {
                 OrderLineFactory.createOrderLine(
                         2,
                         50.00,
-                        (za.ac.cput.domain.Order) order,
+                        (CustomerOrder) order,
                         product,
                         discount
                 )
@@ -131,15 +125,14 @@ class OrderLineServiceTest {
         System.out.println("Updated OrderLine: " + updated);
     }
 
-//    @Transactional
-//    @Test
-//    void test4_getAll() {
-//        List<OrderLine> orderLines = service.getAll();
-//
-//        assertNotNull(orderLines, "Order line list should not be null");
-//        assertFalse(orderLines.isEmpty(), "Order line list should not be empty");
-//
-//        System.out.println("All OrderLines: " + orderLines);
-//    }
+    @Transactional
+    @Test
+   void test4_getAll() {
+        List<OrderLine> orderLines = service.getAll();
+     assertNotNull(orderLines, "Order line list should not be null");
+     assertFalse(orderLines.isEmpty(), "Order line list should not be empty");
+
+     System.out.println("All OrderLines: " + orderLines);
+        }
 }
 

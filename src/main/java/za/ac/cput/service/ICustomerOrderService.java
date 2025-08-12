@@ -7,12 +7,12 @@ Date: 2025/05/24
 */
 package za.ac.cput.service;
 
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 
 import java.util.List;
 
-public interface IOrderService extends IService<Order, Integer> {
-    List<Order> getAll();
+public interface ICustomerOrderService extends IService<CustomerOrder, Integer> {
+    List<CustomerOrder> getAll();
 
 
 }
