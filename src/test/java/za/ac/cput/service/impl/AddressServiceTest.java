@@ -27,7 +27,7 @@ class AddressServiceTest {
     private IAddressService service;
 
     @Autowired
-    private ICustomerService customerService;  // Inject customer service
+    private ICustomerService customerService;
 
     private static Customer customer = CustomerFactory.createCustomer(
             "John", "Doe", "mengezi@gmail.com", "0781234567",
@@ -39,11 +39,11 @@ class AddressServiceTest {
     @Test
     @Order(1)
     void create() {
-        // Save the customer first so it gets an ID
+
         Customer savedCustomer = customerService.create(customer);
         assertNotNull(savedCustomer);
 
-        // Create the address with the saved customer (has ID now)
+
         address = AddressFactory.createAddress(
                 "Bush St", (short) 123, "Soweto", "Johannesburg", (short) 1634, "Gauteng", savedCustomer
         );
