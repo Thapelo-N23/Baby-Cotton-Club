@@ -21,7 +21,7 @@ class SupplierFactoryTest {
     private static final Product testProduct = new Product();
 
     private static final Inventory testInventory = InventoryFactory.createInventory(
-            "2025-07-31",
+            "20250731",
             "100 units",
             Collections.emptyList(),
             testProduct
@@ -62,6 +62,7 @@ class SupplierFactoryTest {
         Supplier invalid = SupplierFactory.createSupplier(
                 "Tiny Togs Supplies",
                 null,
+
                 testInventory
         );
         assertNull(invalid, "Supplier with null contact should be null");
