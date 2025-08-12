@@ -41,24 +41,15 @@ class OrderLineServiceTest {
 
     private static OrderLine orderLine;
     private static Product product;
-    private static Order order;
+    private static CustomerOrder customerOrder;
     private static Customer customer;
     private static Discount discount;
+
 
     @Test
     void test1_create() {
 
-        customer = customerService.create(
-                CustomerFactory.createCustomer(
-                        "John",
-                        "Doe",
-                        "john.doe@gmail.com",
-                        "0781234567",
-                        List.of(),
-                        List.of(),
-                        List.of()
-                )
-        );
+
 
         product = productService.create(
                 ProductFactory.createProduct(
@@ -81,7 +72,7 @@ class OrderLineServiceTest {
                 OrderLineFactory.createOrderLine(
                         2,
                         50.00,
-                        (CustomerOrder) order,
+                        (CustomerOrder) customerOrder,
                         product,
                         discount
                 )
