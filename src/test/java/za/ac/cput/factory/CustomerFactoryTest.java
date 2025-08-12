@@ -3,7 +3,7 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.Review;
 
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class CustomerFactoryTest {
 
     //
     // Create an order
-    public static Order order1 = OrderFactory.createOrder(
+    public static CustomerOrder customerOrder1 = CustomerOrderFactory.createCustomerOrder(
             "20250518",
             250.00,
             new java.util.ArrayList<>(),
@@ -60,7 +60,7 @@ public class CustomerFactoryTest {
             "mengezi@gmail.com",
             "0781234567",
             Arrays.asList(address1),
-            Arrays.asList(order1),
+            Arrays.asList(customerOrder1),
             Arrays.asList(review)
     );
 

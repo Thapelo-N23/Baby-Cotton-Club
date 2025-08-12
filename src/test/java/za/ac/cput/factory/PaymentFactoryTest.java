@@ -8,7 +8,7 @@ Date: 18 May 2025
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -33,7 +33,7 @@ class PaymentFactoryTest {
             new ArrayList<>()
     );
 
-    private static final Order order = (Order) OrderFactory.createOrder(
+    private static final CustomerOrder CUSTOMER_ORDER = (CustomerOrder) CustomerOrderFactory.createCustomerOrder(
             "20250722",
             100.00,
             orderLines,
@@ -43,7 +43,7 @@ class PaymentFactoryTest {
     private static final Payment payment = PaymentFactory.createPayment(
             "20250722",
             "Credit Card",
-            order
+            CUSTOMER_ORDER
 
     );
 
@@ -53,7 +53,7 @@ class PaymentFactoryTest {
         assertNotNull(payment, "Payment should not be null");
         assertEquals(LocalDate.of(2025, 7, 22), payment.getPaymentDate());
         assertEquals("Credit Card", payment.getPaymentMethod());
-        assertEquals(order, payment.getOrder(), "Payment should be linked to the correct Order");
+        assertEquals(CUSTOMER_ORDER, payment.getOrder(), "Payment should be linked to the correct Order");
         System.out.println(payment);
     }
 
@@ -64,7 +64,7 @@ class PaymentFactoryTest {
         Payment invalid = PaymentFactory.createPayment(
                 "20250722",
                 "",
-                order
+                CUSTOMER_ORDER
 
         );
         assertNull(invalid, "Payment with null or empty method should be null");

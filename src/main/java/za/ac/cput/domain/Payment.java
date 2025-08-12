@@ -22,7 +22,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    private CustomerOrder customerOrder;
 
     protected Payment() {
 
@@ -31,7 +31,7 @@ public class Payment {
     private Payment(Builder builder) {
         this.paymentDate = builder.paymentDate;
         this.paymentMethod = builder.paymentMethod;
-        this.order = builder.order;
+        this.customerOrder = builder.customerOrder;
     }
 
     public int getPaymentId() {
@@ -46,8 +46,8 @@ public class Payment {
         return paymentMethod;
     }
 
-    public Order getOrder() {
-        return order;
+    public CustomerOrder getOrder() {
+        return customerOrder;
     }
 
     @Override
@@ -56,14 +56,14 @@ public class Payment {
                 "paymentId=" + paymentId +
                 ", paymentDate=" + paymentDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
-                ", order=" + (order != null ? order.getOrderId() : "null") +
+                ", order=" + (customerOrder != null ? customerOrder.getOrderId() : "null") +
                 '}';
     }
 
     public static class Builder {
         private LocalDate paymentDate;
         private String paymentMethod;
-        private Order order;
+        private CustomerOrder customerOrder;
 
         public Builder setPaymentDate(LocalDate paymentDate) {
             this.paymentDate = paymentDate;
@@ -75,15 +75,15 @@ public class Payment {
             return this;
         }
 
-        public Builder setOrder(Order order) {
-            this.order = order;
+        public Builder setOrder(CustomerOrder customerOrder) {
+            this.customerOrder = customerOrder;
             return this;
         }
 
         public Builder copy(Payment payment) {
             this.paymentDate = payment.getPaymentDate();
             this.paymentMethod = payment.getPaymentMethod();
-            this.order = payment.getOrder();
+            this.customerOrder = payment.getOrder();
             return this;
         }
 
