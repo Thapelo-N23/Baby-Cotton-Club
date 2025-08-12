@@ -10,8 +10,6 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "order_line")
 public class OrderLine {
@@ -25,7 +23,7 @@ public class OrderLine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    protected Order order;
+    protected CustomerOrder customerOrder;
     @ManyToOne
     @JoinColumn(name = "product_id")
     protected Product product;
@@ -40,7 +38,7 @@ public class OrderLine {
         this.quantity = builder.quantity;
         this.unitPrice = builder.unitPrice;
         this.subTotal = builder.subTotal;
-        this.order = builder.order;
+        this.customerOrder = builder.customerOrder;
         this.product = builder.product;
         this.discount = builder.discount;
     }
@@ -53,8 +51,8 @@ public class OrderLine {
         return unitPrice; }
     public double getSubTotal() {
         return subTotal; }
-    public Order getOrder() {
-        return order; }
+    public CustomerOrder getOrder() {
+        return customerOrder; }
     public Product getProduct() {
         return product; }
     public Discount getDiscount() {
@@ -67,7 +65,7 @@ public class OrderLine {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", subTotal=" + subTotal +
-                ", order=" + order +
+                ", order=" + customerOrder +
                 ", product=" + product +
                 ", discount=" + discount +
                 '}';
@@ -80,7 +78,7 @@ public class OrderLine {
         private int quantity;
         private double unitPrice;
         private double subTotal;
-        private Order order;
+        private CustomerOrder customerOrder;
         private Product product;
         private Discount discount;
 
@@ -96,8 +94,8 @@ public class OrderLine {
         public Builder setSubTotal(double subTotal) {
             this.subTotal = subTotal;
             return this; }
-        public Builder setOrder(Order order) {
-            this.order = order;
+        public Builder setOrder(CustomerOrder customerOrder) {
+            this.customerOrder = customerOrder;
             return this; }
         public Builder setProduct(Product product) {
             this.product = product;
@@ -111,7 +109,7 @@ public class OrderLine {
             this.quantity = orderLine.quantity;
             this.unitPrice = orderLine.unitPrice;
             this.subTotal = orderLine.subTotal;
-            this.order = orderLine.order;
+            this.customerOrder = orderLine.customerOrder;
             this.product = orderLine.product;
             this.discount = orderLine.discount;
             return this;
