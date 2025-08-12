@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ class OrderLineFactoryTest {
 
         Customer customer = new Customer();
         List<OrderLine> orderLines = new ArrayList<>();
-        Order order = OrderFactory.createOrder("20250729", 200.0, orderLines, customer);
+        CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder("20250729", 200.0, orderLines, customer);
         Product product = ProductFactory.createProduct( "Lancewood", "Yellow",  (short) 50, "OUT OF STOCK");
         Discount discount = DiscountFactory.createDiscount(        "Winter Sale",
                 "Percentage",
@@ -50,7 +49,7 @@ class OrderLineFactoryTest {
         OrderLine orderLine = OrderLineFactory.createOrderLine(
                 5,
                 200.0,
-                order,
+                customerOrder,
                 product,
                 discount
         );
@@ -61,7 +60,7 @@ class OrderLineFactoryTest {
         assertEquals(1000.0, orderLine.getSubTotal());
         assertEquals(product, orderLine.getProduct());
         assertEquals(discount, orderLine.getDiscount());
-        assertEquals(order, orderLine.getOrder());
+        assertEquals(customerOrder, orderLine.getOrder());
 
         System.out.println(orderLine);
     }
