@@ -87,8 +87,7 @@ public class Product {
                 ", color='" + color + '\'' +
                 ", price=" + price +
                 ", inStock='" + inStock + '\'' +
-                ", reviews=" + reviews +
-                ", shipment=" + shipment +
+                ", shipmentId=" + (shipment != null ? shipment.getShipmentId() : "null") +
                 '}';
     }
 

@@ -1,4 +1,4 @@
-/*
+
 package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.*;
@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
+
 import za.ac.cput.domain.Review;
 import za.ac.cput.factory.AddressFactory;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.OrderFactory;
+import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.ReviewFactory;
 import za.ac.cput.service.ICustomerService;
 
@@ -28,7 +29,7 @@ class CustomerServiceTest {
 
     private static Customer customer;
     private static Address address;
-    private static Order order;
+    private static CustomerOrder order;
     private static Review review;
 
     @Test
@@ -77,7 +78,7 @@ class CustomerServiceTest {
                 "Bush St", (short) 123, "Soweto", "Johannesburg", (short) 1634, "Gauteng", customer
         );
 
-        order = OrderFactory.createOrder(
+        order = CustomerOrderFactory.createCustomerOrder(
                 "20250518", 250.00, new java.util.ArrayList<>(), customer
         );
 
@@ -108,4 +109,3 @@ class CustomerServiceTest {
 
 
 }
- */
