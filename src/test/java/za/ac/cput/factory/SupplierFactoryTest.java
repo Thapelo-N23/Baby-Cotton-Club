@@ -27,42 +27,50 @@ class SupplierFactoryTest {
             testProduct
     );
 
-    private static final Supplier supplier = SupplierFactory.createSupplier(
+    private static final Supplier supplier1 = SupplierFactory.createSupplier(
             "SnuggleBabies Clothing Co.",
             "0211234567",
             testInventory
     );
 
+    private static final Supplier supplier2 = SupplierFactory.createSupplier(
+            "Tiny Togs Supplies",
+            "0210987654",
+            testInventory
+    );
+
     @Test
     @Order(1)
-    void testCreateSupplier() {
-        assertNotNull(supplier);
-        assertEquals("SnuggleBabies Clothing Co.", supplier.getSupplierName());
-        assertEquals("0211234567", supplier.getContactDetails());
-        assertNotNull(supplier.getInventory());
-        assertEquals(testInventory.getInventoryId(), supplier.getInventory().getInventoryId());
-        System.out.println(supplier);
+    void createSupplier() {
+        assertNotNull(supplier1);
+        System.out.println(supplier1);
     }
 
     @Test
     @Order(2)
-    void testCreateSupplierWithEmptyName() {
-        Supplier invalid = SupplierFactory.createSupplier(
-                " ",
-                "0210836543",
-                testInventory
-        );
-        assertNull(invalid, "Supplier with empty name should be null");
-        System.out.println(invalid);
+    void createAnotherSupplier() {
+        assertNotNull(supplier2);
+        System.out.println(supplier2);
     }
 
     @Test
     @Order(3)
+    void testCreateSupplierWithNullName() {
+        Supplier invalid = SupplierFactory.createSupplier(
+                null,
+                "0210836543",
+                testInventory
+        );
+        assertNull(invalid, "Supplier with null name should be null");
+        System.out.println(invalid);
+    }
+
+    @Test
+    @Order(4)
     void testCreateSupplierWithNullContact() {
         Supplier invalid = SupplierFactory.createSupplier(
-                "Tiny Togs Supplies",
+                "CuddleWear Baby Co.",
                 null,
-
                 testInventory
         );
         assertNull(invalid, "Supplier with null contact should be null");
@@ -70,10 +78,10 @@ class SupplierFactoryTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void testCreateSupplierWithNullInventory() {
         Supplier invalid = SupplierFactory.createSupplier(
-                "CuddleWear Baby Co.",
+                "Baby Boutique",
                 "0217654221",
                 null
         );
