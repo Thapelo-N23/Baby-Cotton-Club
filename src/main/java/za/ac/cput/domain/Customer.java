@@ -22,13 +22,13 @@ public class Customer {
     private String email;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Address> addresses;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> customerOrders;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews;
 
     public Customer() {}
@@ -54,6 +54,7 @@ public class Customer {
     public List<Review> getReviews() { return reviews; }
 
     @Override
+
     public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +
@@ -61,9 +62,9 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", addressCount=" + (addresses != null ? addresses.size() : 0) +
-                ", orderCount=" + (customerOrders != null ? customerOrders.size() : 0) +
-                ", reviewCount=" + (reviews != null ? reviews.size() : 0) +
+                ", Addresses=" + (addresses != null && !addresses.isEmpty()) +
+                ", CustomerOrders=" + (customerOrders != null) +
+                ", Reviews=" + (reviews != null && !reviews.isEmpty()) +
                 '}';
     }
 

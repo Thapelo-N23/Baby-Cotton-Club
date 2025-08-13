@@ -33,6 +33,7 @@ class CustomerServiceTest {
     private static Review review;
 
     @Test
+    @Order(1)
     void create() {
         // Create base customer
         customer = CustomerFactory.createCustomer(
@@ -52,14 +53,18 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(2)
     void read() {
+
         Customer readCustomer = customerService.read(customer.getCustomerId());
         assertNotNull(readCustomer);
         System.out.println("Read Customer: " + readCustomer);
     }
 
     @Test
+    @Order(3)
     void update() {
+
         Customer updated = new Customer.Builder()
                 .copy(customer)
                 .setPhoneNumber("0712345678")
@@ -72,6 +77,7 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(4)
     void createCustomerWithRelationships() {
         // Create relationships
         address = AddressFactory.createAddress(
@@ -102,6 +108,7 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(5)
     void getAll() {
         assertNotNull(customerService.getAll());
         System.out.println("All Customers: " + customerService.getAll());
