@@ -17,9 +17,9 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PaymentFactoryTest {
+public class PaymentFactoryTest {
 
-    private static final List<OrderLine> orderLines = new ArrayList<>(
+    public static final List<OrderLine> orderLines = new ArrayList<>(
             List.of(OrderLineFactory.createOrderLine(1, 100.00))
     );
 
