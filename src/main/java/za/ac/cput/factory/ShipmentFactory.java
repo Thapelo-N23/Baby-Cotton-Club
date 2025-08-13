@@ -12,15 +12,14 @@ import za.ac.cput.domain.Shipment;
 import za.ac.cput.util.Helper;
 
 public class ShipmentFactory {
-    public static Shipment createShipment(Long shipmentId, String carrierName, String shipmentStatus, double shippingCost) {
-        if (!Helper.isValidShipmentId(shipmentId) || // <-- NEGATE
+    public static Shipment createShipment( String carrierName, String shipmentStatus, double shippingCost) {
+        if (
                 Helper.isNullOrEmpty(carrierName) ||
                 Helper.isNullOrEmpty(shipmentStatus)) {
             return null;
         }
 
         return new Shipment.Builder()
-                .setShipmentId(shipmentId)
                 .setCarrierName(carrierName)
                 .setShipmentStatus(shipmentStatus)
                 .setShippingCost(shippingCost)

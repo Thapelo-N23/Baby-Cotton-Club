@@ -34,7 +34,7 @@ public class ShipmentController {
 
 
     @GetMapping("/read/{shipmentId}")
-    public ResponseEntity<Shipment> read(@PathVariable("shipmentId") Long shipmentId) {
+    public ResponseEntity<Shipment> read(@PathVariable("shipmentId") Integer shipmentId) {
         Shipment shipment = shipmentService.read(shipmentId);
         return ResponseEntity.ok(shipment);
     }
@@ -46,7 +46,7 @@ public class ShipmentController {
     }
 
     @DeleteMapping("/delete/{shipmentId}")
-    public boolean delete(@PathVariable("shipmentId") Long shipmentId) {
+    public boolean delete(@PathVariable("shipmentId") Integer shipmentId) {
         return shipmentService.delete(shipmentId);
     }
 
