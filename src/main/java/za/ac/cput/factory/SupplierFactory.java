@@ -19,11 +19,6 @@ public class SupplierFactory {
             return null;
         }
 
-        if (inventory == null) {
-            return null;
-        }
-
-
         return new Supplier.Builder()
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
@@ -31,5 +26,6 @@ public class SupplierFactory {
                 .build();
     }
 }
+
 
 

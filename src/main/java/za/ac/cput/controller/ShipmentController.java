@@ -8,6 +8,7 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.service.ShipmentService;
@@ -26,14 +27,18 @@ public class ShipmentController {
     }
 
     @PostMapping("/create")
-    public Shipment create(@RequestBody Shipment shipment) {
-        return shipmentService.create(shipment);
+    public ResponseEntity<Shipment> create(@RequestBody Shipment shipment) {
+        Shipment created = shipmentService.create(shipment);
+        return ResponseEntity.ok(created);
     }
 
+
     @GetMapping("/read/{shipmentId}")
-    public Shipment read(@PathVariable("shipmentId") Integer shipmentId) {
-        return shipmentService.read(shipmentId);
+    public ResponseEntity<Shipment> read(@PathVariable("shipmentId") Integer shipmentId) {
+        Shipment shipment = shipmentService.read(shipmentId);
+        return ResponseEntity.ok(shipment);
     }
+
 
     @PutMapping("/update")
     public Shipment update(@RequestBody Shipment shipment) {

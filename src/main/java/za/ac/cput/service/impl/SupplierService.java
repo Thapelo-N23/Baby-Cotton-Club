@@ -18,30 +18,30 @@ import java.util.List;
 @Service
 public class SupplierService implements ISupplierService {
 
-    private SupplierRepository repository;
+    private SupplierRepository supplierRepository;
 
     @Autowired
-    public SupplierService(SupplierRepository repository) {
-        this.repository = repository;
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
     }
 
     @Override
     public Supplier create(Supplier supplier) {
-        return this.repository.save(supplier);
+        return this.supplierRepository.save(supplier);
     }
 
     @Override
-    public Supplier read(String id) {
-        return this.repository.findById(Integer.valueOf(id)).orElse(null);
+    public Supplier read(Integer id) {
+        return this.supplierRepository.findById(id).orElse(null);
     }
 
     @Override
     public Supplier update(Supplier supplier) {
-        return this.repository.save(supplier);
+        return this.supplierRepository.save(supplier);
     }
 
     @Override
     public List<Supplier> getAll() {
-        return this.repository.findAll();
+        return this.supplierRepository.findAll();
     }
 }

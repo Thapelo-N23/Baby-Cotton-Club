@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.service.impl.SupplierService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/supplier")
 public class SupplierController {
@@ -31,7 +29,7 @@ public class SupplierController {
     }
 
     @GetMapping("/read/{id}")
-    public Supplier readSupplier(@PathVariable String id) {
+    public Supplier readSupplier(@PathVariable Integer id) {
         return service.read(id);
     }
 
@@ -41,7 +39,7 @@ public class SupplierController {
     }
 
     @GetMapping("/getall")
-    public List<Supplier> getAllSuppliers() {
+    public Iterable<Supplier> getAllSuppliers() {
         return service.getAll();
     }
 }

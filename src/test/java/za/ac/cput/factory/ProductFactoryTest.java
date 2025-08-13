@@ -7,32 +7,34 @@
 
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Product;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductFactoryTest {
-    private static Product p1 = ProductFactory.createProduct(
-            "Lancewood", "Yellow", (short) 50, "OUT OF STOCK"
-    );
-    private static Product p2 = ProductFactory.createProduct(
-            "Coke", "Red", (short) 500, "OUT OF STOCK"
-    );
+private static Product p1 = ProductFactory.createProduct( "Lancewood", "Yellow", (short) 588, "OUT OF STOCK");
+private static Product p2 = ProductFactory.createProduct("Coke", "Red",(short) 900, "OUT OF STOCK");
 
-    @Test
-
+@Test
+    @Order(1)
     public void testCreateProduct() {
-        assertNotNull(p1);
-        System.out.println(p1);
+    assertNotNull(p1);
+    System.out.println(p1);
     }
-
-    @Test
-
+@Test
+    @Order(2)
     public void testCreateProductWithAllAttributes() {
-        assertNotNull(p2);
-        System.out.println(p2);
+    assertNotNull(p2);
+    System.out.println(p2);
+    System.out.println(p1);
     }
-
-
+@Test
+    @Order(3)
+    public void testCreateProductThatFails() {
+    assertNotNull(p1);
+    System.out.println(p1);
+    }
 }
+

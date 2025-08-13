@@ -78,7 +78,7 @@ public class Discount {
                 ", discountValue='" + discountValue + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", orderLine=" + orderLine +
+                ", orderLineId=" + (orderLine != null ? orderLine.getOrderLineId() : "null") +
                 '}';
     }
 

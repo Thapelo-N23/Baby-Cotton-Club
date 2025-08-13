@@ -14,8 +14,8 @@ import jakarta.persistence.*;
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer supplierId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int supplierId;
 
     private String supplierName;
 
@@ -35,7 +35,7 @@ public class Supplier {
         this.inventory = builder.inventory;
     }
 
-    public Integer getSupplierId() {
+    public int getSupplierId() {
         return supplierId;
     }
 
@@ -62,12 +62,12 @@ public class Supplier {
     }
 
     public static class Builder {
-        private Integer supplierId;
+        private int supplierId;
         private String supplierName;
         private String contactDetails;
         private Inventory inventory;
 
-        public Builder setSupplierId(Integer supplierId) {
+        public Builder setSupplierId(int supplierId) {
             this.supplierId = supplierId;
             return this;
         }
