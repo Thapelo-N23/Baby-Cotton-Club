@@ -72,7 +72,7 @@ class OrderLineServiceTest {
                 OrderLineFactory.createOrderLine(
                         2,
                         50.00,
-                        (CustomerOrder) customerOrder,
+                        customerOrder,
                         product,
                         discount
                 )

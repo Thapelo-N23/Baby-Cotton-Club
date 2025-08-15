@@ -54,12 +54,14 @@ class PaymentServiceTest {
         List<OrderLine> orderLines = List.of(
                 OrderLineFactory.createOrderLine(2, 50.00)
         );
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
         customerOrder = orderService.create(
                 CustomerOrderFactory.createCustomerOrder(
                         "20250803",
                         100.00,
                         orderLines,
-                        customer
+                        customer,
+                        shipment
                 )
         );
         assertNotNull(customerOrder.getOrderId(), "Order ID should not be null");
