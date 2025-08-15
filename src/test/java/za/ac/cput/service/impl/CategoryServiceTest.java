@@ -1,3 +1,10 @@
+/*
+Category.java
+CategoryServiceTest class
+Author: Olwethu Nene(230277845)
+Date: 14 August 2025
+ */
+
 package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.MethodOrderer;
