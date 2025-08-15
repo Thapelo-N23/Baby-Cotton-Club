@@ -9,9 +9,11 @@ import org.springframework.http.*;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.OrderLine;
+import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.OrderLineFactory;
+import za.ac.cput.factory.ShipmentFactory;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -23,7 +25,7 @@ import static za.ac.cput.factory.CustomerFactoryTest.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CustomerCustomerOrderControllerTest {
+public class CustomerOrderControllerTest {
 
     private CustomerOrder customerOrder;
     private Customer customer;
@@ -55,12 +57,14 @@ public class CustomerCustomerOrderControllerTest {
                 Arrays.asList(customerOrder1),
                 Arrays.asList(review)
         );
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
         customerOrder = CustomerOrderFactory.createCustomerOrder(
                 LocalDate.now().toString(),
                 250.00,
                 orderLines,
-                customer
+                customer,
+                shipment
         );
 
         String url = getBaseUrl() + "/create";

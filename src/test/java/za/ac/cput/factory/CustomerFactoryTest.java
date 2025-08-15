@@ -1,10 +1,7 @@
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Address;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.CustomerOrder;
-import za.ac.cput.domain.Review;
+import za.ac.cput.domain.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,14 +30,14 @@ public class CustomerFactoryTest {
             "Gauteng",
             customer
     );
+    public static Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
-    //
-    // Create an order
     public static CustomerOrder customerOrder1 = CustomerOrderFactory.createCustomerOrder(
             "20250518",
             250.00,
             new java.util.ArrayList<>(),
-            customer
+            customer,
+            shipment
     );
 
 

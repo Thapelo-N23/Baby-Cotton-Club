@@ -9,9 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.OrderLine;
+import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.OrderLineFactory;
+import za.ac.cput.factory.ShipmentFactory;
 import za.ac.cput.service.ICustomerOrderService;
 import za.ac.cput.service.ICustomerService;
 
@@ -60,13 +62,15 @@ class CustomerOrderServiceTest {
 
         // Create order
         String orderDateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
         customerOrder = orderService.create(
                 CustomerOrderFactory.createCustomerOrder(
                         orderDateStr,
                         250.00,
                         orderLines,
-                        customer
+                        customer,
+                        shipment
                 )
         );
 

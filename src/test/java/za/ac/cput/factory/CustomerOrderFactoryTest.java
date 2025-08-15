@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.OrderLine;
+import za.ac.cput.domain.Shipment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static za.ac.cput.factory.CustomerFactoryTest.*;
 
-class CustomerCustomerOrderFactoryTest {
+class CustomerOrderFactoryTest {
 
     @Test
     void createCustomerOrder() {
@@ -32,12 +33,14 @@ class CustomerCustomerOrderFactoryTest {
                 Arrays.asList(review)
 
         );
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
         CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250518",
                 250.00,
                 orderLines,
-                customer
+                customer,
+                shipment
         );
 
         assertNotNull(customerOrder, "Order should not be null");
@@ -68,7 +71,8 @@ class CustomerCustomerOrderFactoryTest {
                 "20250729",
                 99.99,
                 orderLines,
-                customer
+                customer,
+                shipment
         );
 
         assertNotNull(customerOrder, "Order should not be null when customer is valid");
