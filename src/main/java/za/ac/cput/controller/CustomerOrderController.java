@@ -1,4 +1,3 @@
-
 /*
 Baby Cotton Club
 OrderController
@@ -14,7 +13,7 @@ import za.ac.cput.service.impl.CustomerOrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api/order")
 
 public class CustomerOrderController {
     private CustomerOrderService service;
