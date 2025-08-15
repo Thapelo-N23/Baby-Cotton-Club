@@ -22,6 +22,9 @@ public class CustomerOrder {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
     protected CustomerOrder() {}
 
     private CustomerOrder(Builder builder) {
@@ -30,6 +33,7 @@ public class CustomerOrder {
         this.totalAmount = builder.totalAmount;
         this.orderLines = builder.orderLines;
         this.customer = builder.customer;
+        this.shipment = builder.shipment;
     }
 
     public int getOrderId() {
@@ -52,6 +56,10 @@ public class CustomerOrder {
         return customer;
     }
 
+    public Shipment getShipment() {
+        return shipment;
+    }
+
     @Override
     public String toString() {
         return "CustomerOrder{" +
@@ -60,6 +68,7 @@ public class CustomerOrder {
                 ", totalAmount=" + totalAmount +
                 ", orderLines=" + (orderLines != null ? orderLines.size() + " lines" : "null") +
                 ", customerId=" + (customer != null ? customer.getCustomerId() : "null") +
+                ", shipmentId=" + (shipment != null ? shipment.getShipmentId() : "null") +
                 '}';
     }
     public static class Builder {
@@ -68,6 +77,7 @@ public class CustomerOrder {
         private double totalAmount;
         private List<OrderLine> orderLines;
         private Customer customer;
+        private Shipment shipment;
 
         public Builder setOrderId(int orderId) {
             this.orderId = orderId;
@@ -93,6 +103,10 @@ public class CustomerOrder {
             this.customer = customer;
             return this;
         }
+        public Builder setShipment(Shipment shipment) {
+            this.shipment = shipment;
+            return this;
+        }
 
         public Builder copy(CustomerOrder customerOrder) {
             this.orderId = customerOrder.orderId;
@@ -100,6 +114,7 @@ public class CustomerOrder {
             this.totalAmount = customerOrder.totalAmount;
             this.orderLines = customerOrder.orderLines;
             this.customer = customerOrder.customer;
+            this.shipment = customerOrder.shipment;
             return this;
         }
 
