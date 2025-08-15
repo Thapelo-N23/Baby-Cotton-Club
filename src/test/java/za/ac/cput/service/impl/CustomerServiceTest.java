@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static za.ac.cput.factory.CustomerFactoryTest.shipment;
+import static za.ac.cput.factory.PaymentFactoryTest.orderLines;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -85,8 +87,11 @@ class CustomerServiceTest {
         );
 
         order = CustomerOrderFactory.createCustomerOrder(
-                "20250518", 250.00, new java.util.ArrayList<>(), customer
-        );
+                "20250729",
+                99.99,
+                orderLines,
+                customer,
+                shipment);
 
         review = ReviewFactory.createReview(
                 (short) 4, "Great service!", "20250503", customer, null

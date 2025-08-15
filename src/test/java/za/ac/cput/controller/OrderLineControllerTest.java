@@ -46,6 +46,7 @@ class OrderLineControllerTest {
                 null,
                 null
         );
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
 
 
         customerOrder = CustomerOrderFactory.createCustomerOrder(
@@ -53,6 +54,7 @@ class OrderLineControllerTest {
                 250.00,
                 orderLines,
                 customer
+                , shipment
         );
 
 
