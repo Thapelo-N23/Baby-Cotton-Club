@@ -81,7 +81,6 @@ class OrderLineServiceTest {
         System.out.println("Created OrderLine: " + orderLine);
     }
 
-    @Transactional
     @Test
     void test2_read() {
         List<OrderLine> allOrderLines = service.getAll();
@@ -116,7 +115,7 @@ class OrderLineServiceTest {
         System.out.println("Updated OrderLine: " + updated);
     }
 
-    @Transactional
+
     @Test
    void test4_getAll() {
         assertNotNull(service.getAll());

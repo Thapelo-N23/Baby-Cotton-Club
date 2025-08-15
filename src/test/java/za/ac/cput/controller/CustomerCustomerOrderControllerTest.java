@@ -23,7 +23,7 @@ import static za.ac.cput.factory.CustomerFactoryTest.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CustomerCustomerOrderControllerTest {
+public class CustomerCustomerOrderControllerTest {
 
     private CustomerOrder customerOrder;
     private Customer customer;
@@ -40,7 +40,7 @@ class CustomerCustomerOrderControllerTest {
     }
 
     @BeforeAll
-    void setUp() {
+     void setUp() {
         orderLines = Arrays.asList(
                 OrderLineFactory.createOrderLine(2, 50.00),
                 OrderLineFactory.createOrderLine(1, 150.00)
@@ -73,13 +73,13 @@ class CustomerCustomerOrderControllerTest {
     }
 
     @Test
-    void a_create() {
+    public void a_create() {
         assertNotNull(customerOrder, "Order should have been created in setUp()");
         System.out.println("Created Order: " + customerOrder);
     }
 
     @Test
-    void b_read() {
+     void b_read() {
         String url = getBaseUrl() + "/read/" + customerOrder.getOrderId();
         ResponseEntity<CustomerOrder> response = restTemplate.getForEntity(url, CustomerOrder.class);
 
@@ -90,7 +90,7 @@ class CustomerCustomerOrderControllerTest {
     }
 
     @Test
-    void c_update() {
+     void c_update() {
         CustomerOrder updatedCustomerOrder = new CustomerOrder.Builder()
                 .copy(customerOrder)
                 .setTotalAmount(300.00)
@@ -110,7 +110,7 @@ class CustomerCustomerOrderControllerTest {
     }
 
     @Test
-    void d_getall() {
+     void d_getall() {
         String url = getBaseUrl() + "/getall";
         ResponseEntity<CustomerOrder[]> response = restTemplate.getForEntity(url, CustomerOrder[].class);
 
