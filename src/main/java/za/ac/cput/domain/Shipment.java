@@ -22,10 +22,9 @@ public class Shipment {
     private String shipmentStatus;
     private double shippingCost;
 
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-    private List<OrderLine> orderLines;
 
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> customerOrder;
 
     public Shipment() {}
@@ -35,7 +34,6 @@ public class Shipment {
         this.carrierName = builder.carrierName;
         this.shipmentStatus = builder.shipmentStatus;
         this.shippingCost = builder.shippingCost;
-        this.orderLines = builder.orderLines;
         this.customerOrder = builder.customerOrder;
     }
 
@@ -59,9 +57,7 @@ public class Shipment {
         return customerOrder;
     }
 
-    public List<OrderLine> getOrderLines() {
-        return orderLines;
-    }
+
 
     @Override
     public String toString() {
@@ -70,7 +66,6 @@ public class Shipment {
                 ", carrierName='" + carrierName + '\'' +
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
-                ", orderLines=" + orderLines +
                 ", customerOrder=" + customerOrder +
                 '}';
     }
@@ -81,7 +76,6 @@ public class Shipment {
         private String shipmentStatus;
         private double shippingCost;
         private List<CustomerOrder> customerOrder;
-        private List<OrderLine> orderLines;
 
         public Builder setShipmentId(int shipmentId) {
             this.shipmentId = shipmentId;
@@ -108,17 +102,13 @@ public class Shipment {
             return this;
         }
 
-        public Builder setOrderLines(List<OrderLine> orderLines) {
-            this.orderLines = orderLines;
-            return this;
-        }
+
 
         public Builder copy(Shipment shipment) {
             this.shipmentId = shipment.getShipmentId();
             this.carrierName = shipment.getCarrierName();
             this.shipmentStatus = shipment.getShipmentStatus();
             this.shippingCost = shipment.getShippingCost();
-            this.orderLines = shipment.getOrderLines();
             this.customerOrder = shipment.getCustomerOrder();
             return this;
         }

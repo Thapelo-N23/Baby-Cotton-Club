@@ -29,7 +29,6 @@ public class ShipmentFactory {
                 .setShipmentStatus(shipmentStatus)
                 .setShippingCost(shippingCost)
                 .setCustomerOrder(customerOrders)
-                .setOrderLines(orderLines)
                 .build();
 
     }

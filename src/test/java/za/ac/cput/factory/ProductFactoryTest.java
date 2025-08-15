@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductFactoryTest {
 private static Product p1 = ProductFactory.createProduct( "Lancewood", "Yellow", (short) 588, "OUT OF STOCK");
-private static Product p2 = ProductFactory.createProduct("Coke", "Red",(short) 900, "OUT OF STOCK");
+private static Product p2 = ProductFactory.createProduct("Coke", "Red",(short) 900, "IN-STOCK");
 
 @Test
     @Order(1)

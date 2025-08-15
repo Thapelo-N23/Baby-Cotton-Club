@@ -21,8 +21,9 @@ public class Product {
     protected short price;
     protected String inStock;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="product", fetch=FetchType.EAGER)
     private List<Review> reviews;
+
     @ManyToOne
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
@@ -39,7 +40,6 @@ public class Product {
         this.color = builder.color;
         this.price = builder.price;
         this.inStock = builder.inStock;
-        this.reviews = builder.reviews;
         this.shipment = builder.shipment;
         this.category = builder.category;
 
@@ -77,8 +77,6 @@ public class Product {
     public Category getCategory() {  return category; }
 
 
-
-
     @Override
     public String toString() {
         return "Product{" +
@@ -87,7 +85,9 @@ public class Product {
                 ", color='" + color + '\'' +
                 ", price=" + price +
                 ", inStock='" + inStock + '\'' +
-                ", shipmentId=" + (shipment != null ? shipment.getShipmentId() : "null") +
+                ", reviews=" + reviews +
+                ", shipment=" + shipment +
+                ", category=" + category +
                 '}';
     }
 
@@ -97,7 +97,6 @@ public class Product {
         private String color;
         private short price;
         private String inStock;
-        private List<Review> reviews;
         private Shipment shipment;
         private Category category;
 
@@ -106,18 +105,8 @@ public class Product {
             return this;
         }
 
-        public Builder setReviews(List<Review> reviews) {
-            this.reviews = reviews;
-            return this;
-        }
-
         public Builder setShipment(Shipment shipment) {
             this.shipment = shipment;
-            return this;
-        }
-
-        public Builder setProductId(int productId) {
-            this.productId = productId;
             return this;
         }
 
@@ -151,7 +140,6 @@ public class Product {
                     ", color='" + color + '\'' +
                     ", price=" + price +
                     ", inStock='" + inStock + '\'' +
-                    ", reviews=" + reviews +
                     ", shipment=" + shipment +
                     ", category=" + category +
                     '}';
@@ -163,7 +151,6 @@ public class Product {
             this.color = product.getColor();
             this.price = product.getPrice();
             this.inStock = product.getInStock();
-            this.reviews = product.getReviews();
             this.category = product.getCategory();
             return this;
         }
