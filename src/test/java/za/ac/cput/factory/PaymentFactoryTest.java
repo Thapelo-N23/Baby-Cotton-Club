@@ -32,7 +32,7 @@ public class PaymentFactoryTest {
             new ArrayList<>(),
             new ArrayList<>()
     );
-    private static final Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
+    private static final Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
     private static final CustomerOrder CUSTOMER_ORDER = (CustomerOrder) CustomerOrderFactory.createCustomerOrder(
             "20250722",
             100.00,

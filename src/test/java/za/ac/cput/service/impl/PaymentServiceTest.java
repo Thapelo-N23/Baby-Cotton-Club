@@ -54,7 +54,7 @@ class PaymentServiceTest {
         List<OrderLine> orderLines = List.of(
                 OrderLineFactory.createOrderLine(2, 50.00)
         );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
         customerOrder = orderService.create(
                 CustomerOrderFactory.createCustomerOrder(
                         "20250803",

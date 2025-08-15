@@ -57,7 +57,7 @@ public class CustomerOrderControllerTest {
                 Arrays.asList(customerOrder1),
                 Arrays.asList(review)
         );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
         customerOrder = CustomerOrderFactory.createCustomerOrder(
                 LocalDate.now().toString(),

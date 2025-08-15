@@ -62,7 +62,7 @@ class CustomerOrderServiceTest {
 
         // Create order
         String orderDateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23);
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
         customerOrder = orderService.create(
                 CustomerOrderFactory.createCustomerOrder(
