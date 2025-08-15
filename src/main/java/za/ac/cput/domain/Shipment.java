@@ -1,14 +1,6 @@
-/*
- * BabyCottonClub
- * Shipment.java
- * Author : Thapelo Ngwenya - 222260971
- * Date : 11 May 2025
- */
-
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -24,20 +16,16 @@ public class Shipment {
     private double shippingCost;
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-    private List<Product> products;
+    private List<CustomerOrder> customerOrder;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
-    private CustomerOrder customerOrder;
-
-    public Shipment() {
-    }
+    public Shipment() {}
 
     private Shipment(Builder builder) {
         this.shipmentId = builder.shipmentId;
         this.carrierName = builder.carrierName;
         this.shipmentStatus = builder.shipmentStatus;
         this.shippingCost = builder.shippingCost;
+        this.customerOrder = builder.customerOrder;
     }
 
     public int getShipmentId() {
@@ -56,13 +44,11 @@ public class Shipment {
         return shippingCost;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public CustomerOrder getOrder() {
+    public List<CustomerOrder> getCustomerOrder() {
         return customerOrder;
     }
+
+
 
     @Override
     public String toString() {
@@ -71,8 +57,7 @@ public class Shipment {
                 ", carrierName='" + carrierName + '\'' +
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
-                ", products=" + (products != null ? products.size() : 0) +
-                ", order=" + customerOrder +
+                ", customerOrder=" + customerOrder +
                 '}';
     }
 
@@ -81,6 +66,7 @@ public class Shipment {
         private String carrierName;
         private String shipmentStatus;
         private double shippingCost;
+        private List<CustomerOrder> customerOrder;
 
         public Builder setShipmentId(int shipmentId) {
             this.shipmentId = shipmentId;
@@ -102,11 +88,19 @@ public class Shipment {
             return this;
         }
 
+        public Builder setCustomerOrder(List<CustomerOrder> customerOrder) {
+            this.customerOrder = customerOrder;
+            return this;
+        }
+
+
+
         public Builder copy(Shipment shipment) {
             this.shipmentId = shipment.getShipmentId();
             this.carrierName = shipment.getCarrierName();
             this.shipmentStatus = shipment.getShipmentStatus();
             this.shippingCost = shipment.getShippingCost();
+            this.customerOrder = shipment.getCustomerOrder();
             return this;
         }
 
