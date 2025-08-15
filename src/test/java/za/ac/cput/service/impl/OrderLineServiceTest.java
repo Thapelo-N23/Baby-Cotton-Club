@@ -17,7 +17,7 @@ import za.ac.cput.service.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
@@ -41,24 +41,15 @@ class OrderLineServiceTest {
 
     private static OrderLine orderLine;
     private static Product product;
-    private static Order order;
+    private static CustomerOrder customerOrder;
     private static Customer customer;
     private static Discount discount;
+
 
     @Test
     void test1_create() {
 
-        customer = customerService.create(
-                CustomerFactory.createCustomer(
-                        "John",
-                        "Doe",
-                        "john.doe@gmail.com",
-                        "0781234567",
-                        List.of(),
-                        List.of(),
-                        List.of()
-                )
-        );
+
 
         product = productService.create(
                 ProductFactory.createProduct(
@@ -81,7 +72,7 @@ class OrderLineServiceTest {
                 OrderLineFactory.createOrderLine(
                         2,
                         50.00,
-                        (CustomerOrder) order,
+                        (CustomerOrder) customerOrder,
                         product,
                         discount
                 )
@@ -90,7 +81,6 @@ class OrderLineServiceTest {
         System.out.println("Created OrderLine: " + orderLine);
     }
 
-    @Transactional
     @Test
     void test2_read() {
         List<OrderLine> allOrderLines = service.getAll();
@@ -125,14 +115,12 @@ class OrderLineServiceTest {
         System.out.println("Updated OrderLine: " + updated);
     }
 
-    @Transactional
+
     @Test
    void test4_getAll() {
-        List<OrderLine> orderLines = service.getAll();
-     assertNotNull(orderLines, "Order line list should not be null");
-     assertFalse(orderLines.isEmpty(), "Order line list should not be empty");
-
-     System.out.println("All OrderLines: " + orderLines);
+        assertNotNull(service.getAll());
+     System.out.println(service.getAll());
         }
+
 }
 

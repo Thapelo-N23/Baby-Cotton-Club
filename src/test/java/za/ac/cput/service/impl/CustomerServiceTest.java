@@ -1,4 +1,4 @@
-/*
+
 package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.*;
@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
+import za.ac.cput.domain.CustomerOrder;
+
 import za.ac.cput.domain.Review;
 import za.ac.cput.factory.AddressFactory;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.OrderFactory;
+import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.ReviewFactory;
 import za.ac.cput.service.ICustomerService;
 
@@ -28,10 +29,11 @@ class CustomerServiceTest {
 
     private static Customer customer;
     private static Address address;
-    private static Order order;
+    private static CustomerOrder order;
     private static Review review;
 
     @Test
+    @Order(1)
     void create() {
         // Create base customer
         customer = CustomerFactory.createCustomer(
@@ -51,14 +53,18 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(2)
     void read() {
+
         Customer readCustomer = customerService.read(customer.getCustomerId());
         assertNotNull(readCustomer);
         System.out.println("Read Customer: " + readCustomer);
     }
 
     @Test
+    @Order(3)
     void update() {
+
         Customer updated = new Customer.Builder()
                 .copy(customer)
                 .setPhoneNumber("0712345678")
@@ -71,13 +77,14 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(4)
     void createCustomerWithRelationships() {
         // Create relationships
         address = AddressFactory.createAddress(
                 "Bush St", (short) 123, "Soweto", "Johannesburg", (short) 1634, "Gauteng", customer
         );
 
-        order = OrderFactory.createOrder(
+        order = CustomerOrderFactory.createCustomerOrder(
                 "20250518", 250.00, new java.util.ArrayList<>(), customer
         );
 
@@ -101,6 +108,7 @@ class CustomerServiceTest {
     }
 
     @Test
+    @Order(5)
     void getAll() {
         assertNotNull(customerService.getAll());
         System.out.println("All Customers: " + customerService.getAll());
@@ -108,4 +116,3 @@ class CustomerServiceTest {
 
 
 }
- */

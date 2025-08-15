@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "customerOrder")
 public class CustomerOrder {
 
     @Id
@@ -54,15 +54,14 @@ public class CustomerOrder {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "CustomerOrder{" +
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
                 ", orderLines=" + (orderLines != null ? orderLines.size() + " lines" : "null") +
-                ", customer=" + customer +
+                ", customerId=" + (customer != null ? customer.getCustomerId() : "null") +
                 '}';
     }
-
     public static class Builder {
         private int orderId;
         private LocalDate orderDate;
