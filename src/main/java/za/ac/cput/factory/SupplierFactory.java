@@ -10,6 +10,7 @@ import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
 
+
 public class SupplierFactory {
 
     public static Supplier createSupplier(String supplierName,
@@ -25,7 +26,6 @@ public class SupplierFactory {
                 .setInventory(inventory)
                 .build();
     }
+
 }
-
-
 
