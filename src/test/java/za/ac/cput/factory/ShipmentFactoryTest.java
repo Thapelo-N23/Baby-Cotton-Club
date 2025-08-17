@@ -22,7 +22,8 @@ class ShipmentFactoryTest {
             "20250518",
             250.00,
             null,
-            null
+            null,
+            new Shipment()
     );
 
     OrderLine orderLine = OrderLineFactory.createOrderLine(

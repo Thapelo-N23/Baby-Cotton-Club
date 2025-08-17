@@ -38,7 +38,8 @@ private CustomerOrder customerOrder;
           "20250518",
           250.00,
           null,
-          null
+          null,
+          shipment
   );
 
 shipment = ShipmentFactory.createShipment(

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Review;
 import za.ac.cput.factory.ProductFactory;
 
 import java.util.List;
@@ -19,17 +20,22 @@ class ProductServiceTest {
 
  @Autowired
  private ProductService service;
-
  private static Product product;
+ private static Review Review;
+
 
  @Test
  @Order(1)
  void a_create() {
+
+
+
   product = ProductFactory.createProduct(
           "Hermes",
           "Beige",
           (short) 90,
-          "Available"
+          "Available",
+          Review
   );
 
   Product created = service.create(product);

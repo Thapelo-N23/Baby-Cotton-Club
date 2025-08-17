@@ -77,10 +77,6 @@ public class Shipment {
         private double shippingCost;
         private List<CustomerOrder> customerOrder;
 
-        public Builder setShipmentId(int shipmentId) {
-            this.shipmentId = shipmentId;
-            return this;
-        }
 
         public Builder setCarrierName(String carrierName) {
             this.carrierName = carrierName;
