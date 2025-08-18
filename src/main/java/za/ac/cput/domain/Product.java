@@ -8,6 +8,8 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -21,11 +23,8 @@ public class Product {
     protected short price;
     protected String inStock;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
-    @ManyToOne
-    @JoinColumn(name = "shipment_id")
-    private Shipment shipment;
+    @OneToMany(mappedBy="product", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -39,9 +38,8 @@ public class Product {
         this.color = builder.color;
         this.price = builder.price;
         this.inStock = builder.inStock;
-        this.reviews = builder.reviews;
-        this.shipment = builder.shipment;
         this.category = builder.category;
+        this.reviews = builder.reviews;
 
 
     }
@@ -72,11 +70,7 @@ public class Product {
 
     public List<Review> getReviews() {  return reviews;}
 
-    public Shipment getShipment() { return shipment;}
-
     public Category getCategory() {  return category; }
-
-
 
 
     @Override
@@ -87,7 +81,8 @@ public class Product {
                 ", color='" + color + '\'' +
                 ", price=" + price +
                 ", inStock='" + inStock + '\'' +
-                ", shipmentId=" + (shipment != null ? shipment.getShipmentId() : "null") +
+                ", reviews=" + reviews +
+                ", category=" + category +
                 '}';
     }
 
@@ -97,27 +92,11 @@ public class Product {
         private String color;
         private short price;
         private String inStock;
-        private List<Review> reviews;
-        private Shipment shipment;
         private Category category;
+        private List<Review> reviews;
 
         public Builder setCategory(Category category) {
             this.category = category;
-            return this;
-        }
-
-        public Builder setReviews(List<Review> reviews) {
-            this.reviews = reviews;
-            return this;
-        }
-
-        public Builder setShipment(Shipment shipment) {
-            this.shipment = shipment;
-            return this;
-        }
-
-        public Builder setProductId(int productId) {
-            this.productId = productId;
             return this;
         }
 
@@ -142,6 +121,14 @@ public class Product {
             return this;
         }
 
+        public Builder setReview(Review review) {
+            if (review != null) {
+                this.reviews = Collections.singletonList(review);
+            } else {
+                this.reviews = new ArrayList<>();
+            }
+            return this;
+        }
 
         @Override
         public String toString() {
@@ -151,9 +138,8 @@ public class Product {
                     ", color='" + color + '\'' +
                     ", price=" + price +
                     ", inStock='" + inStock + '\'' +
-                    ", reviews=" + reviews +
-                    ", shipment=" + shipment +
                     ", category=" + category +
+                    ", reviews=" + reviews +
                     '}';
         }
 
@@ -163,8 +149,8 @@ public class Product {
             this.color = product.getColor();
             this.price = product.getPrice();
             this.inStock = product.getInStock();
-            this.reviews = product.getReviews();
             this.category = product.getCategory();
+            this.reviews = product.getReviews();
             return this;
         }
         public Product build() {

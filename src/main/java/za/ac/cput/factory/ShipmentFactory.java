@@ -17,10 +17,10 @@ import za.ac.cput.util.Helper;
 import java.util.List;
 
 public class ShipmentFactory {
-    public static Shipment createShipment(String carrierName, String shipmentStatus, double shippingCost, List<CustomerOrder> customerOrders ) {
+    public static Shipment createShipment(String carrierName, String shipmentStatus, double shippingCost, List<CustomerOrder> customerOrders , List<OrderLine>orderLines) {
         if (
                 Helper.isNullOrEmpty(carrierName) ||
-                        Helper.isNullOrEmpty(shipmentStatus)) {
+                Helper.isNullOrEmpty(shipmentStatus)) {
             return null;
         }
 
@@ -34,3 +34,4 @@ public class ShipmentFactory {
     }
 
 }
+//updated
