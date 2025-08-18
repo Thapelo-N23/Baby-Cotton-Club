@@ -1,10 +1,3 @@
-/*
-Baby Cotton Club
-OrderLineController
-Author: Tsireledzo Netshilonwe
-Student Number: 230666426
-Date: 2025/05/24
-*/
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +8,7 @@ import za.ac.cput.service.impl.OrderLineService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orderline")
+@RequestMapping("/api/orderline") // include leading /api for consistency
 public class OrderLineController {
 
     private final OrderLineService service;
@@ -31,7 +24,7 @@ public class OrderLineController {
     }
 
     @GetMapping("/read/{orderLineId}")
-    public OrderLine read(@PathVariable Integer orderLineId) {
+    public OrderLine read(@PathVariable("orderLineId") Integer orderLineId) {
         return service.read(orderLineId);
     }
 
