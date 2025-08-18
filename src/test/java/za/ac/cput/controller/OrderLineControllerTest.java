@@ -6,10 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import za.ac.cput.domain.*;
-import za.ac.cput.factory.*;
-
-import java.util.Arrays;
+import za.ac.cput.domain.OrderLine;
+import za.ac.cput.factory.OrderLineFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderLineControllerTest {
 
     private OrderLine orderLine;
-    private CustomerOrder customerOrder;
-    private Customer customer;
 
     @LocalServerPort
     private int port;
@@ -34,37 +30,13 @@ class OrderLineControllerTest {
 
     @BeforeAll
     void setUp() {
-
-        // Minimal customer
-        customer = CustomerFactory.createCustomer(
-                "John",
-                "Doe",
-                "john.doe@example.com",
-                "0781234567",
-                null,
-                null,
-                null
-        );
-
-        // Shipment
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23, null);
-
-        // CustomerOrder with empty orderLines (they will be added below)
-        customerOrder = CustomerOrderFactory.createCustomerOrder(
-                "20250518",
-                250.0,
-                Arrays.asList(),
-                customer,
-                shipment
-        );
-
-        // OrderLine linked to customerOrder
+        // Create minimal OrderLine without any relationships
         orderLine = OrderLineFactory.createOrderLine(
                 3,
                 100.0,
-                customerOrder,
-                null,
-                null
+                null,  // No CustomerOrder
+                null,  // No Product
+                null   // No other relationships
         );
 
         // POST to create orderLine
@@ -78,6 +50,7 @@ class OrderLineControllerTest {
         orderLine = response.getBody();
         assertNotNull(orderLine);
         assertNotNull(orderLine.getOrderLineId());
+        System.out.println("Created OrderLine (setup): " + orderLine);
     }
 
     @Test
@@ -137,5 +110,4 @@ class OrderLineControllerTest {
         assertTrue(response.getBody().length > 0);
         System.out.println("All OrderLines count: " + response.getBody().length);
     }
-
 }

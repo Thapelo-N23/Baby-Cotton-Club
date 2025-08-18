@@ -55,7 +55,7 @@ private static Product product;
         System.out.println("Created Customer" + create);
 
         product = ProductFactory.createProduct("Nike","Blue",
-                (short)67,"Yes");
+                (short)67,"Yes",null);
 
         Product create1 = productService.create(product);
         assertNotNull(create1);
