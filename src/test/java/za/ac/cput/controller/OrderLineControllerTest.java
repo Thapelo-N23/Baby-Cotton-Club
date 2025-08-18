@@ -10,10 +10,8 @@ import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static za.ac.cput.factory.PaymentFactoryTest.orderLines;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.MethodName.class)
@@ -37,6 +35,7 @@ class OrderLineControllerTest {
     @BeforeAll
     void setUp() {
 
+        // Minimal customer
         customer = CustomerFactory.createCustomer(
                 "John",
                 "Doe",
@@ -46,18 +45,20 @@ class OrderLineControllerTest {
                 null,
                 null
         );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
+        // Shipment
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23, null);
 
+        // CustomerOrder with empty orderLines (they will be added below)
         customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250518",
-                250.00,
-                orderLines,
-                customer
-                , shipment
+                250.0,
+                Arrays.asList(),
+                customer,
+                shipment
         );
 
-
+        // OrderLine linked to customerOrder
         orderLine = OrderLineFactory.createOrderLine(
                 3,
                 100.0,
@@ -66,12 +67,17 @@ class OrderLineControllerTest {
                 null
         );
 
+        // POST to create orderLine
+        ResponseEntity<OrderLine> response = restTemplate.postForEntity(
+                getBaseUrl() + "/create",
+                orderLine,
+                OrderLine.class
+        );
 
-        ResponseEntity<OrderLine> response = restTemplate.postForEntity(getBaseUrl() + "/create", orderLine, OrderLine.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         orderLine = response.getBody();
         assertNotNull(orderLine);
-        assertNotNull(orderLine.getOrderLineId());  // Assuming you have an ID field named orderLineId
+        assertNotNull(orderLine.getOrderLineId());
     }
 
     @Test
@@ -82,13 +88,14 @@ class OrderLineControllerTest {
 
     @Test
     void b_read() {
-        String url = getBaseUrl() + "/read/" + orderLine.getOrderLineId();
-        ResponseEntity<OrderLine> response = restTemplate.getForEntity(url, OrderLine.class);
+        ResponseEntity<OrderLine> response = restTemplate.getForEntity(
+                getBaseUrl() + "/read/" + orderLine.getOrderLineId(),
+                OrderLine.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(orderLine.getOrderLineId(), response.getBody().getOrderLineId());
-
         System.out.println("Read OrderLine: " + response.getBody());
     }
 
@@ -101,8 +108,13 @@ class OrderLineControllerTest {
                 .build();
 
         HttpEntity<OrderLine> request = new HttpEntity<>(updatedOrderLine);
-        String url = getBaseUrl() + "/update";
-        ResponseEntity<OrderLine> response = restTemplate.exchange(url, HttpMethod.PUT, request, OrderLine.class);
+
+        ResponseEntity<OrderLine> response = restTemplate.exchange(
+                getBaseUrl() + "/update",
+                HttpMethod.PUT,
+                request,
+                OrderLine.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
@@ -115,13 +127,15 @@ class OrderLineControllerTest {
 
     @Test
     void d_getAll() {
-        String url = getBaseUrl() + "/getAll";
-        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(url, OrderLine[].class);
+        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(
+                getBaseUrl() + "/getall",
+                OrderLine[].class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().length > 0);
-
         System.out.println("All OrderLines count: " + response.getBody().length);
     }
+
 }
