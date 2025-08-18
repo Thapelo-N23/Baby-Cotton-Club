@@ -29,8 +29,7 @@ public class AddressController {
         return service.create(address);
     }
     @GetMapping("/read/{id}")
-    public Address readAddress(@PathVariable Integer id) {
-
+    public Address readAddress(@PathVariable("id") Integer id) {
         return service.read(id);
     }
     @PutMapping("/update")

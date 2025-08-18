@@ -1,4 +1,4 @@
-/*
+
 package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
@@ -40,17 +40,6 @@ class AddressControllerTest {
 
     @BeforeAll
     void setUp() {
-        customer = CustomerFactory.createCustomer(
-                "Junior",
-                "Mengezi",
-                "junior@example.com",
-                "0711112222",
-                Collections.emptyList(),
-                Collections.emptyList(),
-                Collections.emptyList()
-        );
-
-        customer = customerRepository.save(customer);
 
         address = AddressFactory.createAddress(
                 "Main Street",
@@ -59,7 +48,7 @@ class AddressControllerTest {
                 "Klerksdorp",
                 (short) 2600,
                 "North West",
-                customer
+                null
         );
 
         String url = getBaseUrl() + "/create";
@@ -67,6 +56,8 @@ class AddressControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode(), "Failed to create address in setup");
         address = response.getBody();
         assertNotNull(address);
+        System.out.println("Test server running on: http://localhost:" + port);
+
     }
 
     @Test
@@ -118,4 +109,3 @@ class AddressControllerTest {
         System.out.println("All Addresses: " + response.getBody().length);
     }
 }
-*/
