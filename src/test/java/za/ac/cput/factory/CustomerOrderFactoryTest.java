@@ -33,7 +33,7 @@ class CustomerOrderFactoryTest {
                 Arrays.asList(review)
 
         );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null,null);
 
         CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250518",
