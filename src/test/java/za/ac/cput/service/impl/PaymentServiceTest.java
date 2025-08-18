@@ -13,6 +13,9 @@ import za.ac.cput.factory.*;
 import za.ac.cput.service.ICustomerOrderService;
 import za.ac.cput.service.ICustomerService;
 import za.ac.cput.service.IPaymentService;
+import org.junit.jupiter.api.*;
+import za.ac.cput.domain.*;
+import za.ac.cput.factory.*;
 
 import java.util.List;
 
@@ -38,10 +41,11 @@ class PaymentServiceTest {
     @Test
     @Order(1)
     void create() {
-
+        //  Create Customer
         customer = customerService.create(
                 CustomerFactory.createCustomer(
-                        "Phindile", "Ngozi",
+                        "Phindile",
+                        "Ngozi",
                         "phindile@gmail.com",
                         "0821234567",
                         List.of(),
@@ -51,21 +55,22 @@ class PaymentServiceTest {
         );
         assertNotNull(customer.getCustomerId(), "Customer ID should not be null");
 
+        // Create CustomerOrder linked to Customer
         List<OrderLine> orderLines = List.of(
                 OrderLineFactory.createOrderLine(2, 50.00)
         );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
         customerOrder = orderService.create(
                 CustomerOrderFactory.createCustomerOrder(
                         "20250803",
                         100.00,
                         orderLines,
-                        customer,
-                        shipment
+                        customer, // link customer
+                        null      // shipment can be null
                 )
         );
         assertNotNull(customerOrder.getOrderId(), "Order ID should not be null");
 
+        // Create Payment linked to CustomerOrder
         payment = paymentService.create(
                 PaymentFactory.createPayment(
                         "20250803",

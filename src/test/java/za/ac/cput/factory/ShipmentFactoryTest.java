@@ -17,13 +17,18 @@ import za.ac.cput.domain.Shipment;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static za.ac.cput.factory.CustomerFactoryTest.shipment;
-import static za.ac.cput.factory.PaymentFactoryTest.orderLines;
-
 class ShipmentFactoryTest {
     CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
-            "20250729",
-            99.99,
+            "20250518",
+            250.00,
+            null,
+            null,
+            new Shipment()
+    );
+
+    OrderLine orderLine = OrderLineFactory.createOrderLine(
+            5,
+            200.0,
             null,
             null,
             null
@@ -33,7 +38,8 @@ class ShipmentFactoryTest {
             "dhl",
             "enroute",
             679,
-            List.of(customerOrder)
+            List.of(customerOrder),
+            List.of(orderLine)
     );
 
     @Test
@@ -62,4 +68,3 @@ class ShipmentFactoryTest {
     @Disabled
     public void testNotImplementedYet() {}
 }
-

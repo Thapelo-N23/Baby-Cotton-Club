@@ -22,7 +22,7 @@ public class Supplier {
     private String contactDetails;
 
     @ManyToOne
-    @JoinColumn(name = "inventory_id", nullable = false)
+    @JoinColumn(name = "inventory_id")
     protected Inventory inventory;
 
     protected Supplier() {

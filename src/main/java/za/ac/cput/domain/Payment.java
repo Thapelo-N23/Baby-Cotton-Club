@@ -21,7 +21,7 @@ public class Payment {
     private String paymentMethod;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     private CustomerOrder customerOrder;
 
     protected Payment() {
@@ -29,6 +29,7 @@ public class Payment {
     }
 
     private Payment(Builder builder) {
+        this.paymentId = builder.paymentId;
         this.paymentDate = builder.paymentDate;
         this.paymentMethod = builder.paymentMethod;
         this.customerOrder = builder.customerOrder;
@@ -61,10 +62,15 @@ public class Payment {
     }
 
     public static class Builder {
+        private int paymentId;
         private LocalDate paymentDate;
         private String paymentMethod;
         private CustomerOrder customerOrder;
 
+        public Builder setPaymentId(int paymentId) {
+            this.paymentId = paymentId;
+            return this;
+        }
         public Builder setPaymentDate(LocalDate paymentDate) {
             this.paymentDate = paymentDate;
             return this;
@@ -81,6 +87,7 @@ public class Payment {
         }
 
         public Builder copy(Payment payment) {
+            this.paymentId = payment.getPaymentId();
             this.paymentDate = payment.getPaymentDate();
             this.paymentMethod = payment.getPaymentMethod();
             this.customerOrder = payment.getOrder();

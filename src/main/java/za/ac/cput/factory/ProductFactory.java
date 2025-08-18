@@ -8,10 +8,11 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Review;
 import za.ac.cput.util.Helper;
 
 public class ProductFactory {
-    public static Product createProduct(String productName, String color, short price, String inStock) {
+    public static Product createProduct(String productName, String color, short price, String inStock, Review review) {
         if (Helper.isNullOrEmpty(productName) ||
                 Helper.isNullOrEmpty(color) ||
                 !Helper.isValidPrice(price) ||
@@ -24,10 +25,12 @@ public class ProductFactory {
                 .setColor(color)
                 .setPrice(price)
                 .setInStock(inStock)
+                .setReview(review) // safely handled by builder
                 .build();
     }
-
 }
+
+
 //updated
 
 

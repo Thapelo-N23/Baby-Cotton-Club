@@ -1,3 +1,10 @@
+/*
+ * BabyCottonClub
+ * Shipment.java
+ * Author : Thapelo Ngwenya - 222260971
+ * Date : 11 May 2025
+ */
+
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
@@ -15,7 +22,9 @@ public class Shipment {
     private String shipmentStatus;
     private double shippingCost;
 
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+
+
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> customerOrder;
 
     public Shipment() {}
@@ -68,10 +77,6 @@ public class Shipment {
         private double shippingCost;
         private List<CustomerOrder> customerOrder;
 
-        public Builder setShipmentId(int shipmentId) {
-            this.shipmentId = shipmentId;
-            return this;
-        }
 
         public Builder setCarrierName(String carrierName) {
             this.carrierName = carrierName;
