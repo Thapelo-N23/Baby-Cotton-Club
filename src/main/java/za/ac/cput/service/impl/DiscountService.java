@@ -39,15 +39,6 @@ public class DiscountService implements IDiscountService {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public List<Discount> getAll() {
         return repository.findAll();
     }
