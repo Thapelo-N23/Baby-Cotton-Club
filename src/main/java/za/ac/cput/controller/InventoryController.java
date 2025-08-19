@@ -28,18 +28,13 @@ public class InventoryController {
     }
 
     @GetMapping("/read/{id}")
-    public Inventory readInventory(@PathVariable String id) {
+    public Inventory readInventory(@PathVariable Integer id) {
         return service.read(id);
     }
 
     @PutMapping("/update")
     public Inventory updateInventory(@RequestBody Inventory inventory) {
         return service.update(inventory);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteInventory(@PathVariable String id) {
-        return service.delete(id);
     }
 
     @GetMapping("/getall")
