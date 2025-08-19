@@ -1,4 +1,4 @@
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Review;
 import za.ac.cput.factory.ProductFactory;
+import za.ac.cput.service.ProductService;
 
 import java.util.List;
 
