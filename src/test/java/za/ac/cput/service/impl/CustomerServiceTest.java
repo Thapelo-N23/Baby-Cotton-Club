@@ -91,7 +91,7 @@ class CustomerServiceTest {
                 99.99,
                 orderLines,
                 customer,
-                shipment);
+                null);
 
         review = ReviewFactory.createReview(
                 (short) 4, "Great service!", "20250503", customer, null
