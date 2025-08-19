@@ -60,8 +60,8 @@ public class Helper {
         return reviewId != null && reviewId > 0;
     }
 
-    public static boolean isValidId(int inventoryId) {
-        return false;
+    public static boolean isValidInventoryId(Integer inventoryId) {
+        return inventoryId != null && inventoryId > 0;
     }
 
     public static boolean isValidAmount(double amount) {
@@ -82,6 +82,5 @@ public class Helper {
     public static boolean isValidShipmentId(Long id) {
         return id != null && id > 0;
     }
-
 
 }
