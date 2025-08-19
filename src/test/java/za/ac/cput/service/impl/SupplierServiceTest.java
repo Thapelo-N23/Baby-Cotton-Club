@@ -43,7 +43,8 @@ class SupplierServiceTest {
                 "Baby Blanket",
                 "Pink",
                 (short) 199,
-                "true"
+                "true",
+                null
         );
         assertNotNull(product, "ProductFactory returned null");
         product = productService.create(product);

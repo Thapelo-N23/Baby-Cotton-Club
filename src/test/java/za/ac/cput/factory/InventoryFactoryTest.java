@@ -20,7 +20,9 @@ class InventoryFactoryTest {
                 "Organic Cotton Onesie",
                 "White with blue stars",
                 (short) 5,
-                "Yes"
+                "Yes",
+                null
+
         );
 
         Supplier supplier = SupplierFactory.createSupplier(
@@ -51,7 +53,9 @@ class InventoryFactoryTest {
                 "Baby Booties",
                 "Soft pink with bows",
                 (short) 4,
-                "Yes"
+                "Yes",
+                null
+
         );
 
         Supplier supplier = SupplierFactory.createSupplier(
@@ -82,7 +86,8 @@ class InventoryFactoryTest {
                 "Organic Cotton Onesie",
                 "White with blue stars",
                 (short) 5,
-                "Yes"
+                "Yes",
+                null
         );
 
         Supplier supplier = SupplierFactory.createSupplier(
@@ -107,7 +112,8 @@ class InventoryFactoryTest {
                 "Organic Cotton Onesie",
                 "White with blue stars",
                 (short) 5,
-                "Yes"
+                "Yes",
+                null
         );
 
         Inventory invalid = InventoryFactory.createInventory(

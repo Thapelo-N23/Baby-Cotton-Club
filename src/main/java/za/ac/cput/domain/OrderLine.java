@@ -8,6 +8,7 @@ Date: 2025/05/10
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,7 @@ public class OrderLine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     protected CustomerOrder customerOrder;
     @ManyToOne
     @JoinColumn(name = "product_id")

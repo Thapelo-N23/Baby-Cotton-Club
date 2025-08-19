@@ -1,10 +1,13 @@
 /*
- * InventoryService POJO Class
- * Author: Onako Ntsaluba (230741754)
- * Date: 2025/05/25
+InventoryService POJO Class
+Author: Onako Ntsaluba
+Student Number: 230741754
+Date: 2025/05/25
  */
+
 package za.ac.cput.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Inventory;
@@ -15,39 +18,36 @@ import java.util.List;
 
 @Service
 public class InventoryService implements IInventoryService {
-    private InventoryRepository repository;
+
+    private InventoryRepository inventoryRepository;
 
     @Autowired
-    public InventoryService(InventoryRepository repository) {
-        this.repository = repository;
+    public InventoryService(InventoryRepository inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
     }
 
     @Override
     public Inventory create(Inventory inventory) {
-        return repository.save(inventory);
+        return this.inventoryRepository.save(inventory);
     }
 
+    @Transactional
     @Override
-    public Inventory read(String id) {
-        return repository.findById(id).orElse(null);
+    public Inventory read(Integer id) {
+        Inventory inventory = this.inventoryRepository.findById(id).orElse(null);
+        if (inventory != null) {
+            inventory.getSupplier().size(); // force initialization of suppliers
+        }
+        return inventory;
     }
 
     @Override
     public Inventory update(Inventory inventory) {
-        return repository.save(inventory);
-    }
-
-    @Override
-    public boolean delete(String id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+        return this.inventoryRepository.save(inventory);
     }
 
     @Override
     public List<Inventory> getAll() {
-        return repository.findAll();
+        return this.inventoryRepository.findAll();
     }
 }
