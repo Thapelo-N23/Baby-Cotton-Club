@@ -94,8 +94,6 @@ class CustomerOrderServiceTest {
     @Order(3)
     void update() {
         CustomerOrder updatedOrder = new CustomerOrder.Builder()
-                .copy(customerOrder)
-                .setTotalAmount(300.00)
                 .build();
 
         CustomerOrder updated = customerOrderService.update(updatedOrder);
