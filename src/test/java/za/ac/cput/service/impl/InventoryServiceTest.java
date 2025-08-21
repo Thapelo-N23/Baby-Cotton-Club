@@ -51,7 +51,7 @@ class InventoryServiceTest {
 
         // Create Product
         product = ProductFactory.createProduct("Nike","Blue",
-                (short)67,"Yes");
+                (short)67,"Yes",null);
 
         // Create Inventory
         inventory = InventoryFactory.createInventory(

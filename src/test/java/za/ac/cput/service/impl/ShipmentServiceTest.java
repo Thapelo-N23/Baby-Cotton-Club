@@ -1,5 +1,5 @@
 
-package za.ac.cput.service;
+package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -8,13 +8,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.CustomerOrder;
-import za.ac.cput.domain.OrderLine;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.ShipmentFactory;
-
-import java.util.Collections;
-import java.util.List;
+import za.ac.cput.service.ShipmentService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

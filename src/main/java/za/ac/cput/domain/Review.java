@@ -74,8 +74,8 @@ public class Review {
                 ", rating=" + rating +
                 ", reviewComment='" + reviewComment + '\'' +
                 ", reviewDate=" + reviewDate +
-                ", customer=" + customer +
-                ", product=" + product +
+                ", customer=" + (customer != null ? customer.getCustomerId() : "null") +
+                ", product=" + (product != null ? product.getProductId() : "null") +
                 '}';
     }
 
