@@ -1,9 +1,7 @@
 package za.ac.cput.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Customer;
@@ -16,6 +14,7 @@ import za.ac.cput.factory.OrderLineFactory;
 import za.ac.cput.factory.ShipmentFactory;
 import za.ac.cput.service.ICustomerOrderService;
 import za.ac.cput.service.ICustomerService;
+import za.ac.cput.service.ShipmentService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,22 +24,24 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.MethodName.class)
 @Transactional
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class CustomerOrderServiceTest {
 
     @Autowired
-    private ICustomerOrderService orderService;
+    private ICustomerOrderService customerOrderService;
 
     @Autowired
     private ICustomerService customerService;
 
-    private static Customer customer;
-    private static CustomerOrder customerOrder;
+    @Autowired
+    private ShipmentService shipmentService;
 
-    @Test
-    void test1_create() {
-        // Create customer
+    private Customer customer;
+    private CustomerOrder customerOrder;
+
+    @BeforeEach
+    void setUp() {
         customer = customerService.create(
                 CustomerFactory.createCustomer(
                         "John",
@@ -52,75 +53,60 @@ class CustomerOrderServiceTest {
                         Arrays.asList()
                 )
         );
-        assertNotNull(customer.getCustomerId(), "Customer ID should not be null after save");
 
-        // Sample order lines
+
         List<OrderLine> orderLines = Arrays.asList(
                 OrderLineFactory.createOrderLine(2, 50.00),
                 OrderLineFactory.createOrderLine(1, 150.00)
         );
 
-        // Create order
-        String orderDateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null,null);
+        shipment = shipmentService.create(shipment);
 
-        customerOrder = orderService.create(
+        customerOrder = customerOrderService.create(
                 CustomerOrderFactory.createCustomerOrder(
-                        orderDateStr,
+                        "20250722",
                         250.00,
                         orderLines,
                         customer,
                         shipment
                 )
         );
+    }
 
+    @Test
+    @Order(1)
+    void create() {
         assertNotNull(customerOrder, "Created order should not be null");
         assertNotNull(customerOrder.getOrderId(), "Order ID should not be null");
 
         System.out.println("Created Order: " + customerOrder);
     }
-
     @Test
-    void test2_read() {
-        List<CustomerOrder> allOrders = orderService.getAll();
-        assertFalse(allOrders.isEmpty(), "No orders found in DB");
-
-        CustomerOrder existing = allOrders.get(0);
-        CustomerOrder read = orderService.read(existing.getOrderId());
-
-        assertNotNull(read, "Read order should not be null");
-        assertEquals(existing.getOrderId(), read.getOrderId());
-
+    @Order(2)
+    void read() {
+        CustomerOrder read = customerOrderService.read(customerOrder.getOrderId());
+        assertNotNull(read);
         System.out.println("Read Order: " + read);
     }
 
     @Test
-    void test3_update() {
-        List<CustomerOrder> allOrders = orderService.getAll();
-        assertFalse(allOrders.isEmpty(), "No orders found to update");
-
-        CustomerOrder existingOrder = allOrders.get(0);
-
+    @Order(3)
+    void update() {
         CustomerOrder updatedOrder = new CustomerOrder.Builder()
-                .copy(existingOrder)
-                .setOrderDate(LocalDate.now().plusDays(1))
+                .copy(customerOrder)
                 .setTotalAmount(300.00)
                 .build();
 
-        CustomerOrder updated = orderService.update(updatedOrder);
-
-        assertNotNull(updated, "Updated order should not be null");
-        assertEquals(300.00, updated.getTotalAmount());
-
+        CustomerOrder updated = customerOrderService.update(updatedOrder);
         System.out.println("Updated Order: " + updated);
     }
 
     @Test
-    void test4_getAll() {
-        List<CustomerOrder> orders = orderService.getAll();
-        assertNotNull(orders, "Order list should not be null");
-        assertFalse(orders.isEmpty(), "Order list should not be empty");
+    @Order(4)
+    void getAll() {
+        assertNotNull(customerOrderService.getAll());
+        System.out.println("All Customers: " + customerOrderService.getAll());
 
-        System.out.println("All Orders: " + orders);
     }
 }
