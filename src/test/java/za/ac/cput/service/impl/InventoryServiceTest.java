@@ -1,6 +1,6 @@
-
 package za.ac.cput.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes =Main.class)
+@SpringBootTest(classes = Main.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class InventoryServiceTest {
 
@@ -42,60 +42,64 @@ class InventoryServiceTest {
     @Test
     @Order(1)
     void create() {
+        // Create and persist Product
+        product = ProductFactory.createProduct("Nike", "Blue", (short) 67, "Yes", null);
+        product = productService.create(product);
 
-        Supplier supplier = SupplierFactory.createSupplier(
-                "SnuggleBabies Clothing Co.",
-                "0211234580",
-                inventory
-        );
+        // Create and persist Inventory
+        inventory = InventoryFactory.createInventory("20250816", "30 onesies", null, product);
+        inventory = service.create(inventory);
 
-        // Create Product
-        product = ProductFactory.createProduct("Nike","Blue",
-                (short)67,"Yes",null);
+        // Create and persist Supplier
+        supplier = SupplierFactory.createSupplier("SnuggleBabies Clothing Co.", "0211234580", inventory);
+        supplier = supplierService.create(supplier);
 
-        // Create Inventory
-        inventory = InventoryFactory.createInventory(
-                "20250816",
-                "30 onesies",
-                null,
-                product
-        );
-
+        assertNotNull(inventory.getInventoryId());
         System.out.println("Created Inventory: " + inventory);
     }
 
     @Test
     @Order(2)
+    @Transactional
     void read() {
-        List<Inventory> allInventories = service.getAll();
-        assertFalse(allInventories.isEmpty(), "No inventories found in DB");
-
-        Inventory existing = allInventories.get(0);
-        Inventory read = service.read(existing.getInventoryId());
-
+        Inventory read = service.read(inventory.getInventoryId());
         assertNotNull(read);
-        assertEquals(existing.getInventoryId(), read.getInventoryId());
+        assertEquals(inventory.getInventoryId(), read.getInventoryId());
 
-        System.out.println("Read Inventory: " + read); }
+        // within transaction, lazy product can be accessed safely
+        System.out.println("Read Inventory: " + read.getProduct());
+    }
+
 
     @Test
     @Order(3)
     void update() {
+        assertNotNull(inventory, "Inventory should exist from create test");
+
         Inventory updatedInventory = new Inventory.Builder()
                 .copy(inventory)
-                .setStockAdded("30 onesies")
+                .setStockAdded("50 onesies") // changed value
                 .build();
 
-
         Inventory updated = service.update(updatedInventory);
+
         assertNotNull(updated);
+        assertEquals("50 onesies", updated.getStockAdded(), "StockAdded should be updated");
+
+        // refresh static inventory reference
+        inventory = updated;
+
         System.out.println("Updated Inventory: " + updated);
     }
 
     @Test
     @Order(4)
     void getAll() {
-        assertNotNull(service.getAll());
-        System.out.println("All Inventories: " + inventory);
+        List<Inventory> allInventories = service.getAll();
+
+        assertNotNull(allInventories);
+        assertFalse(allInventories.isEmpty(), "Inventory list should not be empty");
+
+        System.out.println(" All Inventories: " + allInventories);
     }
 }

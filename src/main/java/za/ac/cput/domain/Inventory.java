@@ -22,11 +22,11 @@ public class Inventory {
     private LocalDate receivedDate;
     private String stockAdded;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Supplier> suppliers;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @ManyToOne(fetch = FetchType.EAGER) // don't re-persist Product
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     protected Inventory() {
