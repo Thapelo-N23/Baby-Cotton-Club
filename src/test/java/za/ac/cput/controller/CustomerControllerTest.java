@@ -1,4 +1,4 @@
-/*
+
 package za.ac.cput.controller;
 
 
@@ -14,7 +14,6 @@ import za.ac.cput.factory.CustomerFactory;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -42,6 +41,8 @@ public class CustomerControllerTest {
                 Collections.emptyList(),
                 Collections.emptyList(),
                 Collections.emptyList()
+
+
         );
 
         String url = getBaseUrl() + "/create";
@@ -99,4 +100,3 @@ public class CustomerControllerTest {
         System.out.println("All Customers: " + response.getBody().length);
     }
 }
-*/
