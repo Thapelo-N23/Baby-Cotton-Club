@@ -1,4 +1,3 @@
-/*
 package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
@@ -6,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import za.ac.cput.domain.Category;
-import za.ac.cput.factory.CategoryFactory;
-import za.ac.cput.repository.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,32 +23,34 @@ class CategoryControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
     private String getBaseUrl() {
         return "http://localhost:" + port + "/category";
     }
-        @BeforeAll
-    void setUp() {
-        category = CategoryFactory.createCategory("Clothes");
-        category = categoryRepository.save(category);
 
-            String url = getBaseUrl() + "/create";
-            ResponseEntity<Category> response = restTemplate.postForEntity(url, category, Category.class);
-            assertEquals(HttpStatus.OK, response.getStatusCode(), "Failed to create a category");
-            category = response.getBody();
+    @BeforeAll
+    void setUp() {
+        Category requestCategory = new Category.Builder()
+                .setCategoryName("Clothes")
+                .build();
+
+        String url = getBaseUrl() + "/create";
+        ResponseEntity<Category> response = restTemplate.postForEntity(url, requestCategory, Category.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Failed to create a category");
+        category = response.getBody();
+        assertNotNull(category);
+        System.out.println("Test server running on: http://localhost:" + port);
     }
 
     @Test
-    void createCategory() {
+    void a_createCategory() {
         assertNotNull(category);
-        assertNotNull(category.getCategoryId());
+        assertTrue(category.getCategoryId() > 0);
         System.out.println("Category created: " + category);
     }
 
     @Test
-    void readCategory() {
+    void b_readCategory() {
         String url = getBaseUrl() + "/read/" + category.getCategoryId();
         ResponseEntity<Category> response = restTemplate.getForEntity(url, Category.class);
 
@@ -63,26 +59,28 @@ class CategoryControllerTest {
         assertEquals(category.getCategoryId(), response.getBody().getCategoryId());
         System.out.println("Read Category: " + response.getBody());
     }
-@Test
-    void updateCategory() {
-       Category updated = new Category.Builder()
+
+    @Test
+    void c_updateCategory() {
+        Category updated = new Category.Builder()
                 .copy(category)
                 .setCategoryName("Updated Clothes")
                 .build();
 
-    HttpEntity<Category> request = new HttpEntity<>(updated);
-    String url = getBaseUrl() + "/update";
-    ResponseEntity<Category> response = restTemplate.exchange(url, HttpMethod.PUT, request, Category.class);
+        HttpEntity<Category> request = new HttpEntity<>(updated);
+        String url = getBaseUrl() + "/update";
+        ResponseEntity<Category> response = restTemplate.exchange(url, HttpMethod.PUT, request, Category.class);
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertNotNull(response.getBody());
-    assertEquals("Updated Name", response.getBody().getCategoryName());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("Updated Clothes", response.getBody().getCategoryName());
 
-    category = response.getBody(); // update reference
-    System.out.println("Updated Category: " + category);
+        category = response.getBody();
+        System.out.println("Updated Category: " + category);
     }
+
     @Test
-    void getAllCategories() {
+    void d_getAllCategories() {
         String url = getBaseUrl() + "/getall";
         ResponseEntity<Category[]> response = restTemplate.getForEntity(url, Category[].class);
 
@@ -92,4 +90,3 @@ class CategoryControllerTest {
         System.out.println("All Categories: " + response.getBody().length);
     }
 }
-*/
