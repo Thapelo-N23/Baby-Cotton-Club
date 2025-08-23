@@ -26,6 +26,7 @@ public class Discount {
 
 
     @OneToOne(mappedBy = "discount")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"discount"})
     private OrderLine orderLine;
 
     public Discount() {

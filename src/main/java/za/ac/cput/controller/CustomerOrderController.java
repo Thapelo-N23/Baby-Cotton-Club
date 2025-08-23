@@ -38,7 +38,7 @@ public class CustomerOrderController {
         return service.update(customerOrder);
     }
 
-    @GetMapping("/get all")
+    @GetMapping("/getall")
     public List<CustomerOrder> getAllOrders() {
         return service.getAll();
     }

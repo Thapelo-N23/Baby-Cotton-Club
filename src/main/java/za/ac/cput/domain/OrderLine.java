@@ -30,6 +30,7 @@ public class OrderLine {
     @JoinColumn(name = "product_id")
     protected Product product;
     @OneToOne
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"orderLine"})
     @JoinColumn(name = "discount_id")
     protected Discount discount;
 

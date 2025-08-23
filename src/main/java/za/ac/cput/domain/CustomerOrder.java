@@ -22,6 +22,7 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"orders"})
     private Customer customer;
 
     @ManyToOne
@@ -125,4 +126,3 @@ public class CustomerOrder {
         }
     }
 }
-
