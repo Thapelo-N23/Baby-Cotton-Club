@@ -9,6 +9,8 @@ import org.springframework.http.*;
 import za.ac.cput.domain.OrderLine;
 import za.ac.cput.factory.OrderLineFactory;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -107,7 +109,8 @@ class OrderLineControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().length > 0);
-        System.out.println("All OrderLines count: " + response.getBody().length);
+        assertTrue(response.getBody().length > 0, "No OrderLines found");
+        System.out.println("All OrderLines: " + Arrays.toString(response.getBody()));
     }
+
 }

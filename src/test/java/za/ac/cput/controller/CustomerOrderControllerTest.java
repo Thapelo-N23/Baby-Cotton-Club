@@ -100,13 +100,14 @@ public class CustomerOrderControllerTest {
 
     @Test
     void d_getAll() {
-        String url = getBaseUrl() + "/get all";
+        String url = getBaseUrl() + "/getall";
         ResponseEntity<CustomerOrder[]> response = restTemplate.getForEntity(url, CustomerOrder[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().length > 0, "No customer orders found");
-        System.out.println("All CustomerOrders: " + Arrays.toString(response.getBody()));
-    }
+        assertTrue(response.getBody().length > 0);
+        System.out.println("All CustomerOrders count: " + response.getBody().length);
 
+
+    }
 }
