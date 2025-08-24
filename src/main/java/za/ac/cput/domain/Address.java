@@ -7,6 +7,7 @@
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,6 +27,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
 
     protected Address() {}
