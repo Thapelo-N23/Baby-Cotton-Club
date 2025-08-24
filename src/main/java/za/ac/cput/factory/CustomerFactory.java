@@ -26,28 +26,17 @@ public class CustomerFactory {
 
         if (!Helper.isValidEmail(email)) {
             return null;
+
         }
-        if (addresses == null) {
-            return null;
-        }
-        if (customerOrders == null ) {
-            return null;
-        }
-        if (reviews == null) {
-            return null;
+            return new Customer.Builder()
+                    .setFirstName(firstName)
+                    .setLastName(lastName)
+                    .setEmail(email)
+                    .setPhoneNumber(phoneNumber)
+                    .setAddresses(addresses)
+                    .setOrders(customerOrders)
+                    .setReviews(reviews)
+                    .build();
         }
 
-        return new Customer.Builder()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setPhoneNumber(phoneNumber)
-                .setAddresses(addresses)
-                .setOrders(customerOrders)
-                .setReviews(reviews)
-                .build();
     }
-
-}
-
-
