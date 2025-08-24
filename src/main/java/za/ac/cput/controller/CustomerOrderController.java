@@ -14,7 +14,7 @@ import za.ac.cput.service.impl.CustomerOrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order")  // ✅ matches test base URL
+@RequestMapping("/api/order")
 public class CustomerOrderController {
 
     private final CustomerOrderService service;
@@ -28,8 +28,8 @@ public class CustomerOrderController {
         return service.create(customerOrder);
     }
 
-    @GetMapping("/read/{orderId}")  // ✅ fixed path variable name
-    public CustomerOrder read(@PathVariable Integer orderId) {
+    @GetMapping("/read/{orderId}")
+    public CustomerOrder read(@PathVariable ("orderId")Integer orderId) {
         return service.read(orderId);
     }
 

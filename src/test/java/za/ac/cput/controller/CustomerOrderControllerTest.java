@@ -7,7 +7,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import za.ac.cput.domain.CustomerOrder;
+import za.ac.cput.domain.Review;
 import za.ac.cput.factory.CustomerOrderFactory;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -97,14 +100,14 @@ public class CustomerOrderControllerTest {
 
     @Test
     void d_getAll() {
-        ResponseEntity<CustomerOrder[]> response = restTemplate.getForEntity(
-                getBaseUrl() + "/getall",
-                CustomerOrder[].class
-        );
+        String url = getBaseUrl() + "/getall";
+        ResponseEntity<CustomerOrder[]> response = restTemplate.getForEntity(url, CustomerOrder[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().length > 0);
         System.out.println("All CustomerOrders count: " + response.getBody().length);
+
+
     }
 }

@@ -16,12 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
-
-    private PaymentService service;
+    private final PaymentService service;
 
     @Autowired
-    public PaymentController(PaymentService service) {
-        this.service = service;
+    public PaymentController(PaymentService paymentService) {
+        this.service = paymentService;
     }
 
     @PostMapping("/create")
@@ -30,7 +29,7 @@ public class PaymentController {
     }
 
     @GetMapping("/read/{id}")
-    public Payment readPayment(@PathVariable Integer id) {
+    public Payment readPayment(@PathVariable("id") Integer id) {
         return service.read(id);
     }
 

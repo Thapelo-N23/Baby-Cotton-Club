@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/review")
 public class ReviewController {
-    private ReviewService service;
+    private final ReviewService service;
 
     @Autowired
     public ReviewController(ReviewService reviewService){
@@ -27,8 +27,8 @@ public class ReviewController {
     public Review createReview(@RequestBody Review review){
         return service.create(review);
     }
-    @GetMapping("/read")
-    public Review readReview(@PathVariable Integer id){
+    @GetMapping("/read/{id}")
+    public Review readReview(@PathVariable ("id") Integer id){
         return service.read(id);
 
     }

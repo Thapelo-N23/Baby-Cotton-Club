@@ -24,7 +24,9 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+
     @JsonBackReference
+
     private Customer customer;
 
     @ManyToOne
@@ -128,4 +130,3 @@ public class CustomerOrder {
         }
     }
 }
-
