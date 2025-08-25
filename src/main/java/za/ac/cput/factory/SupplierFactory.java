@@ -16,7 +16,7 @@ public class SupplierFactory {
     public static Supplier createSupplier(String supplierName,
                                           String contactDetails,
                                           Inventory inventory) {
-        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails) || inventory == null) {
+        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails)) {
             return null;
         }
 

@@ -7,6 +7,7 @@ Date: 21 July 2025
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     protected Customer customer;
 
     @ManyToOne
@@ -74,8 +76,8 @@ public class Review {
                 ", rating=" + rating +
                 ", reviewComment='" + reviewComment + '\'' +
                 ", reviewDate=" + reviewDate +
-                ", customer=" + customer +
-                ", product=" + product +
+                ", customer=" + (customer != null ? customer.getCustomerId() : "null") +
+                ", product=" + (product != null ? product.getProductId() : "null") +
                 '}';
     }
 

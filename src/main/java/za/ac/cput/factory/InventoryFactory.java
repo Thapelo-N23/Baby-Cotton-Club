@@ -7,7 +7,9 @@
 
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.*;
+import za.ac.cput.domain.Inventory;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
@@ -15,19 +17,23 @@ import java.util.List;
 
 public class InventoryFactory {
 
-    public static Inventory createInventory(String receivedDate, String stockAdded, List<Supplier> supplier, Product product) {
+    public static Inventory createInventory(String receivedDate,
+                                            String stockAdded,
+                                            List<Supplier> supplier,
+                                            Product product) {
+
+        // Validate stockAdded
         if (Helper.isNullOrEmpty(stockAdded)) {
-            return null;
+            throw new IllegalArgumentException("StockAdded cannot be null or empty");
         }
 
+        // Validate receivedDate
         LocalDate date = Helper.isValidDate(receivedDate);
         if (date == null) {
-            return null;
+            throw new IllegalArgumentException("Invalid date format: " + receivedDate);
         }
 
-        if (supplier == null) {
-            return null;
-        }
+
 
         return new Inventory.Builder()
                 .setReceivedDate(date)

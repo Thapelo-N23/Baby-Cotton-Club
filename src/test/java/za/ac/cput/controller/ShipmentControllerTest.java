@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShipmentControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
-    private final String Base_URL = "http://localhost:8080/shipment";
+    private final String Base_URL = "/shipment";
     private static Shipment shipment;
 
 
@@ -91,11 +91,11 @@ class ShipmentControllerTest {
     @Test
     @Order(4)
     void getall() {
-        System.out.println("Reading shipment with ID: " + shipment.getShipmentId());
         String allShipmentsUrl = Base_URL + "/getall";
-        System.out.println("Getting all " + allShipmentsUrl);
-        HttpEntity<String> requestEntity = new HttpEntity<>(null);
-        ResponseEntity<String> response = testRestTemplate.exchange(allShipmentsUrl, HttpMethod.GET, requestEntity, String.class);
-        System.out.println("All shipments" + response);
+        ResponseEntity<Shipment[]> response = testRestTemplate.getForEntity(allShipmentsUrl, Shipment[].class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().length > 0, "No shipments found");
+        System.out.println("All shipments: " + java.util.Arrays.toString(response.getBody()));
     }
 }

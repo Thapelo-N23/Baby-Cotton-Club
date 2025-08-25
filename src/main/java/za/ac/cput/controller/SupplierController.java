@@ -12,34 +12,37 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.service.impl.SupplierService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/supplier")
 public class SupplierController {
 
-    private SupplierService service;
+    private final SupplierService service;
 
     @Autowired
-    public SupplierController(SupplierService service) {
-        this.service = service;
+    public SupplierController(SupplierService supplierService){
+        this.service = supplierService;
     }
 
     @PostMapping("/create")
-    public Supplier createSupplier(@RequestBody Supplier supplier) {
+    public Supplier createSupplier(@RequestBody Supplier supplier){
         return service.create(supplier);
     }
 
     @GetMapping("/read/{id}")
-    public Supplier readSupplier(@PathVariable Integer id) {
+    public Supplier readSupplier(@PathVariable("id") Integer id){
         return service.read(id);
     }
 
     @PutMapping("/update")
-    public Supplier updateSupplier(@RequestBody Supplier supplier) {
+    public Supplier updateSupplier(@RequestBody Supplier supplier){
         return service.update(supplier);
     }
 
     @GetMapping("/getall")
-    public Iterable<Supplier> getAllSuppliers() {
+    public List<Supplier> getAllSuppliers(){
         return service.getAll();
     }
 }
+

@@ -53,7 +53,7 @@ class OrderLineServiceTest {
 
         product = productService.create(
                 ProductFactory.createProduct(
-                        "Lancewood", "Yellow", (short) 50, "OUT OF STOCK"
+                        "Lancewood", "Yellow", (short) 50, "OUT OF STOCK",null
                 )
         );
 

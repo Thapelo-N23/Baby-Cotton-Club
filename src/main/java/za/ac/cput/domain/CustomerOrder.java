@@ -1,5 +1,8 @@
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,10 +19,14 @@ public class CustomerOrder {
     protected double totalAmount;
 
     @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderLine> orderLines;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+
+    @JsonBackReference
+
     private Customer customer;
 
     @ManyToOne
@@ -123,4 +130,3 @@ public class CustomerOrder {
         }
     }
 }
-

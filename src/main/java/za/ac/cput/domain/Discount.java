@@ -26,6 +26,7 @@ public class Discount {
 
 
     @OneToOne(mappedBy = "discount")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"discount"})
     private OrderLine orderLine;
 
     public Discount() {
@@ -82,6 +83,7 @@ public class Discount {
                 '}';
     }
 
+
     public static class Builder {
         private int discountId;
         private String discountName;
@@ -90,6 +92,11 @@ public class Discount {
         private LocalDate startDate;
         private LocalDate endDate;
         private OrderLine orderLine;
+
+        public Builder setDiscountValue(String discountValue) {
+            this.discountValue = discountValue;
+            return this;
+        }
 
         public Builder setDiscountId(int discountId) {
             this.discountId = discountId;
@@ -106,10 +113,6 @@ public class Discount {
             return this;
         }
 
-        public Builder setDiscountValue(String discountValue) {
-            this.discountValue = discountValue;
-            return this;
-        }
 
         public Builder setStartDate(LocalDate startDate) {
             this.startDate = startDate;
@@ -127,7 +130,7 @@ public class Discount {
         }
 
 
-        public Discount copy(Discount discount) {
+        public Builder copy(Discount discount) {
             this.discountId = discount.discountId;
             this.discountName = discount.discountName;
             this.discountType = discount.discountType;
@@ -135,7 +138,7 @@ public class Discount {
             this.startDate = discount.startDate;
             this.endDate = discount.endDate;
             this.orderLine = discount.orderLine;
-            return discount;
+            return this;
         }
 
         public Discount build() { return new Discount(this); }

@@ -6,14 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import za.ac.cput.domain.*;
-import za.ac.cput.factory.*;
+import za.ac.cput.domain.OrderLine;
+import za.ac.cput.factory.OrderLineFactory;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static za.ac.cput.factory.PaymentFactoryTest.orderLines;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.MethodName.class)
@@ -21,8 +19,6 @@ import static za.ac.cput.factory.PaymentFactoryTest.orderLines;
 class OrderLineControllerTest {
 
     private OrderLine orderLine;
-    private CustomerOrder customerOrder;
-    private Customer customer;
 
     @LocalServerPort
     private int port;
@@ -36,42 +32,27 @@ class OrderLineControllerTest {
 
     @BeforeAll
     void setUp() {
-
-        customer = CustomerFactory.createCustomer(
-                "John",
-                "Doe",
-                "john.doe@example.com",
-                "0781234567",
-                null,
-                null,
-                null
-        );
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
-
-
-        customerOrder = CustomerOrderFactory.createCustomerOrder(
-                "20250518",
-                250.00,
-                orderLines,
-                customer
-                , shipment
-        );
-
-
+        // Create minimal OrderLine without any relationships
         orderLine = OrderLineFactory.createOrderLine(
                 3,
                 100.0,
-                customerOrder,
-                null,
-                null
+                null,  // No CustomerOrder
+                null,  // No Product
+                null   // No other relationships
         );
 
+        // POST to create orderLine
+        ResponseEntity<OrderLine> response = restTemplate.postForEntity(
+                getBaseUrl() + "/create",
+                orderLine,
+                OrderLine.class
+        );
 
-        ResponseEntity<OrderLine> response = restTemplate.postForEntity(getBaseUrl() + "/create", orderLine, OrderLine.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         orderLine = response.getBody();
         assertNotNull(orderLine);
-        assertNotNull(orderLine.getOrderLineId());  // Assuming you have an ID field named orderLineId
+        assertNotNull(orderLine.getOrderLineId());
+        System.out.println("Created OrderLine (setup): " + orderLine);
     }
 
     @Test
@@ -82,13 +63,14 @@ class OrderLineControllerTest {
 
     @Test
     void b_read() {
-        String url = getBaseUrl() + "/read/" + orderLine.getOrderLineId();
-        ResponseEntity<OrderLine> response = restTemplate.getForEntity(url, OrderLine.class);
+        ResponseEntity<OrderLine> response = restTemplate.getForEntity(
+                getBaseUrl() + "/read/" + orderLine.getOrderLineId(),
+                OrderLine.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(orderLine.getOrderLineId(), response.getBody().getOrderLineId());
-
         System.out.println("Read OrderLine: " + response.getBody());
     }
 
@@ -101,8 +83,13 @@ class OrderLineControllerTest {
                 .build();
 
         HttpEntity<OrderLine> request = new HttpEntity<>(updatedOrderLine);
-        String url = getBaseUrl() + "/update";
-        ResponseEntity<OrderLine> response = restTemplate.exchange(url, HttpMethod.PUT, request, OrderLine.class);
+
+        ResponseEntity<OrderLine> response = restTemplate.exchange(
+                getBaseUrl() + "/update",
+                HttpMethod.PUT,
+                request,
+                OrderLine.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
@@ -115,13 +102,15 @@ class OrderLineControllerTest {
 
     @Test
     void d_getAll() {
-        String url = getBaseUrl() + "/getAll";
-        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(url, OrderLine[].class);
+        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(
+                getBaseUrl() + "/getall",
+                OrderLine[].class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().length > 0);
-
-        System.out.println("All OrderLines count: " + response.getBody().length);
+        assertTrue(response.getBody().length > 0, "No OrderLines found");
+        System.out.println("All OrderLines: " + Arrays.toString(response.getBody()));
     }
+
 }

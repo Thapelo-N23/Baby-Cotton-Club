@@ -29,7 +29,8 @@ class ReviewFactoryTest {
             "T-Shirt",
             "Blue",
             (short) 200,
-            "Yes"
+            "Yes",
+            null
     );
     public static Review review1 = ReviewFactory.createReview(
             (short) 4,
