@@ -30,7 +30,7 @@ public class CustomerFactoryTest {
             "Gauteng",
             customer
     );
-    public static Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null,null);
+    public static Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
 
     public static CustomerOrder customerOrder1 = CustomerOrderFactory.createCustomerOrder(
             "20250518",
