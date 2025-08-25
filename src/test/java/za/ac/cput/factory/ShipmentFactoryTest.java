@@ -38,8 +38,7 @@ class ShipmentFactoryTest {
             "dhl",
             "enroute",
             679,
-            List.of(customerOrder),
-            List.of(orderLine)
+            List.of(customerOrder)
     );
 
     @Test

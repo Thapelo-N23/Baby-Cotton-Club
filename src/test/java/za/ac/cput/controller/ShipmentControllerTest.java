@@ -20,6 +20,8 @@ import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.ShipmentFactory;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -29,9 +31,11 @@ class ShipmentControllerTest {
     private final String Base_URL = "http://localhost:8080/shipment";
     private static Shipment shipment;
 
+
     @BeforeAll
     public static void setUp() {
-        shipment = ShipmentFactory.createShipment("POSTNET", "dispatched", 90, null,null);
+        List<CustomerOrder> CustomerOrder = List.of();
+        shipment = ShipmentFactory.createShipment("POSTNET", "dispatched", 90, CustomerOrder);
 
     }
 
@@ -51,7 +55,7 @@ class ShipmentControllerTest {
     @Test
     @Order(2)
     void readShipment() {
-        assertNotNull(shipment); // ensure it was created
+        assertNotNull(shipment);
         String readUrl = Base_URL + "/read/" + shipment.getShipmentId();
         ResponseEntity<Shipment> response = testRestTemplate.getForEntity(readUrl, Shipment.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -66,12 +70,12 @@ class ShipmentControllerTest {
     @Test
     @Order(3)
     void updateShipment() {
-        assertNotNull(shipment); // prevent NPE
+        assertNotNull(shipment);
         String updateShipmentUrl = Base_URL + "/update";
 
         Shipment shipmentUpdate = new Shipment.Builder()
                 .copy(shipment)
-                .setShipmentStatus("delivered") // change some data
+                .setShipmentStatus("delivered")
                 .build();
 
         HttpEntity<Shipment> requestEntity = new HttpEntity<>(shipmentUpdate);
