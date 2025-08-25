@@ -60,7 +60,7 @@ class CustomerOrderServiceTest {
                 OrderLineFactory.createOrderLine(1, 150.00)
         );
 
-        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null,null);
+        Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
         shipment = shipmentService.create(shipment);
 
         customerOrder = customerOrderService.create(

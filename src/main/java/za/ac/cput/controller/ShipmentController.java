@@ -26,6 +26,7 @@ public class ShipmentController {
  @GetMapping("/read/{shipmentId}")
  public Shipment read(@PathVariable("shipmentId") int shipmentId) {
   return service.read(shipmentId);
+
  }
 
  @PutMapping("/update")
