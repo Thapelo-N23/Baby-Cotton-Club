@@ -37,9 +37,9 @@ private ProductService productService;
     public Product update(@RequestBody Product product) {
     return productService.update(product);
     }
-    @GetMapping
+    @GetMapping("/getall")
     public List<Product> getAll() {
-    return productService.getall();
+        return productService.getall();
     }
 
 }

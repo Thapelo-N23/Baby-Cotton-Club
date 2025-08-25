@@ -1,4 +1,4 @@
-/*
+
 package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
@@ -26,7 +26,7 @@ public class DiscountControllerTest {
     private TestRestTemplate restTemplate;
 
     private String getBaseUrl() {
-        return "http://localhost:" + port + "/api/discount";
+        return "http://localhost:" + port + "/discount";
     }
 
     @BeforeAll
@@ -86,7 +86,7 @@ public class DiscountControllerTest {
 
     @Test
     void d_findAll() {
-        String url = getBaseUrl() + "/findAll";
+        String url = getBaseUrl() + "/getall";
         ResponseEntity<Discount[]> response = restTemplate.getForEntity(url, Discount[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -95,4 +95,3 @@ public class DiscountControllerTest {
         System.out.println("All Discounts: " + response.getBody().length);
     }
 }
-*/
