@@ -1,133 +1,131 @@
 /*
-package za.ac.cput.controller;
+ * InventoryControllerTest.java
+ * Author: Onako Ntsaluba (230741754)
+ * Date: 25 May 2025
+ */
 
+package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Supplier;
 import za.ac.cput.factory.InventoryFactory;
 import za.ac.cput.factory.ProductFactory;
-import za.ac.cput.factory.SupplierFactory;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(MethodOrderer.MethodName.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class InventoryControllerTest {
+
+    private Inventory inventory;
+    private Product product;
+
+    @LocalServerPort
+    private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String url = "http://localhost:8080";
-    private static Inventory inventory;
-    private static Product product;
-    private static Supplier supplier;
-
-    @BeforeAll
-    public static void setUp() {
-        product = ProductFactory.createProduct(
-                90087L,
-                "Baby Onesie",
-                "White cotton",
-                (short) 50,
-                "In stock"
-        );
-
-        supplier = SupplierFactory.createSupplier(
-                "Tiny Tots",
-                "supply@tinytots.com",
-                101
-        );
-
-        inventory = InventoryFactory.createInventory(
-                LocalDate.now().toString(),
-                "100 units",
-                List.of(supplier),
-                product
-        );
+    private String getBaseUrl() {
+        return "http://localhost:" + port + "/inventory";
     }
 
-    @Test
-    @Order(1)
-    void createInventory() {
-        String createUrl = url + "/inventory";
-        ResponseEntity<Inventory> postResponse = restTemplate.postForEntity(
-                createUrl,
+    @BeforeAll
+    void setUp() {
+        // Create minimal Product (required for Inventory)
+        product = ProductFactory.createProduct(
+                "Test Product",
+                "Test Description",
+                (short)10,
+                "Yes",
+                null
+        );
+
+        // Create Inventory without suppliers (no relationships)
+        inventory = InventoryFactory.createInventory(
+                LocalDate.now().toString(),
+                "20 units",
+                null,
+                product // Product is mandatory
+        );
+
+        // POST to create Inventory
+        ResponseEntity<Inventory> response = restTemplate.postForEntity(
+                getBaseUrl() + "/create",
                 inventory,
                 Inventory.class
         );
 
-        Inventory createdInventory = postResponse.getBody();
-        assert createdInventory != null;
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        inventory = response.getBody();
         assertNotNull(inventory);
-        System.out.println("Inventory created: " + createdInventory);
+        assertNotNull(inventory.getInventoryId());
+        System.out.println("Created Inventory (setup): " + inventory);
     }
 
     @Test
-    @Order(2)
-    void readInventory() {
-        int inventoryId = inventory.getInventoryId();
-        String readUrl = url + "/inventory/" + inventoryId;
-        System.out.println("Reading inventory at: " + readUrl);
+    void a_create() {
+        assertNotNull(inventory);
+        System.out.println("Created Inventory: " + inventory);
+    }
 
-        ResponseEntity<Inventory> readResponse = restTemplate.getForEntity(
-                readUrl,
+    @Test
+    void b_read() {
+        ResponseEntity<Inventory> response = restTemplate.getForEntity(
+                getBaseUrl() + "/read/" + inventory.getInventoryId(),
                 Inventory.class
         );
 
-        Inventory readInventory = readResponse.getBody();
-        assert readInventory != null;
-        System.out.println("Inventory read: " + readInventory);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(inventory.getInventoryId(), response.getBody().getInventoryId());
+        System.out.println("Read Inventory: " + response.getBody());
     }
 
     @Test
-    @Order(3)
-    void updateInventory() {
-        String updateUrl = url + "/inventory/";
-        System.out.println("Updating inventory at: " + updateUrl);
-
+    void c_update() {
         Inventory updatedInventory = new Inventory.Builder()
-                .copy(inventory)
-                .setStockAdded("150 units")
+                .copy(inventory) // ensures all relationships are copied
+                .setStockAdded("30 units") // only change stockAdded
                 .build();
 
         HttpEntity<Inventory> request = new HttpEntity<>(updatedInventory);
+
         ResponseEntity<Inventory> response = restTemplate.exchange(
-                updateUrl,
-                HttpMethod.POST,
+                getBaseUrl() + "/update",
+                HttpMethod.PUT,
                 request,
                 Inventory.class
         );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        Inventory result = response.getBody();
-        assert result != null;
-        System.out.println("Inventory updated: " + result);
+        assertNotNull(response.getBody());
+        assertEquals("30 units", response.getBody().getStockAdded());
+
+        inventory = response.getBody(); // keep latest
+        System.out.println("Updated Inventory: " + inventory);
     }
 
     @Test
-    @Order(4)
-    void getAllInventories() {
-        String allUrl = url + "/inventory";
-        System.out.println("Getting all inventories at: " + allUrl);
-
-        HttpEntity<String> request = new HttpEntity<>(null);
-        ResponseEntity<String> response = restTemplate.exchange(
-                allUrl,
-                HttpMethod.GET,
-                request,
-                String.class
+    void d_getAll() {
+        ResponseEntity<Inventory[]> response = restTemplate.getForEntity(
+                getBaseUrl() + "/getall",
+                Inventory[].class
         );
 
-        System.out.println("All inventories: " + response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().length > 0, "No inventories found");
+        System.out.println("All Inventories: " + Arrays.toString(response.getBody()));
     }
 }
- */

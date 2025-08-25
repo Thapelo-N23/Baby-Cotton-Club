@@ -27,9 +27,9 @@ public class InventoryController {
         return service.create(inventory);
     }
 
-    @GetMapping("/read/{id}")
-    public Inventory readInventory(@PathVariable Integer id) {
-        return service.read(id);
+    @GetMapping("/read/{inventoryId}")
+    public Inventory readInventory(@PathVariable("inventoryId") Integer inventoryId) {
+        return service.read(inventoryId);
     }
 
     @PutMapping("/update")
