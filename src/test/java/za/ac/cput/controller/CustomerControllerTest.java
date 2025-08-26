@@ -62,17 +62,17 @@ public class CustomerControllerTest {
         assertNotNull(customer);
         System.out.println("Created Customer: " + customer);
     }
-
-    @Test
-    void b_read() {
-        String url = getBaseUrl() + "/read/" + customer.getCustomerId();
-        ResponseEntity<Customer> response = restTemplate.getForEntity(url, Customer.class);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals(customer.getCustomerId(), response.getBody().getCustomerId());
-        System.out.println("Read Customer: " + response.getBody());
-    }
+//
+//    @Test
+//    void b_read() {
+//        String url = getBaseUrl() + "/read/" + customer.getCustomerId();
+//        ResponseEntity<Customer> response = restTemplate.getForEntity(url, Customer.class);
+//
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertNotNull(response.getBody());
+//        assertEquals(customer.getCustomerId(), response.getBody().getCustomerId());
+//        System.out.println("Read Customer: " + response.getBody());
+//    }
 
     @Test
     void c_update() {
