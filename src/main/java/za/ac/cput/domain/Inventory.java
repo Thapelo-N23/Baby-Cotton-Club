@@ -22,7 +22,7 @@ public class Inventory {
     private LocalDate receivedDate;
     private String stockAdded;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Supplier> suppliers;
 
     @ManyToOne(fetch = FetchType.EAGER)

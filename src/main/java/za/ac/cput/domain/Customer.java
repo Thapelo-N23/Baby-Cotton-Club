@@ -25,15 +25,15 @@ public class Customer {
     private String email;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Address> addresses ;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<CustomerOrder> customerOrders ;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Review> reviews ;
 
