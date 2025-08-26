@@ -13,11 +13,19 @@ public class Helper {
     }
 
 
-    public static LocalDate isValidDate(String Date) {
-        int year = Integer.parseInt(Date.substring(0, 4));
-        int month = Integer.parseInt(Date.substring(4, 6));
-        int day = Integer.parseInt(Date.substring(6, 8));
-        return LocalDate.of(year, month, day);
+    public static LocalDate isValidDate(String date) {
+        // Support both "yyyy-MM-dd" and "yyyyMMdd" formats
+        if (date == null) throw new IllegalArgumentException("Date string is null");
+        if (date.contains("-")) {
+            return LocalDate.parse(date); // ISO format
+        } else if (date.length() == 8) {
+            int year = Integer.parseInt(date.substring(0, 4));
+            int month = Integer.parseInt(date.substring(4, 6));
+            int day = Integer.parseInt(date.substring(6, 8));
+            return LocalDate.of(year, month, day);
+        } else {
+            throw new IllegalArgumentException("Invalid date format: " + date);
+        }
     }
     public static double calculateSubTotal(int quantity, double unitPrice) {
         return quantity * unitPrice;
@@ -52,8 +60,8 @@ public class Helper {
         return reviewId != null && reviewId > 0;
     }
 
-    public static boolean isValidInventoryId(Integer inventoryId) {
-        return inventoryId != null && inventoryId > 0;
+    public static boolean isValidId(int inventoryId) {
+        return false;
     }
 
     public static boolean isValidAmount(double amount) {
@@ -71,10 +79,10 @@ public class Helper {
         return price != null && price > 0;
     }
 
-    public static boolean isValidShipmentId(Long id) {
-        return id != null && id > 0;
+    public static boolean isValidShipmentId(int id) {
+        return id > 0;
     }
 
+
+
 }
-
-
