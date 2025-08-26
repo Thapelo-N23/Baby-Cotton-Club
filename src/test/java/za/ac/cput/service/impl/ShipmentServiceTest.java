@@ -1,5 +1,5 @@
 
-package za.ac.cput.service.impl;
+package za.ac.cput.service;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -11,7 +11,8 @@ import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.Shipment;
 import za.ac.cput.factory.CustomerOrderFactory;
 import za.ac.cput.factory.ShipmentFactory;
-import za.ac.cput.service.ShipmentService;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +24,7 @@ class ShipmentServiceTest {
  private ShipmentService service;
 private CustomerOrder customerOrder;
  private static Shipment shipment;
-
+ private List<za.ac.cput.domain.CustomerOrder> CustomerOrder;
 
 
  @Test
@@ -40,11 +41,11 @@ private CustomerOrder customerOrder;
   );
 
 shipment = ShipmentFactory.createShipment(
-"DHL", "on-track", 90.0, null, null
+"DHL", "on-track", 90.0, CustomerOrder
 );
   Shipment created = service.create(shipment);
   assertNotNull(created);
-  shipment = created; // keep persisted entity
+  shipment = created;
   System.out.println("Created: " + created);
  }
 
@@ -61,7 +62,7 @@ shipment = ShipmentFactory.createShipment(
  void c_update() {
   Shipment updatedShipment = new Shipment.Builder()
           .copy(shipment)
-          .setShipmentStatus("Delivered") // change status to simulate update
+          .setShipmentStatus("Delivered")
           .build();
 
   Shipment updated = service.update(updatedShipment);

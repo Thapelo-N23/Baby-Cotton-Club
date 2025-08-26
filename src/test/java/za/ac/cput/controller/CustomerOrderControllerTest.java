@@ -33,7 +33,7 @@ public class CustomerOrderControllerTest {
 
     @BeforeAll
     void setUp() {
-        // Create minimal CustomerOrder without any relationships
+
         customerOrder = CustomerOrderFactory.createCustomerOrder(
                 "20250518",
                 250.0,
@@ -42,7 +42,7 @@ public class CustomerOrderControllerTest {
                 null
         );
 
-        // POST to create customerOrder
+
         ResponseEntity<CustomerOrder> response = restTemplate.postForEntity(
                 getBaseUrl() + "/create",
                 customerOrder,
@@ -69,7 +69,7 @@ public class CustomerOrderControllerTest {
                 CustomerOrder.class
         );
 
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
+
         assertNotNull(response.getBody());
         assertEquals(customerOrder.getOrderId(), response.getBody().getOrderId());
         System.out.println("Read CustomerOrder: " + response.getBody());

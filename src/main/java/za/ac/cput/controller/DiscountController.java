@@ -28,7 +28,7 @@ public class DiscountController {
     }
 
     @GetMapping("/read/{id}")
-    public Discount readDiscount(@PathVariable Integer id) {
+    public Discount readDiscount(@PathVariable("id") Integer id) {
         return service.read(id);
     }
 
