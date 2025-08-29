@@ -41,7 +41,9 @@ public class CustomerControllerTest {
                 "securePassword123",
                 null,
                 null,
+                null,
                 null
+
 
         );
 
