@@ -16,11 +16,11 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -44,9 +44,9 @@ public class CartItem {
     @Override
     public String toString() {
         return "CartItem{" +
-                "cartItemId=" + cartItemId +
-                ", cart=" + (cart != null ? cart.getCartId() : null) +
-                ", product=" + (product != null ? product.getProductId() : null) +
+                "cartItemID=" + cartItemId +
+                ", cart=" + (cart != null) +
+                ", product=" + (product != null) +
                 ", quantity=" + quantity +
                 '}';
     }
