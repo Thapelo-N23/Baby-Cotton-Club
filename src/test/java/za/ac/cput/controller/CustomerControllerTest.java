@@ -38,9 +38,12 @@ public class CustomerControllerTest {
                 "Doe",
                 "mengezi@gmail.com",
                 "0781234567",
+                "securePassword123",
+                null,
                 null,
                 null,
                 null
+
 
         );
 

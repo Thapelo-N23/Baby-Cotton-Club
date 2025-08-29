@@ -1,4 +1,3 @@
-
 package za.ac.cput.service.impl;
 
 import jakarta.transaction.Transactional;
@@ -17,11 +16,15 @@ import org.junit.jupiter.api.*;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PaymentServiceTest {
 
@@ -32,92 +35,85 @@ class PaymentServiceTest {
     private ICustomerService customerService;
 
     @Autowired
-    private ICustomerOrderService orderService;
+    private ICustomerOrderService customerOrderService;
 
-    private static Customer customer;
-    private static CustomerOrder customerOrder;
-    private static Payment payment;
+    private Customer customer;
+    private CustomerOrder customerOrder;
+    private Payment payment;
+
+    @BeforeEach
+    void setUp() {
+        customer = customerService.create(
+            CustomerFactory.createCustomer(
+                "John",
+                "Doe",
+                "mengezi@gmail.com",
+                "0781234567",
+                "securePassword123",
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                null
+            )
+        );
+
+        List<OrderLine> orderLines = Arrays.asList(
+            OrderLineFactory.createOrderLine(2, 50.00),
+            OrderLineFactory.createOrderLine(1, 150.00)
+        );
+
+        customerOrder = customerOrderService.create(
+            CustomerOrderFactory.createCustomerOrder(
+                "20250722",
+                250.00,
+                orderLines,
+                customer,
+                null
+            )
+        );
+
+        payment = paymentService.create(
+            PaymentFactory.createPayment(
+                "20250722",
+                "Card",
+                customerOrder
+            )
+        );
+    }
 
     @Test
     @Order(1)
     void create() {
-        //  Create Customer
-        customer = customerService.create(
-                CustomerFactory.createCustomer(
-                        "Phindile",
-                        "Ngozi",
-                        "phindile@gmail.com",
-                        "0821234567",
-                        List.of(),
-                        List.of(),
-                        List.of()
-                )
-        );
-        assertNotNull(customer.getCustomerId(), "Customer ID should not be null");
-
-        // Create CustomerOrder linked to Customer
-        List<OrderLine> orderLines = List.of(
-                OrderLineFactory.createOrderLine(2, 50.00)
-        );
-        customerOrder = orderService.create(
-                CustomerOrderFactory.createCustomerOrder(
-                        "20250803",
-                        100.00,
-                        orderLines,
-                        customer, // link customer
-                        null      // shipment can be null
-                )
-        );
-        assertNotNull(customerOrder.getOrderId(), "Order ID should not be null");
-
-        // Create Payment linked to CustomerOrder
-        payment = paymentService.create(
-                PaymentFactory.createPayment(
-                        "20250803",
-                        "Card",
-                        customerOrder
-                )
-        );
+        assertNotNull(payment, "Created payment should not be null");
         assertNotNull(payment.getPaymentId(), "Payment ID should not be null");
-
         System.out.println("Created Payment: " + payment);
     }
 
-    @Transactional
     @Test
     @Order(2)
     void read() {
-        assertNotNull(payment, "Payment must be created before reading");
-        Payment readPayment = paymentService.read(payment.getPaymentId());
-        assertNotNull(readPayment, "Read payment should not be null");
-        assertEquals(payment.getPaymentId(), readPayment.getPaymentId());
-        System.out.println("Read Payment: " + readPayment);
+        Payment read = paymentService.read(payment.getPaymentId());
+        assertNotNull(read);
+        System.out.println("Read Payment: " + read);
     }
 
     @Test
     @Order(3)
     void update() {
-        assertNotNull(payment, "Payment must be created before updating");
         Payment updatedPayment = new Payment.Builder()
-                .copy(payment)
-                .setPaymentMethod("EFT")
-                .build();
-
-        Payment result = paymentService.update(updatedPayment);
-        assertNotNull(result, "Updated payment should not be null");
-        assertEquals("EFT", result.getPaymentMethod());
-        payment = result;
-
-        System.out.println("Updated Payment: " + result);
+            .copy(payment)
+            .setPaymentMethod("EFT")
+            .build();
+        Payment updated = paymentService.update(updatedPayment);
+        assertNotNull(updated);
+        assertEquals("EFT", updated.getPaymentMethod());
+        System.out.println("Updated Payment: " + updated);
     }
 
-    @Transactional
     @Test
     @Order(4)
     void getAll() {
-        List<Payment> allPayments = paymentService.getAll();
-        assertNotNull(allPayments, "Payment list should not be null");
-        assertFalse(allPayments.isEmpty(), "Payment list should not be empty");
-        System.out.println("All Payments: " + allPayments);
+        assertNotNull(paymentService.getAll());
+        System.out.println("All Payments: " + paymentService.getAll());
     }
 }

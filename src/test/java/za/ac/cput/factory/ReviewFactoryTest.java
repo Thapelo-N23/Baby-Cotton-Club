@@ -9,29 +9,35 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Review;
+
+import za.ac.cput.domain.*;
+
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReviewFactoryTest {
+    private static List<CartItem> cartItems = new ArrayList<>();
+
+    private static Cart cart = CartFactory.createCart(null, cartItems);
 
     private static Customer customer1 = CustomerFactory.createCustomer("John", "Doe",
             "mengezi@gmail.com",
             "0781234567",
+            "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
-            Collections.emptyList()
+            Collections.emptyList(),
+            cart
     );
-    public static Product product1 = ProductFactory.createProduct(
-            "T-Shirt",
-            "Blue",
-            (short) 200,
-            "Yes",
-            null
-    );
+    private static Supplier supplier = SupplierFactory.createSupplier(
+            "SnuggleBabies Clothing Co.",
+            "0211234567",
+            null);
+
+    static Product product1 = ProductFactory.createProduct("Lancewood", "Yellow", (short) 588, "OUT OF STOCK", null,supplier);
     public static Review review1 = ReviewFactory.createReview(
             (short) 4,
             "Great service!",

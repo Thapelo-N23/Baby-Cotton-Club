@@ -34,8 +34,7 @@ class SupplierControllerTest {
         // Create supplier using factory, no relationships
         supplier = SupplierFactory.createSupplier(
                 "Baby Doodles",
-                "0213444667",
-                null
+                "0213444667"
         );
 
         ResponseEntity<Supplier> response = restTemplate.postForEntity(

@@ -22,15 +22,20 @@ public class PaymentFactoryTest {
     public static final List<OrderLine> orderLines = new ArrayList<>(
             List.of(OrderLineFactory.createOrderLine(1, 100.00))
     );
+    private static List<CartItem> cartItems = new ArrayList<>();
+
+    private static Cart cart = CartFactory.createCart(null, cartItems);
 
     private static final Customer customer = CustomerFactory.createCustomer(
             "Olwethu",
             "Nene",
             "olwethunene43@gmail.com",
             "0821234567",
+            "password123",
             new ArrayList<>(),
             new ArrayList<>(),
-            new ArrayList<>()
+            new ArrayList<>(),
+            cart
     );
     private static final Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
     private static final CustomerOrder CUSTOMER_ORDER = (CustomerOrder) CustomerOrderFactory.createCustomerOrder(

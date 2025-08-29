@@ -23,9 +23,11 @@ class AddressFactoryTest {
             "Doe",
             "mengezi@gmail.com",
             "0781234567",
+            "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
-            Collections.emptyList()
+            Collections.emptyList(),
+            null
     );
 
     @Test

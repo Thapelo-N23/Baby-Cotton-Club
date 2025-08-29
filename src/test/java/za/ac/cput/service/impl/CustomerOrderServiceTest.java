@@ -19,6 +19,7 @@ import za.ac.cput.service.ShipmentService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,11 +49,14 @@ class CustomerOrderServiceTest {
                         "Doe",
                         "mengezi@gmail.com",
                         "0781234567",
-                        Arrays.asList(),
-                        Arrays.asList(),
-                        Arrays.asList()
-                )
-        );
+                        "securePassword123",
+                        Collections.emptyList(),
+                        Collections.emptyList(),
+                        Collections.emptyList(),
+                        null)
+
+
+                );
 
 
         List<OrderLine> orderLines = Arrays.asList(

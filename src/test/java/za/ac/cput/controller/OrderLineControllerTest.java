@@ -36,9 +36,8 @@ class OrderLineControllerTest {
         orderLine = OrderLineFactory.createOrderLine(
                 3,
                 100.0,
-                null,  // No CustomerOrder
-                null,  // No Product
-                null   // No other relationships
+                null,
+                null
         );
 
         // POST to create orderLine

@@ -30,9 +30,18 @@ class AddressServiceTest {
     private ICustomerService customerService;
 
     private static Customer customer = CustomerFactory.createCustomer(
-            "John", "Doe", "mengezi@gmail.com", "0781234567",
-            Collections.emptyList(), Collections.emptyList(), Collections.emptyList()
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            "securePassword123",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList(),
+            null
+
     );
+
 
     private static Address address;
 
