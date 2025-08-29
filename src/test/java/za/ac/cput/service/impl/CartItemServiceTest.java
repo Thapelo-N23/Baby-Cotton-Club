@@ -58,7 +58,8 @@ class CartItemServiceTest {
                 "securePassword123",
                 Collections.emptyList(),
                 Collections.emptyList(),
-                Collections.emptyList()
+                Collections.emptyList(),
+                null
 
         );
         cart = CartFactory.createCart(

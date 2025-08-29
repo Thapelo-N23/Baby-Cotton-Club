@@ -1,10 +1,7 @@
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.CustomerOrder;
-import za.ac.cput.domain.OrderLine;
-import za.ac.cput.domain.Shipment;
+import za.ac.cput.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ class CustomerOrderFactoryTest {
         List<OrderLine> orderLines = new ArrayList<>();
 
         OrderLine orderLine = OrderLineFactory.createOrderLine(2, 50.00);
-
+        Cart cart = CartFactory.createCart(null, null);
         Customer customer = CustomerFactory.createCustomer(
                 "John",
                 "Doe",
@@ -31,7 +28,8 @@ class CustomerOrderFactoryTest {
                 "securePassword123",
                 Arrays.asList(address1),
                 Arrays.asList(customerOrder1),
-                Arrays.asList(review)
+                Arrays.asList(review),
+                cart
 
         );
         Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
@@ -57,7 +55,7 @@ class CustomerOrderFactoryTest {
     void createCustomerOrderWithCustomer() {
         List<OrderLine> orderLines = new ArrayList<>();
         orderLines.add(OrderLineFactory.createOrderLine(1, 99.99));
-
+        Cart cart = CartFactory.createCart(null, null);
         Customer customer = CustomerFactory.createCustomer(
                 "John",
                 "Doe",
@@ -66,7 +64,8 @@ class CustomerOrderFactoryTest {
                 "securePassword123",
                 Arrays.asList(address1),
                 Arrays.asList(customerOrder1),
-                Collections.emptyList()
+                Collections.emptyList(),
+                cart
         );
 
         CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder(
@@ -88,3 +87,4 @@ class CustomerOrderFactoryTest {
 
 
 }
+

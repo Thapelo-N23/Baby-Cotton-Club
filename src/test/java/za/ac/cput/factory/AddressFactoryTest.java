@@ -26,7 +26,8 @@ class AddressFactoryTest {
             "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
-            Collections.emptyList()
+            Collections.emptyList(),
+            null
     );
 
     @Test
