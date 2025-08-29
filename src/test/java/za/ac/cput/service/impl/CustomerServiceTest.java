@@ -43,9 +43,11 @@ class CustomerServiceTest {
                 "Doe",
                 "mengezi@gmail.com",
                 "0781234567",
+                "securePassword123",
                 Collections.emptyList(),
                 Collections.emptyList(),
                 Collections.emptyList()
+
         );
 
         Customer created = customerService.create(customer);
@@ -102,9 +104,11 @@ class CustomerServiceTest {
                 "Doe",
                 "mengezi@gmail.com",
                 "0781234567",
-                Arrays.asList(address),
-                Arrays.asList(order),
-                Arrays.asList(review)
+                "securePassword123",
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList()
+
         );
 
         Customer saved = customerService.create(customerWithRelations);

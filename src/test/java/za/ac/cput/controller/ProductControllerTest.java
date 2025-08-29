@@ -10,7 +10,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.factory.ProductFactory;
+import za.ac.cput.factory.SupplierFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -32,24 +34,29 @@ public class ProductControllerTest {
 
     @BeforeAll
     void setUp() {
+        Supplier supplier = SupplierFactory.createSupplier(
+                "SnuggleBabies Clothing Co.",
+                "0211234567",
+                null
+        );
         product = ProductFactory.createProduct(
                 "ZARA",
                 "white",
                 (short) 19,
                 "out of stock",
-                null
+                null,
+                supplier
         );
-
         ResponseEntity<Product> response = restTemplate.postForEntity(
                 getBaseUrl() + "/create",
                 product,
                 Product.class
         );
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         product = response.getBody();
         assertNotNull(product);
         assertNotNull(product.getProductId());
+        assertNotNull(product.getSupplier());
         System.out.println("Created Product (setup): " + product);
     }
 
