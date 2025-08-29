@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Review;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.factory.ProductFactory;
+import za.ac.cput.factory.SupplierFactory;
+import za.ac.cput.service.ISupplierService;
 import za.ac.cput.service.ProductService;
 
 import java.util.List;
@@ -21,22 +24,31 @@ class ProductServiceTest {
 
  @Autowired
  private ProductService service;
+ @Autowired
+ private ISupplierService supplierService;
  private static Product product;
  private static Review Review;
+ private static Supplier supplier;
 
 
  @Test
  @Order(1)
  void a_create() {
 
-
-
+  supplier = SupplierFactory.createSupplier(
+          "ServiceTestSupplier",
+          "0218888888",
+          null
+  );
+  supplier = supplierService.create(supplier);
+  assertNotNull(supplier);
   product = ProductFactory.createProduct(
           "Hermes",
           "Beige",
           (short) 90,
           "Available",
-          Review
+          Review,
+          supplier
   );
 
   Product created = service.create(product);
@@ -74,4 +86,31 @@ class ProductServiceTest {
   assertNotNull(allProducts);
   System.out.println("All Products: " + allProducts);
  }
+
+ @Test
+ @Order(5)
+ void d_createProductWithSupplier() {
+  Supplier anotherSupplier = SupplierFactory.createSupplier(
+          "ServiceTestSupplier2",
+          "0219999999",
+          null
+  );
+  anotherSupplier = supplierService.create(anotherSupplier);
+  assertNotNull(anotherSupplier);
+  Product productWithSupplier = ProductFactory.createProduct(
+          "ServiceProduct",
+          "Black",
+          (short) 150,
+          "Available",
+          null,
+          anotherSupplier
+  );
+  Product created = service.create(productWithSupplier);
+  assertNotNull(created);
+  assertNotNull(created.getSupplier());
+  assertEquals("ServiceTestSupplier2", created.getSupplier().getSupplierName());
+  System.out.println("Created Product with Supplier: " + created);
+ }
+
+
 }

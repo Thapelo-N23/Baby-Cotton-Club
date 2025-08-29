@@ -24,6 +24,7 @@ public class Customer {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -37,6 +38,8 @@ public class Customer {
     @JsonManagedReference
     private List<Review> reviews ;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Cart cart;
 
     public Customer() {}
 
@@ -46,9 +49,11 @@ public class Customer {
         this.lastName = builder.lastName;
         this.email = builder.email;
         this.phoneNumber = builder.phoneNumber;
+        this.password = builder.password;
         this.addresses = builder.addresses;
         this.customerOrders = builder.customerOrders;
         this.reviews = builder.reviews;
+        this.cart = builder.cart;
     }
 
     public int getCustomerId() { return customerId; }
@@ -56,12 +61,16 @@ public class Customer {
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
     public String getPhoneNumber() { return phoneNumber; }
+    public String getPassword() { return password; }
     public List<Address> getAddresses() { return addresses; }
     public List<CustomerOrder> getOrders() { return customerOrders; }
     public List<Review> getReviews() { return reviews; }
+    public Cart getCart() { return cart; }
+
+    public void setPassword(String password) { this.password = password; }
+    public void setCart(Cart cart) { this.cart = cart; }
 
     @Override
-
     public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +
@@ -69,9 +78,10 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", Addresses=" + (addresses != null && !addresses.isEmpty()) +
-                ", CustomerOrders=" + (customerOrders != null) +
-                ", Reviews=" + (reviews != null && !reviews.isEmpty()) +
+
+                ", AddressesLoaded=" + (addresses != null) +
+                ", CustomerOrdersLoaded=" + (customerOrders != null) +
+                ", ReviewsLoaded=" + (reviews != null) +
                 '}';
     }
 
@@ -82,18 +92,25 @@ public class Customer {
         private String lastName;
         private String email;
         private String phoneNumber;
+        private String password;
         private List<Address> addresses;
         private List<CustomerOrder> customerOrders;
         private List<Review> reviews;
+        private Cart cart;
 
         public Builder setCustomerId(int customerId) { this.customerId = customerId; return this; }
         public Builder setFirstName(String firstName) { this.firstName = firstName; return this; }
         public Builder setLastName(String lastName) { this.lastName = lastName; return this; }
         public Builder setEmail(String email) { this.email = email; return this; }
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
         public Builder setAddresses(List<Address> addresses) { this.addresses = addresses; return this; }
         public Builder setOrders(List<CustomerOrder> customerOrders) { this.customerOrders = customerOrders; return this; }
         public Builder setReviews(List<Review> reviews) { this.reviews = reviews; return this; }
+        public Builder setCart(Cart cart) { this.cart = cart; return this; }
 
         public Builder copy(Customer customer) {
             this.customerId = customer.customerId;
@@ -101,9 +118,11 @@ public class Customer {
             this.lastName = customer.lastName;
             this.email = customer.email;
             this.phoneNumber = customer.phoneNumber;
+            this.password = customer.password;
             this.addresses = customer.addresses;
             this.customerOrders = customer.customerOrders;
             this.reviews = customer.reviews;
+            this.cart = customer.cart;
             return this;
         }
 

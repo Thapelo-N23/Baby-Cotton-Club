@@ -26,13 +26,7 @@ class ShipmentFactoryTest {
             new Shipment()
     );
 
-    OrderLine orderLine = OrderLineFactory.createOrderLine(
-            5,
-            200.0,
-            null,
-            null,
-            null
-    );
+
 
     Shipment s1 = ShipmentFactory.createShipment(
             "dhl",

@@ -28,6 +28,7 @@ public class PaymentFactoryTest {
             "Nene",
             "olwethunene43@gmail.com",
             "0821234567",
+            "password123",
             new ArrayList<>(),
             new ArrayList<>(),
             new ArrayList<>()
