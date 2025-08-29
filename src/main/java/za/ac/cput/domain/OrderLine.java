@@ -29,10 +29,7 @@ public class OrderLine {
     @ManyToOne
     @JoinColumn(name = "product_id")
     protected Product product;
-    @OneToOne
-    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"orderLine"})
-    @JoinColumn(name = "discount_id")
-    protected Discount discount;
+
 
     protected OrderLine() {}
 
@@ -43,7 +40,7 @@ public class OrderLine {
         this.subTotal = builder.subTotal;
         this.customerOrder = builder.customerOrder;
         this.product = builder.product;
-        this.discount = builder.discount;
+
     }
 
     public int getOrderLineId() {
@@ -58,8 +55,7 @@ public class OrderLine {
         return customerOrder; }
     public Product getProduct() {
         return product; }
-    public Discount getDiscount() {
-        return discount; }
+
 
     @Override
     public String toString() {
@@ -70,7 +66,7 @@ public class OrderLine {
                 ", subTotal=" + subTotal +
                 ", customerOrderId=" + (customerOrder != null ? customerOrder.getOrderId() : "null") +
                 ", productId=" + (product != null ? product.getProductId() : "null") +
-                ", discountId=" + (discount != null ? discount.getDiscountId() : "null") +
+
                 '}';
     }
 
@@ -82,7 +78,7 @@ public class OrderLine {
         private double subTotal;
         private CustomerOrder customerOrder;
         private Product product;
-        private Discount discount;
+
 
         public Builder setOrderLineId(int orderLineId) {
             this.orderLineId = orderLineId;
@@ -102,9 +98,7 @@ public class OrderLine {
         public Builder setProduct(Product product) {
             this.product = product;
             return this; }
-        public Builder setDiscount(Discount discount) {
-            this.discount = discount;
-            return this; }
+
 
         public Builder copy(OrderLine orderLine) {
             this.orderLineId = orderLine.orderLineId;
@@ -113,7 +107,6 @@ public class OrderLine {
             this.subTotal = orderLine.subTotal;
             this.customerOrder = orderLine.customerOrder;
             this.product = orderLine.product;
-            this.discount = orderLine.discount;
             return this;
         }
 

@@ -6,7 +6,6 @@ Date: 2025/05/18
  */
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Supplier;
 import za.ac.cput.util.Helper;
 
@@ -14,8 +13,8 @@ import za.ac.cput.util.Helper;
 public class SupplierFactory {
 
     public static Supplier createSupplier(String supplierName,
-                                          String contactDetails,
-                                          Inventory inventory) {
+                                          String contactDetails
+                                          ) {
         if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails)) {
             return null;
         }
@@ -23,9 +22,21 @@ public class SupplierFactory {
         return new Supplier.Builder()
                 .setSupplierName(supplierName)
                 .setContactDetails(contactDetails)
-                .setInventory(inventory)
+
+                .build();
+    }
+
+    public static Supplier createSupplier(String supplierName,
+                                          String contactDetails,
+                                          java.util.List<za.ac.cput.domain.Product> products) {
+        if (Helper.isNullOrEmpty(supplierName) || Helper.isNullOrEmpty(contactDetails)) {
+            return null;
+        }
+        return new Supplier.Builder()
+                .setSupplierName(supplierName)
+                .setContactDetails(contactDetails)
+                .setProducts(products)
                 .build();
     }
 
 }
-

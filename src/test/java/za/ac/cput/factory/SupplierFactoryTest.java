@@ -7,7 +7,6 @@ Date: 2025/05/18
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.*;
-import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Supplier;
 
@@ -20,23 +19,18 @@ class SupplierFactoryTest {
 
     private static final Product testProduct = new Product();
 
-    private static final Inventory testInventory = InventoryFactory.createInventory(
-            "20250731",
-            "100 units",
-            Collections.emptyList(),
-            testProduct
-    );
+
 
     private static final Supplier supplier1 = SupplierFactory.createSupplier(
             "SnuggleBabies Clothing Co.",
-            "0211234567",
-            testInventory
+            "0211234567"
+
     );
 
     private static final Supplier supplier2 = SupplierFactory.createSupplier(
             "Tiny Togs Supplies",
-            "0210987654",
-            testInventory
+            "0210987654"
+
     );
 
     @Test
@@ -58,8 +52,8 @@ class SupplierFactoryTest {
     void testCreateSupplierWithNullName() {
         Supplier invalid = SupplierFactory.createSupplier(
                 null,
-                "0210836543",
-                testInventory
+                "0210836543"
+
         );
         assertNull(invalid, "Supplier with null name should be null");
         System.out.println(invalid);
@@ -70,22 +64,32 @@ class SupplierFactoryTest {
     void testCreateSupplierWithNullContact() {
         Supplier invalid = SupplierFactory.createSupplier(
                 "CuddleWear Baby Co.",
-                null,
-                testInventory
+                null
+
         );
         assertNull(invalid, "Supplier with null contact should be null");
         System.out.println(invalid);
     }
 
+
     @Test
-    @Order(5)
-    void testCreateSupplierWithNullInventory() {
-        Supplier invalid = SupplierFactory.createSupplier(
-                "Baby Boutique",
-                "0217654221",
-                null
+    @Order(6)
+    void createSupplierWithProducts() {
+        Product product = new Product.Builder()
+                .setProductName("TestProduct")
+                .setColor("Blue")
+                .setPrice((short) 100)
+                .setInStock("IN STOCK")
+                .build();
+        Supplier supplier = SupplierFactory.createSupplier(
+                "SupplierWithProducts",
+                "0210000000",
+                java.util.Collections.singletonList(product)
         );
-        assertNull(invalid, "Supplier with null inventory should be null");
-        System.out.println(invalid);
+        assertNotNull(supplier);
+        assertNotNull(supplier.getProducts());
+        assertEquals(1, supplier.getProducts().size());
+        assertEquals("TestProduct", supplier.getProducts().get(0).getProductName());
+        System.out.println(supplier);
     }
 }

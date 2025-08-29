@@ -46,4 +46,11 @@ public class CustomerService implements ICustomerService {
         return this.customerRepository.findAll();
     }
 
+    public Customer login(String email, String password) {
+        Customer customer = customerRepository.findByEmail(email);
+        if (customer != null && customer.getPassword().equals(password)) {
+            return customer;
+        }
+        return null;
+    }
 }

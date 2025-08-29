@@ -21,12 +21,7 @@ public class ReviewFactory {
         if(Helper.isNullOrEmpty(reviewComment)){
             return null;
         }
-       if(product == null){
-            return null;
-        }
-        if(customer == null){
-            return null;
-        }
+
         LocalDate date = Helper.isValidDate(reviewDate);
         if(date == null){
             return null;

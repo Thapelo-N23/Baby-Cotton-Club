@@ -31,6 +31,10 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+
 
 
     private Product(Builder builder) {
@@ -41,6 +45,7 @@ public class Product {
         this.inStock = builder.inStock;
         this.category = builder.category;
         this.reviews = builder.reviews;
+        this.supplier = builder.supplier;
 
 
     }
@@ -73,6 +78,9 @@ public class Product {
 
     public Category getCategory() {  return category; }
 
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
     @Override
     public String toString() {
@@ -84,6 +92,7 @@ public class Product {
                 ", inStock='" + inStock + '\'' +
                 ", reviews=" + reviews +
                 ", category=" + category +
+                ", supplier=" + supplier +
                 '}';
     }
 
@@ -95,12 +104,17 @@ public class Product {
         private String inStock;
         private Category category;
         private List<Review> reviews;
+        private Supplier supplier;
 
         public Builder setCategory(Category category) {
             this.category = category;
             return this;
         }
 
+        public Builder setSupplier(Supplier supplier) {
+            this.supplier = supplier;
+            return this;
+        }
 
         public Builder setProductName(String productName) {
             this.productName = productName;
@@ -141,6 +155,7 @@ public class Product {
                     ", inStock='" + inStock + '\'' +
                     ", category=" + category +
                     ", reviews=" + reviews +
+                    ", supplier=" + supplier +
                     '}';
         }
 
@@ -152,6 +167,7 @@ public class Product {
             this.inStock = product.getInStock();
             this.category = product.getCategory();
             this.reviews = product.getReviews();
+            this.supplier = product.getSupplier();
             return this;
         }
         public Product build() {
