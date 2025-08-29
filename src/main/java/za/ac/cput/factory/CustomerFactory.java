@@ -18,9 +18,10 @@ import java.util.List;
 public class CustomerFactory {
 
     public static Customer createCustomer(String firstName, String lastName, String email, String phoneNumber,
+                                          String password,
                                           List<Address> addresses, List<CustomerOrder> customerOrders, List<Review> reviews) {
 
-        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(phoneNumber)) {
+        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(phoneNumber) || Helper.isNullOrEmpty(password)) {
             return null;
         }
 
@@ -33,6 +34,7 @@ public class CustomerFactory {
                     .setLastName(lastName)
                     .setEmail(email)
                     .setPhoneNumber(phoneNumber)
+                    .password(password)
                     .setAddresses(addresses)
                     .setOrders(customerOrders)
                     .setReviews(reviews)

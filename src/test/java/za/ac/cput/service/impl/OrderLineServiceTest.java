@@ -1,17 +1,13 @@
 package za.ac.cput.service.impl;
 
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
-import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.OrderLineFactory;
 import za.ac.cput.factory.ProductFactory;
-import za.ac.cput.factory.DiscountFactory;
 import za.ac.cput.service.*;
 
 import java.util.List;
@@ -36,14 +32,12 @@ class OrderLineServiceTest {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private IDiscountService discountService;
 
     private static OrderLine orderLine;
     private static Product product;
     private static CustomerOrder customerOrder;
     private static Customer customer;
-    private static Discount discount;
+
 
 
     @Test
@@ -53,28 +47,19 @@ class OrderLineServiceTest {
 
         product = productService.create(
                 ProductFactory.createProduct(
-                        "Lancewood", "Yellow", (short) 50, "OUT OF STOCK",null
+                        "Lancewood", "Yellow", (short) 50, "OUT OF STOCK",null,null
                 )
         );
 
 
-        discount = discountService.create(
-                DiscountFactory.createDiscount(
-                        "Winter Sale",
-                        "Percentage",
-                        "20%",
-                        "20250801",
-                        "20250831",
-                        orderLine
-                )
-        );
+
         orderLine = service.create(
                 OrderLineFactory.createOrderLine(
                         2,
                         50.00,
                         customerOrder,
-                        product,
-                        discount
+                        product
+
                 )
         );
 

@@ -48,6 +48,7 @@ class PaymentServiceTest {
                         "Ngozi",
                         "phindile@gmail.com",
                         "0821234567",
+                        "strongPassword456",
                         List.of(),
                         List.of(),
                         List.of()

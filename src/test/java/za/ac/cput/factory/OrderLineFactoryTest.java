@@ -26,7 +26,7 @@ class OrderLineFactoryTest {
         assertEquals(123, orderLine.getQuantity());
         assertEquals(123.0, orderLine.getUnitPrice());
         assertEquals(123 * 123.0, orderLine.getSubTotal());
-        assertNull(orderLine.getDiscount());
+
         assertNull(orderLine.getProduct());
         assertNull(orderLine.getOrder());
 
@@ -39,20 +39,20 @@ class OrderLineFactoryTest {
         List<OrderLine> orderLines = new ArrayList<>();
         Shipment shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23,null);
         CustomerOrder customerOrder = CustomerOrderFactory.createCustomerOrder("20250729", 200.0, orderLines, customer, shipment);
-        Product product = ProductFactory.createProduct( "Lancewood", "Yellow",  (short) 50, "OUT OF STOCK",null);
-        Discount discount = DiscountFactory.createDiscount(        "Winter Sale",
-                "Percentage",
-                "20%",
-                "20250801",
-                "20250831",
-                null
-        );
+         Supplier supplier = SupplierFactory.createSupplier(
+                "SnuggleBabies Clothing Co.",
+                "0211234567",
+                null);
+
+
+        Product product = ProductFactory.createProduct("Lancewood", "Yellow", (short) 588, "OUT OF STOCK", null,supplier);
+
         OrderLine orderLine = OrderLineFactory.createOrderLine(
                 5,
                 200.0,
                 customerOrder,
-                product,
-                discount
+                product
+
         );
 
         assertNotNull(orderLine);
@@ -60,7 +60,7 @@ class OrderLineFactoryTest {
         assertEquals(200.0, orderLine.getUnitPrice());
         assertEquals(1000.0, orderLine.getSubTotal());
         assertEquals(product, orderLine.getProduct());
-        assertEquals(discount, orderLine.getDiscount());
+
         assertEquals(customerOrder, orderLine.getOrder());
 
         System.out.println(orderLine);
@@ -75,7 +75,7 @@ class OrderLineFactoryTest {
         assertEquals(2, orderLine.getQuantity());
         assertEquals(50.00, orderLine.getUnitPrice());
         assertEquals(100.00, orderLine.getSubTotal());
-        assertNull(orderLine.getDiscount());
+
 
         System.out.println(orderLine);
     }

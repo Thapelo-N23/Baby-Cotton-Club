@@ -9,15 +9,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Review;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.ProductFactory;
 import za.ac.cput.factory.ReviewFactory;
+import za.ac.cput.factory.SupplierFactory;
 import za.ac.cput.service.ICustomerService;
 import za.ac.cput.service.IReviewService;
+import za.ac.cput.service.ISupplierService;
 import za.ac.cput.service.ProductService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,37 +40,51 @@ class ReviewServiceTest {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ISupplierService supplierService;
+
     private static Review review;
     private static Customer customer;
     private static Product product;
+    private static Supplier supplier;
 
 
     @Test
     @Order(1)
     void create() {
-                customer = CustomerFactory.createCustomer("John", "Doe", "olwethunene42@gmail.com",
+        customer = CustomerFactory.createCustomer(
+                "John",
+                "Doe",
+                "mengezi@gmail.com",
                 "0781234567",
+                "securePassword123",
                 Collections.emptyList(),
                 Collections.emptyList(),
-                Collections.emptyList());
-
+                Collections.emptyList()
+        );
         Customer create = customerService.create(customer);
         assertNotNull(create);
         customer = create;
         System.out.println("Created Customer" + create);
 
-        product = ProductFactory.createProduct("Nike","Blue",
-                (short)67,"Available",review);
+        supplier = SupplierFactory.createSupplier(
+                "SnuggleBabies Clothing Co.",
+                "0211234567",
+                null);
+        supplier = supplierService.create(supplier);
+        assertNotNull(supplier);
+        System.out.println("Created Supplier: " + supplier);
 
+        product = ProductFactory.createProduct("Nike","Blue",
+                (short)67,"Available",null,supplier);
         Product create1 = productService.create(product);
         assertNotNull(create1);
         product = create1;
         System.out.println("Product created: " + create1);
 
-
-         review = ReviewFactory.createReview( (short)5,"Great product",
+        review = ReviewFactory.createReview( (short)5,"Great product",
                  LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")),customer, product);
-         Review created = service.create(review);
+        Review created = service.create(review);
         assertNotNull(created);
         review = created;
         System.out.println("Created Review: " + created);

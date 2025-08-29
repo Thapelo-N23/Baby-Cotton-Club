@@ -1,4 +1,3 @@
-
 /*
 Supplier POJO Class
 Author: Phindile Lisa Ngozi
@@ -21,9 +20,8 @@ public class Supplier {
 
     private String contactDetails;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    protected Inventory inventory;
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private java.util.List<Product> products;
 
     protected Supplier() {
     }
@@ -32,7 +30,7 @@ public class Supplier {
         this.supplierId = builder.supplierId;
         this.supplierName = builder.supplierName;
         this.contactDetails = builder.contactDetails;
-        this.inventory = builder.inventory;
+        this.products = builder.products;
     }
 
     public int getSupplierId() {
@@ -47,8 +45,8 @@ public class Supplier {
         return contactDetails;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public java.util.List<Product> getProducts() {
+        return products;
     }
 
     @Override
@@ -57,7 +55,6 @@ public class Supplier {
                 "supplierId=" + supplierId +
                 ", supplierName='" + supplierName + '\'' +
                 ", contactDetails='" + contactDetails + '\'' +
-                ", inventory=" + (inventory != null ? inventory.getInventoryId() : null) +
                 '}';
     }
 
@@ -65,7 +62,7 @@ public class Supplier {
         private int supplierId;
         private String supplierName;
         private String contactDetails;
-        private Inventory inventory;
+        private java.util.List<Product> products;
 
         public Builder setSupplierId(int supplierId) {
             this.supplierId = supplierId;
@@ -81,8 +78,9 @@ public class Supplier {
             this.contactDetails = contactDetails;
             return this;
         }
-        public Builder setInventory(Inventory inventory) {
-            this.inventory = inventory;
+
+        public Builder setProducts(java.util.List<Product> products) {
+            this.products = products;
             return this;
         }
 
@@ -90,7 +88,6 @@ public class Supplier {
             this.supplierId = supplier.supplierId;
             this.supplierName = supplier.supplierName;
             this.contactDetails = supplier.contactDetails;
-            this.inventory = supplier.inventory;
             return this;
         }
         public Supplier build(){

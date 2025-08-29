@@ -16,6 +16,7 @@ public class CustomerFactoryTest {
             "Doe",
             "mengezi@gmail.com",
             "0781234567",
+            "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
             Collections.emptyList()
@@ -56,6 +57,7 @@ public class CustomerFactoryTest {
             "Doe",
             "mengezi@gmail.com",
             "0781234567",
+            "securePassword123",
             Arrays.asList(address1),
             Arrays.asList(customerOrder1),
             Arrays.asList(review)
