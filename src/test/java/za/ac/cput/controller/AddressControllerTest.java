@@ -48,7 +48,7 @@ class AddressControllerTest {
                 "Klerksdorp",
                 (short) 2600,
                 "North West",
-                null
+                customer
         );
 
         String url = getBaseUrl() + "/create";
