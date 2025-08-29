@@ -17,6 +17,8 @@ import org.junit.jupiter.api.*;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,29 +36,32 @@ class PaymentServiceTest {
     @Autowired
     private ICustomerOrderService orderService;
 
-    private static Customer customer;
+
     private static CustomerOrder customerOrder;
     private static Payment payment;
+    private static List<CartItem> cartItems = new ArrayList<>();
 
+    private static Cart cart = CartFactory.createCart(null, cartItems);
+
+    private static Customer customer = CustomerFactory.createCustomer(
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            "securePassword123",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList(),
+            cart
+
+    );
     @Test
     @Order(1)
     void create() {
-        //  Create Customer
-        customer = customerService.create(
-                CustomerFactory.createCustomer(
-                        "Phindile",
-                        "Ngozi",
-                        "phindile@gmail.com",
-                        "0821234567",
-                        "strongPassword456",
-                        List.of(),
-                        List.of(),
-                        List.of()
-                )
-        );
+
         assertNotNull(customer.getCustomerId(), "Customer ID should not be null");
 
-        // Create CustomerOrder linked to Customer
+
         List<OrderLine> orderLines = List.of(
                 OrderLineFactory.createOrderLine(2, 50.00)
         );

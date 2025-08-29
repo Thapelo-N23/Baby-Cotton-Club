@@ -4,19 +4,15 @@ package za.ac.cput.service.impl;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Address;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.CustomerOrder;
+import za.ac.cput.domain.*;
 
-import za.ac.cput.domain.Review;
-import za.ac.cput.factory.AddressFactory;
-import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.CustomerOrderFactory;
-import za.ac.cput.factory.ReviewFactory;
+import za.ac.cput.factory.*;
 import za.ac.cput.service.ICustomerService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static za.ac.cput.factory.CustomerFactoryTest.shipment;
@@ -29,26 +25,30 @@ class CustomerServiceTest {
     @Autowired
     private ICustomerService customerService;
 
-    private static Customer customer;
+
     private static Address address;
     private static CustomerOrder order;
     private static Review review;
+    private static List<CartItem> cartItems = new ArrayList<>();
 
+    private static Cart cart = CartFactory.createCart(null, cartItems);
+
+    private static Customer customer = CustomerFactory.createCustomer(
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            "securePassword123",
+            Arrays.asList(address),
+            Arrays.asList(order) ,
+            Arrays.asList(review),
+            cart
+
+    );
     @Test
     @Order(1)
     void create() {
-        // Create base customer
-        customer = CustomerFactory.createCustomer(
-                "John",
-                "Doe",
-                "mengezi@gmail.com",
-                "0781234567",
-                "securePassword123",
-                Collections.emptyList(),
-                Collections.emptyList(),
-                Collections.emptyList()
 
-        );
 
         Customer created = customerService.create(customer);
         assertNotNull(created);
@@ -105,9 +105,11 @@ class CustomerServiceTest {
                 "mengezi@gmail.com",
                 "0781234567",
                 "securePassword123",
-                Collections.emptyList(),
-                Collections.emptyList(),
-                Collections.emptyList()
+                Arrays.asList(address),
+                Arrays.asList(order),
+                Arrays.asList(review),
+                cart
+
 
         );
 

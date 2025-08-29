@@ -3,13 +3,20 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static za.ac.cput.factory.ReviewFactoryTest.product1;
 
 public class CustomerFactoryTest {
+
+
+    private static List<CartItem> cartItems = new ArrayList<>();
+
+    private static Cart cart = CartFactory.createCart(null, cartItems);
     // Create a customer
     private static Customer customer = CustomerFactory.createCustomer(
             "John",
@@ -19,7 +26,9 @@ public class CustomerFactoryTest {
             "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
-            Collections.emptyList()
+            Collections.emptyList(),
+            cart
+
     );
     //create an address
     public static Address address1 = AddressFactory.createAddress(
@@ -51,6 +60,7 @@ public class CustomerFactoryTest {
             customer,
             product1);
 
+
     // Create a customer with orders, address  and reviews
     private static Customer customerWithRelationships = CustomerFactory.createCustomer(
             "John",
@@ -60,7 +70,8 @@ public class CustomerFactoryTest {
             "securePassword123",
             Arrays.asList(address1),
             Arrays.asList(customerOrder1),
-            Arrays.asList(review)
+            Arrays.asList(review),
+            cart
     );
 
     @Test

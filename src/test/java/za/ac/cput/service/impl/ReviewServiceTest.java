@@ -6,14 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Review;
-import za.ac.cput.domain.Supplier;
-import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.ProductFactory;
-import za.ac.cput.factory.ReviewFactory;
-import za.ac.cput.factory.SupplierFactory;
+import za.ac.cput.domain.*;
+import za.ac.cput.factory.*;
 import za.ac.cput.service.ICustomerService;
 import za.ac.cput.service.IReviewService;
 import za.ac.cput.service.ISupplierService;
@@ -21,8 +15,10 @@ import za.ac.cput.service.ProductService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,24 +40,30 @@ class ReviewServiceTest {
     private ISupplierService supplierService;
 
     private static Review review;
-    private static Customer customer;
+
     private static Product product;
     private static Supplier supplier;
+    private static List<CartItem> cartItems = new ArrayList<>();
 
+    private static Cart cart = CartFactory.createCart(null, cartItems);
+
+    private static Customer customer = CustomerFactory.createCustomer(
+            "John",
+            "Doe",
+            "mengezi@gmail.com",
+            "0781234567",
+            "securePassword123",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            Collections.emptyList(),
+            cart
+
+    );
 
     @Test
     @Order(1)
     void create() {
-        customer = CustomerFactory.createCustomer(
-                "John",
-                "Doe",
-                "mengezi@gmail.com",
-                "0781234567",
-                "securePassword123",
-                Collections.emptyList(),
-                Collections.emptyList(),
-                Collections.emptyList()
-        );
+
         Customer create = customerService.create(customer);
         assertNotNull(create);
         customer = create;
