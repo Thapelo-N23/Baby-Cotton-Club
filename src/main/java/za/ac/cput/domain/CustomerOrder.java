@@ -19,18 +19,17 @@ public class CustomerOrder {
     protected double totalAmount;
 
     @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("order-lines")
     private List<OrderLine> orderLines;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-
-    @JsonBackReference
-
+    @JsonBackReference("customer-orders")
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "shipment_id")
+    @JsonBackReference("shipment-orders")
     private Shipment shipment;
     protected CustomerOrder() {}
 

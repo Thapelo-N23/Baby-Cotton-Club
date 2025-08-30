@@ -25,11 +25,12 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @JsonBackReference
+    @JsonBackReference("customer-reviews")
     protected Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonBackReference("product-reviews")
     protected Product product;
 
     protected Review(){
