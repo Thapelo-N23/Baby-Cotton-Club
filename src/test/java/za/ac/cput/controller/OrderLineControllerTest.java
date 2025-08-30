@@ -6,9 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import za.ac.cput.domain.OrderLine;
-import za.ac.cput.factory.OrderLineFactory;
+import za.ac.cput.domain.*;
+import za.ac.cput.factory.*;
+import za.ac.cput.repository.*;
 
+import java.util.List;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +21,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderLineControllerTest {
 
     private OrderLine orderLine;
+    private Product product;
+    private CustomerOrder customerOrder;
+    private Customer customer;
+    private Shipment shipment;
+    private Supplier supplier;
 
     @LocalServerPort
     private int port;
@@ -26,31 +33,58 @@ class OrderLineControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CustomerOrderRepository customerOrderRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private ShipmentRepository shipmentRepository;
+
+    @Autowired
+    private SupplierRepository supplierRepository;
+
     private String getBaseUrl() {
         return "http://localhost:" + port + "/api/orderline";
     }
 
     @BeforeAll
     void setUp() {
-        // Create minimal OrderLine without any relationships
-        orderLine = OrderLineFactory.createOrderLine(
-                3,
-                100.0,
-                null,
-                null
-        );
+        // 1. Persist Supplier
+        supplier = SupplierFactory.createSupplier("SnuggleBabies Clothing Co.", "0211234567", null);
+        supplier = supplierRepository.save(supplier);
 
-        // POST to create orderLine
-        ResponseEntity<OrderLine> response = restTemplate.postForEntity(
-                getBaseUrl() + "/create",
-                orderLine,
-                OrderLine.class
-        );
+        // 2. Persist Product with persisted Supplier
+        product = ProductFactory.createProduct("Lancewood", "Yellow", (short) 588, "OUT OF STOCK", null, supplier);
+        product = productRepository.save(product);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        // 3. Persist Customer
+        customer = new Customer();
+        customer = customerRepository.save(customer);
+
+        // 4. Persist Shipment
+        shipment = ShipmentFactory.createShipment("DHL", "OUT OF STOCK", 23, null);
+        shipment = shipmentRepository.save(shipment);
+
+        // 5. Persist CustomerOrder with persisted Customer and Shipment
+        customerOrder = CustomerOrderFactory.createCustomerOrder("20250729", 200.0, List.of(), customer, shipment);
+        customerOrder = customerOrderRepository.save(customerOrder);
+
+        // 6. Create OrderLine linking persisted entities
+        orderLine = OrderLineFactory.createOrderLine(5, 200.0, customerOrder, product);
+
+        // 7. POST OrderLine to controller
+        ResponseEntity<OrderLine> response = restTemplate.postForEntity(getBaseUrl() + "/create", orderLine, OrderLine.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Failed to create OrderLine");
         orderLine = response.getBody();
-        assertNotNull(orderLine);
-        assertNotNull(orderLine.getOrderLineId());
+        assertNotNull(orderLine, "OrderLine response body is null");
+        assertNotNull(orderLine.getOrderLineId(), "OrderLine ID not generated");
+
         System.out.println("Created OrderLine (setup): " + orderLine);
     }
 
@@ -70,15 +104,18 @@ class OrderLineControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(orderLine.getOrderLineId(), response.getBody().getOrderLineId());
-        System.out.println("Read OrderLine: " + response.getBody());
+        assertNotNull(response.getBody().getOrder(), "Order should not be null");
+        assertNotNull(response.getBody().getProduct(), "Product should not be null");
+
+        System.out.println("Read OrderLine with relationships: " + response.getBody());
     }
 
     @Test
     void c_update() {
         OrderLine updatedOrderLine = new OrderLine.Builder()
                 .copy(orderLine)
-                .setQuantity(5)
-                .setUnitPrice(120.0)
+                .setQuantity(10)
+                .setUnitPrice(150.0)
                 .build();
 
         HttpEntity<OrderLine> request = new HttpEntity<>(updatedOrderLine);
@@ -92,8 +129,8 @@ class OrderLineControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(5, response.getBody().getQuantity());
-        assertEquals(120.0, response.getBody().getUnitPrice());
+        assertEquals(10, response.getBody().getQuantity());
+        assertEquals(150.0, response.getBody().getUnitPrice());
 
         orderLine = response.getBody();
         System.out.println("Updated OrderLine: " + orderLine);
@@ -101,15 +138,12 @@ class OrderLineControllerTest {
 
     @Test
     void d_getAll() {
-        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(
-                getBaseUrl() + "/getall",
-                OrderLine[].class
-        );
+        ResponseEntity<OrderLine[]> response = restTemplate.getForEntity(getBaseUrl() + "/getall", OrderLine[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().length > 0, "No OrderLines found");
+
         System.out.println("All OrderLines: " + Arrays.toString(response.getBody()));
     }
-
 }

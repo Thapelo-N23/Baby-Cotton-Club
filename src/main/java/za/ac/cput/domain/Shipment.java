@@ -7,6 +7,7 @@
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class Shipment {
 
 
 
-    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CustomerOrder> customerOrder;
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("shipment-orders")
+    private List<CustomerOrder> customerOrders;
 
     public Shipment() {}
 
@@ -34,7 +36,7 @@ public class Shipment {
         this.carrierName = builder.carrierName;
         this.shipmentStatus = builder.shipmentStatus;
         this.shippingCost = builder.shippingCost;
-        this.customerOrder = builder.customerOrder;
+        this.customerOrders = builder.customerOrders;
     }
 
     public int getShipmentId() {
@@ -53,8 +55,8 @@ public class Shipment {
         return shippingCost;
     }
 
-    public List<CustomerOrder> getCustomerOrder() {
-        return customerOrder;
+    public List<CustomerOrder> getCustomerOrders() {
+        return customerOrders;
     }
 
 
@@ -66,7 +68,7 @@ public class Shipment {
                 ", carrierName='" + carrierName + '\'' +
                 ", shipmentStatus='" + shipmentStatus + '\'' +
                 ", shippingCost=" + shippingCost +
-                ", customerOrder=" + customerOrder +
+                ", customerOrder=" + customerOrders +
                 '}';
     }
 
@@ -75,7 +77,7 @@ public class Shipment {
         private String carrierName;
         private String shipmentStatus;
         private double shippingCost;
-        private List<CustomerOrder> customerOrder;
+        private List<CustomerOrder> customerOrders;
 
 
         public Builder setCarrierName(String carrierName) {
@@ -94,7 +96,7 @@ public class Shipment {
         }
 
         public Builder setCustomerOrder(List<CustomerOrder> customerOrder) {
-            this.customerOrder = customerOrder;
+            this.customerOrders = customerOrder;
             return this;
         }
 
@@ -105,7 +107,7 @@ public class Shipment {
             this.carrierName = shipment.getCarrierName();
             this.shipmentStatus = shipment.getShipmentStatus();
             this.shippingCost = shipment.getShippingCost();
-            this.customerOrder = shipment.getCustomerOrder();
+            this.customerOrders = shipment.getCustomerOrders();
             return this;
         }
 

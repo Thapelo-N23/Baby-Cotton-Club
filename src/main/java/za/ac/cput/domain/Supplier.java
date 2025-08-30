@@ -6,6 +6,7 @@ Date: 2025/05/11
  */
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,7 @@ public class Supplier {
     private String contactDetails;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("supplier-products")
     private java.util.List<Product> products;
 
     protected Supplier() {
