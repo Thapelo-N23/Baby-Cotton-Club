@@ -6,6 +6,7 @@
  */
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -24,15 +25,18 @@ public class Product {
     protected short price;
     protected String inStock;
 
-    @OneToMany(mappedBy="product", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("product-reviews")
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference("category-products")
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
+    @JsonBackReference("supplier-products")
     private Supplier supplier;
 
 

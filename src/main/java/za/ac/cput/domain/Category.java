@@ -7,6 +7,7 @@
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class Category {
     protected String categoryName;
 
     // New field for products
-    @OneToMany
-    @JoinColumn(name = "category_id") // foreign key in Product table
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("category-products")
     private List<Product> products;
 
     protected Category() {}

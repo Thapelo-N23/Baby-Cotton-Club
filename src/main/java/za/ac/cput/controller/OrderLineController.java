@@ -8,7 +8,7 @@ import za.ac.cput.service.impl.OrderLineService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orderline") // include leading /api for consistency
+@RequestMapping("/api/orderline")
 public class OrderLineController {
 
     private final OrderLineService service;
@@ -24,7 +24,7 @@ public class OrderLineController {
     }
 
     @GetMapping("/read/{orderLineId}")
-    public OrderLine read(@PathVariable("orderLineId") Integer orderLineId) {
+    public OrderLine read(@PathVariable("orderLineId") int orderLineId) {
         return service.read(orderLineId);
     }
 
