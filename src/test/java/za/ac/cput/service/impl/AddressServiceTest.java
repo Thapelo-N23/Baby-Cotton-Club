@@ -37,7 +37,8 @@ class AddressServiceTest {
             "securePassword123",
             Collections.emptyList(),
             Collections.emptyList(),
-            Collections.emptyList()
+            Collections.emptyList(),
+            null
 
     );
 

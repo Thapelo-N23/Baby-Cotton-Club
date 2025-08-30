@@ -52,7 +52,9 @@ class CustomerOrderServiceTest {
                         "securePassword123",
                         Collections.emptyList(),
                         Collections.emptyList(),
-                        Collections.emptyList())
+                        Collections.emptyList(),
+                        null)
+
 
                 );
 

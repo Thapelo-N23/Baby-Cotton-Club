@@ -7,20 +7,25 @@
 
 package za.ac.cput.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart_items")
+
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", nullable = false)
+
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -44,9 +49,9 @@ public class CartItem {
     @Override
     public String toString() {
         return "CartItem{" +
-                "cartItemId=" + cartItemId +
-                ", cart=" + (cart != null ? cart.getCartId() : null) +
-                ", product=" + (product != null ? product.getProductId() : null) +
+                "cartItemID=" + cartItemId +
+                ", cart=" + (cart != null) +
+                ", product=" + (product != null) +
                 ", quantity=" + quantity +
                 '}';
     }
