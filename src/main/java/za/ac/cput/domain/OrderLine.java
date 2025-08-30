@@ -24,7 +24,7 @@ public class OrderLine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @JsonBackReference
+    @JsonBackReference("order-lines")
     protected CustomerOrder customerOrder;
     @ManyToOne
     @JoinColumn(name = "product_id")

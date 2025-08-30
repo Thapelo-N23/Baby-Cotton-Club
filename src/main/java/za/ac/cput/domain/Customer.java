@@ -27,15 +27,15 @@ public class Customer {
     private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("customer-addresses")
     private List<Address> addresses ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("customer-orders")
     private List<CustomerOrder> customerOrders ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("customer-reviews")
     private List<Review> reviews ;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
