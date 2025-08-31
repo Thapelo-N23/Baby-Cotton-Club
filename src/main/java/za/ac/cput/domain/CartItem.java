@@ -1,8 +1,7 @@
 /**
  * BabyCottonClub
  * CartItem.java
- * Author : Mengezi Junior Ngwenya - 230023967
- * Date : 29 August 2025
+ * Author : Onako Ntsaluba - 230741754
  */
 
 package za.ac.cput.domain;
@@ -47,6 +46,7 @@ public class CartItem {
     public Product getProduct() { return product; }
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setCart(Cart cart) { this.cart = cart; }
 
     @Override
     public String toString() {
