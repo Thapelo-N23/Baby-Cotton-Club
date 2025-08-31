@@ -47,7 +47,7 @@ public class CustomerController {
 
     @PostMapping("/login")
     public Customer login(@RequestBody Customer loginRequest) {
-        return service.login(loginRequest.getEmail(), loginRequest.getPassword());
+        return service.login(loginRequest.getEmail());
     }
 
 }
