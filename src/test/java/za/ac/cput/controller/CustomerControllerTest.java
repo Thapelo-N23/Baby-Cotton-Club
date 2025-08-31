@@ -1,3 +1,11 @@
+/**
+ * BabyCottonClub
+ * Product.java
+ * Author : Mengezi Junior Ngwenya - 230023967
+ * Date :  2025
+ */
+
+
 package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
