@@ -1,8 +1,8 @@
 /*
  * Baby Cotton Club
  * CartService.java
- * Author: Tsireledzo Netshilonwe
- * Student Number: 230666426
+ * Author: Onako Ntsaluba
+ * Student Number: 230741754
  * Date: 2025/05/24
  */
 
