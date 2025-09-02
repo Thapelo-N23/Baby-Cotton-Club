@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class Product {
     protected String color;
     protected short price;
     protected String inStock;
+    private String imagePath;
+
+    @Lob
+    private byte[] imageDate;
 
     @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-reviews")
@@ -50,6 +55,7 @@ public class Product {
         this.category = builder.category;
         this.reviews = builder.reviews;
         this.supplier = builder.supplier;
+        this.imagePath = builder.imagePath;
 
 
     }
@@ -86,21 +92,26 @@ public class Product {
         return supplier;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", color='" + color + '\'' +
-                ", price=" + price +
-                ", inStock='" + inStock + '\'' +
-                ", reviews=" + reviews +
-                ", category=" + category +
-                ", supplier=" + supplier +
-                '}';
-    }
+    public String getImagePath() {  return imagePath;
+ }
 
-    public static class Builder {
+ @Override
+ public String toString() {
+  return "Product{" +
+          "productId=" + productId +
+          ", productName='" + productName + '\'' +
+          ", color='" + color + '\'' +
+          ", price=" + price +
+          ", inStock='" + inStock + '\'' +
+          ", imagePath='" + imagePath + '\'' +
+          ", imageDate=" + Arrays.toString(imageDate) +
+          ", reviews=" + reviews +
+          ", category=" + category +
+          ", supplier=" + supplier +
+          '}';
+ }
+
+ public static class Builder {
         private int productId;
         private String productName;
         private String color;
@@ -109,6 +120,7 @@ public class Product {
         private Category category;
         private List<Review> reviews;
         private Supplier supplier;
+        private String imagePath;
 
         public Builder setCategory(Category category) {
             this.category = category;
@@ -140,6 +152,11 @@ public class Product {
             return this;
         }
 
+        public Builder setImagePath(String imagePath) {
+         this.imagePath = imagePath;
+         return this;
+        }
+
         public Builder setReview(Review review) {
             if (review != null) {
                 this.reviews = Collections.singletonList(review);
@@ -149,21 +166,22 @@ public class Product {
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "productId=" + productId +
-                    ", productName='" + productName + '\'' +
-                    ", color='" + color + '\'' +
-                    ", price=" + price +
-                    ", inStock='" + inStock + '\'' +
-                    ", category=" + category +
-                    ", reviews=" + reviews +
-                    ", supplier=" + supplier +
-                    '}';
-        }
+     @Override
+     public String toString() {
+      return "Builder{" +
+              "productId=" + productId +
+              ", productName='" + productName + '\'' +
+              ", color='" + color + '\'' +
+              ", price=" + price +
+              ", inStock='" + inStock + '\'' +
+              ", category=" + category +
+              ", reviews=" + reviews +
+              ", supplier=" + supplier +
+              ", imagePath='" + imagePath + '\'' +
+              '}';
+     }
 
-        public Builder copy(Product product) {
+     public Builder copy(Product product) {
             this.productId = product.getProductId();
             this.productName = product.getProductName();
             this.color = product.getColor();
@@ -172,6 +190,8 @@ public class Product {
             this.category = product.getCategory();
             this.reviews = product.getReviews();
             this.supplier = product.getSupplier();
+            this.imagePath = product.getImagePath();
+
             return this;
         }
         public Product build() {
