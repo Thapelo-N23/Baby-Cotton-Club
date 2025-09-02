@@ -1,8 +1,7 @@
 /**
  * BabyCottonClub
  * CartItemServiceTest.java
- * Author : Mengezi Junior Ngwenya - 230023967
- * Date : 29 August 2025
+ * Author : Onako Ntsaluba - 230741754
  */
 
 package za.ac.cput.service.impl;
