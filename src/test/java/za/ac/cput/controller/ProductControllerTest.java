@@ -35,7 +35,7 @@ public class ProductControllerTest {
     private TestRestTemplate restTemplate;
 
     private String getBaseUrl() {
-        return "http://localhost:" + port + "/product";
+        return "http://localhost:" + port + "/api/products";
     }
 
     @BeforeAll
@@ -49,7 +49,7 @@ public class ProductControllerTest {
 
         Supplier supplier = SupplierFactory.createSupplier("SnuggleBabies Clothing Co.", "0211234567", null);
 
-        product = ProductFactory.createProduct("ZARA", "white", (short) 19, "out of stock", review, supplier);
+        product = ProductFactory.createProduct("Tiny", "white", (short) 800, "available", review, supplier);
 
         // Assign category
         product = new Product.Builder()
@@ -60,10 +60,7 @@ public class ProductControllerTest {
         // Save product via ProductController
         ResponseEntity<Product> response = restTemplate.postForEntity(getBaseUrl() + "/create", product, Product.class);
 
-        // Debug
         System.out.println("POST /create status: " + response.getStatusCode());
-        System.out.println("Generated Product ID: " + response.getBody().getProductId());
-
         assertEquals(HttpStatus.OK, response.getStatusCode(), "Product creation failed");
         assertNotNull(response.getBody(), "Response body is null after product creation");
         assertTrue(response.getBody().getProductId() > 0, "Product ID not generated correctly");
@@ -83,12 +80,11 @@ public class ProductControllerTest {
                 getBaseUrl() + "/read/" + product.getProductId(),
                 Product.class
         );
-        if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null || response.getBody().getProductId() == 0) {
-            fail("Product read returned " + response.getStatusCode() + " with body: " + response.getBody());
-        }
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(product.getProductId(), response.getBody().getProductId());
+
         System.out.println("Read Product: " + response.getBody());
     }
 
@@ -100,7 +96,12 @@ public class ProductControllerTest {
                 .build();
 
         HttpEntity<Product> request = new HttpEntity<>(updatedProduct);
-        ResponseEntity<Product> response = restTemplate.exchange(getBaseUrl() + "/update", HttpMethod.PUT, request, Product.class);
+        ResponseEntity<Product> response = restTemplate.exchange(
+                getBaseUrl() + "/update/" + product.getProductId(),
+                HttpMethod.PUT,
+                request,
+                Product.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
