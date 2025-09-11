@@ -43,9 +43,9 @@ class ProductServiceTest {
   supplier = supplierService.create(supplier);
   assertNotNull(supplier);
   product = ProductFactory.createProduct(
-          "Hermes",
+          "SnuggleBabies Clothing Co.",
           "Beige",
-          (short) 90,
+          (short) 900,
           "Available",
           Review,
           supplier
@@ -53,7 +53,7 @@ class ProductServiceTest {
 
   Product created = service.create(product);
   assertNotNull(created);
-  product = created; // store persisted entity
+  product = created;
   System.out.println("Created: " + created);
  }
 
