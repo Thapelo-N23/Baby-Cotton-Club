@@ -24,7 +24,7 @@ class CategoryControllerTest {
     private TestRestTemplate restTemplate;
 
     private String getBaseUrl() {
-        return "http://localhost:" + port + "/category";
+        return "http://localhost:" + port + "/api/category";
     }
 
     @BeforeAll
