@@ -15,7 +15,7 @@ import za.ac.cput.service.impl.ReviewService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api/review")
 public class ReviewController {
     private final ReviewService service;
 
