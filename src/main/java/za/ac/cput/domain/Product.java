@@ -8,6 +8,7 @@ package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -20,9 +21,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
+    @JsonProperty("productName")
+    @Column(name = "product_name")
     protected String productName;
     protected String color;
     protected short price;
+    @JsonProperty("inStock")
+    @Column(name = "in_stock")
     protected String inStock;
 
 

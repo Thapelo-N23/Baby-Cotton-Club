@@ -48,7 +48,7 @@ public class ProductControllerTest {
         Review review = ReviewFactory.createReview((short) 4, "Great service!", "20250503", null, null);
         Supplier supplier = SupplierFactory.createSupplier("SnuggleBabies Clothing Co.", "0211234567", null);
 
-        String[] names = {"Cotton Onesie", "Baby Blanket", "Tiny Socks", "Soft Bib", "Sleep Suit", "Play Mat", "Hooded Towel", "Booties", "Swaddle Wrap", "Crib Sheet"};
+        String[] names = {" Baby Cotton Onesie", "Soft Cotton Blanket", "Baby Boots", "Baby Dress", "Baby Princess Dress", "fleece", "Duvet", "Loafers", "Bedding", "Wool Onesie"};
         short[] prices = {120, 250, 60, 45, 180, 300, 90, 70, 150, 110};
         for (int i = 0; i < 10; i++) {
             Product p = ProductFactory.createProduct(
