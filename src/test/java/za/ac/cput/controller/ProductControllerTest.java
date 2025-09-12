@@ -28,6 +28,8 @@ public class ProductControllerTest {
 
     private Product product;
 
+    private List<Product> products = new java.util.ArrayList<>();
+
     @LocalServerPort
     private int port;
 
@@ -40,32 +42,32 @@ public class ProductControllerTest {
 
     @BeforeAll
     void setUp() {
-        // Build dummy objects (no need to call other controllers)
         Category category = new Category.Builder()
                 .setCategoryName("Baby Clothes")
                 .build();
-
         Review review = ReviewFactory.createReview((short) 4, "Great service!", "20250503", null, null);
-
         Supplier supplier = SupplierFactory.createSupplier("SnuggleBabies Clothing Co.", "0211234567", null);
 
-        product = ProductFactory.createProduct("Tiny", "white", (short) 800, "available", review, supplier);
-
-        // Assign category
-        product = new Product.Builder()
-                .copy(product)
-                .setCategory(category)
-                .build();
-
-        // Save product via ProductController
-        ResponseEntity<Product> response = restTemplate.postForEntity(getBaseUrl() + "/create", product, Product.class);
-
-        System.out.println("POST /create status: " + response.getStatusCode());
-        assertEquals(HttpStatus.OK, response.getStatusCode(), "Product creation failed");
-        assertNotNull(response.getBody(), "Response body is null after product creation");
-        assertTrue(response.getBody().getProductId() > 0, "Product ID not generated correctly");
-
-        product = response.getBody();
+        String[] names = {"Cotton Onesie", "Baby Blanket", "Tiny Socks", "Soft Bib", "Sleep Suit", "Play Mat", "Hooded Towel", "Booties", "Swaddle Wrap", "Crib Sheet"};
+        short[] prices = {120, 250, 60, 45, 180, 300, 90, 70, 150, 110};
+        for (int i = 0; i < 10; i++) {
+            Product p = ProductFactory.createProduct(
+                names[i],
+                "Color" + (i+1),
+                prices[i],
+                "available",
+                review,
+                supplier
+            );
+            p = new Product.Builder().copy(p).setCategory(category).build();
+            ResponseEntity<Product> response = restTemplate.postForEntity(getBaseUrl() + "/create", p, Product.class);
+            System.out.println("POST /create status for " + names[i] + ": " + response.getStatusCode());
+            assertEquals(HttpStatus.OK, response.getStatusCode(), "Product creation failed for " + names[i]);
+            assertNotNull(response.getBody(), "Response body is null after product creation for " + names[i]);
+            assertTrue(response.getBody().getProductId() > 0, "Product ID not generated correctly for " + names[i]);
+            products.add(response.getBody());
+        }
+        product = products.get(0);
     }
 
     @Test
