@@ -27,22 +27,19 @@ public class ProductController {
 
     // Get single product by ID
     @GetMapping("/read/{productId}")
-    public Product read(@PathVariable("productId") int productId) {
-        return productService.read(productId);
+    public ResponseEntity<Product> read(@PathVariable int productId) {
+        Product product = productService.read(productId);
+        return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
     }
-
 
     // Update product
     @PutMapping("/update/{productId}")
     public ResponseEntity<Product> update(
-            @PathVariable("productId") int productId,
+            @PathVariable int productId,
             @RequestBody Product product) {
         product.setProductId(productId);
         Product updated = productService.update(product);
-        if (updated == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(updated);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     // Get all products

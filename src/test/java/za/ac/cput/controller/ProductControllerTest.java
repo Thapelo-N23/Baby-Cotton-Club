@@ -9,10 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import za.ac.cput.domain.Category;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Review;
-import za.ac.cput.domain.Supplier;
+import za.ac.cput.domain.*;
 import za.ac.cput.factory.ProductFactory;
 import za.ac.cput.factory.ReviewFactory;
 import za.ac.cput.factory.SupplierFactory;
@@ -126,4 +123,5 @@ public class ProductControllerTest {
         List<Product> products = List.of(response.getBody());
         System.out.println("All Products count: " + products.size());
     }
+
 }
