@@ -32,7 +32,7 @@ class ReviewControllerTest {
 
 
     private String getBaseUrl() {
-        return "http://localhost:" + port + "/review";
+        return "http://localhost:" + port + "/api/review";
     }
 
     @BeforeAll
