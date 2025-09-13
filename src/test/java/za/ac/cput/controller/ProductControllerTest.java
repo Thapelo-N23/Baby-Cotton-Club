@@ -9,10 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import za.ac.cput.domain.Category;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Review;
-import za.ac.cput.domain.Supplier;
+import za.ac.cput.domain.*;
 import za.ac.cput.factory.ProductFactory;
 import za.ac.cput.factory.ReviewFactory;
 import za.ac.cput.factory.SupplierFactory;
@@ -50,6 +47,7 @@ public class ProductControllerTest {
 
         String[] names = {" Baby Cotton Onesie", "Soft Cotton Blanket", "Baby Boots", "Baby Dress", "Baby Princess Dress", "fleece", "Duvet", "Loafers", "Bedding", "Wool Onesie"};
         short[] prices = {120, 250, 60, 45, 180, 300, 90, 70, 150, 110};
+        String[] imageUrls = {"/images/onesie.jpg", "/images/soft-cotton-blanket.jpg", "/images/boots.jpg", "/images/dress.jpg", "/images/princess_dress.jpg", "/images/fleece.jpg", "/images/duvet.jpg", "/images/loafers.jpg", "/images/bedding.jpg", "/images/wool_onesy.jpg"};
         for (int i = 0; i < 10; i++) {
             Product p = ProductFactory.createProduct(
                     names[i],
@@ -59,7 +57,7 @@ public class ProductControllerTest {
                     review,
                     supplier
             );
-            p = new Product.Builder().copy(p).setCategory(category).build();
+            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).build();
             ResponseEntity<Product> response = restTemplate.postForEntity(getBaseUrl() + "/create", p, Product.class);
             System.out.println("POST /create status for " + names[i] + ": " + response.getStatusCode());
             assertEquals(HttpStatus.OK, response.getStatusCode(), "Product creation failed for " + names[i]);
@@ -125,4 +123,5 @@ public class ProductControllerTest {
         List<Product> products = List.of(response.getBody());
         System.out.println("All Products count: " + products.size());
     }
+
 }

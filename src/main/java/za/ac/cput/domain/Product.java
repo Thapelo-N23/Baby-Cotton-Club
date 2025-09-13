@@ -213,7 +213,18 @@ public class Product {
             return this;
         }
         public Product build() {
-            return new Product(this);
+            Product product = new Product();
+            product.productId = this.productId;
+            product.productName = this.productName;
+            product.color = this.color;
+            product.price = this.price;
+            product.inStock = this.inStock;
+            product.category = this.category;
+            product.reviews = this.reviews;
+            product.supplier = this.supplier;
+            product.imageUrl = this.imageUrl;
+            return product;
         }
     }
 }
+
