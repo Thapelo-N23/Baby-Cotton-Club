@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
     private final ProductService productService;
@@ -45,14 +44,6 @@ public class ProductController {
         }
         return ResponseEntity.ok(updated);
     }
-
-
-//    // Delete product
-//    @DeleteMapping("/{productId}")
-//    public ResponseEntity<Void> delete(@PathVariable int productId) {
-//        productService.delete(productId);
-//        return ResponseEntity.noContent().build();
-//    }
 
     // Get all products
     @GetMapping("/getall")
