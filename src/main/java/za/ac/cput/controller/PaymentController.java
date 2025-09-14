@@ -14,7 +14,7 @@ import za.ac.cput.service.impl.PaymentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/api/payment")
 public class PaymentController {
     private final PaymentService service;
 

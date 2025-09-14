@@ -1,4 +1,4 @@
-package za.ac.cput.controller;
+ package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ class PaymentControllerTest {
     private TestRestTemplate restTemplate;
 
     private String getBaseUrl() {
-        return "http://localhost:" + port + "/payment";
+        return "http://localhost:" + port + "/api/payment";
     }
 
     @BeforeAll
