@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CartRequest {
     private CustomerDto customer;
-    private List<Object> items; // Handle items later
+    private List<Object> items;
     private boolean isCheckedOut;
 
     public CustomerDto getCustomer() { return customer; }
