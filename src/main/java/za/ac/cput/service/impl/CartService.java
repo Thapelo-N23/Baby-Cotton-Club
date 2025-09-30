@@ -10,38 +10,41 @@ package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.cput.domain.Cart;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.CartRepository;
-import za.ac.cput.service.ICartService;
+import za.ac.cput.repository.CustomerRepository;
+import za.ac.cput.dto.CartRequest;
 
 import java.util.List;
 
 @Service
-public class CartService implements ICartService {
-
-    private CartRepository cartRepository;
-
+@Transactional
+public class CartService {
     @Autowired
-    public CartService(CartRepository cartRepository) {
-        this.cartRepository = cartRepository;
+    private CartRepository cartRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    public Cart create(CartRequest request) {
+        Customer customer = customerRepository.findById(request.getCustomer().getCustomerId())
+            .orElseThrow(() -> new RuntimeException("Customer not found: " + request.getCustomer().getCustomerId()));
+        Cart cart = new Cart.Builder()
+            .setCustomer(customer)
+            .setCheckedOut(request.isCheckedOut())
+            .build();
+        return cartRepository.save(cart);
     }
 
-    @Override
-    public Cart create(Cart cart) {
-        return this.cartRepository.save(cart);
-    }
-
-    @Override
     public Cart read(Integer id) {
         return this.cartRepository.findById(id).orElse(null);
     }
 
-    @Override
     public Cart update(Cart cart) {
         return this.cartRepository.save(cart);
     }
 
-    @Override
     public List<Cart> getAll() {
         return this.cartRepository.findAll();
     }

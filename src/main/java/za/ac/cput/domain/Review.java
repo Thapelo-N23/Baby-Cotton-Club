@@ -3,7 +3,7 @@ Review.java
 Review POJO class
 Author: Olwethu Nene(230277845)
 Date: 21 July 2025
- */
+*/
 
 package za.ac.cput.domain;
 
@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "reviews")
-
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +32,10 @@ public class Review {
     @JsonBackReference("product-reviews")
     protected Product product;
 
-    protected Review(){
+    protected Review() {
     }
-    public Review (Builder builder){
+
+    public Review(Builder builder) {
         this.reviewId = builder.reviewId;
         this.rating = builder.rating;
         this.reviewComment = builder.reviewComment;
@@ -48,26 +48,28 @@ public class Review {
         return reviewId;
     }
 
-
     public short getRating() {
         return rating;
     }
 
     public String getReviewComment() {
-
         return reviewComment;
     }
 
     public LocalDate getReviewDate() {
-
         return reviewDate;
     }
 
     public Customer getCustomer() {
         return customer;
     }
+
     public Product getProduct() {
         return product;
+    }
+
+    public Integer getProductId() {
+        return product != null ? product.getProductId() : null;
     }
 
     @Override
@@ -82,8 +84,7 @@ public class Review {
                 '}';
     }
 
-
-    public static class Builder{
+    public static class Builder {
         private Integer reviewId;
         protected short rating;
         private LocalDate reviewDate;
@@ -95,6 +96,7 @@ public class Review {
             this.reviewId = reviewId;
             return this;
         }
+
         public Builder setRating(short rating) {
             this.rating = rating;
             return this;
@@ -109,16 +111,18 @@ public class Review {
             this.reviewComment = reviewComment;
             return this;
         }
+
         public Builder setCustomer(Customer customer) {
             this.customer = customer;
             return this;
         }
+
         public Builder setProduct(Product product) {
             this.product = product;
             return this;
         }
 
-        public Builder copy(Review builder){
+        public Builder copy(Review builder) {
             this.reviewId = builder.reviewId;
             this.rating = builder.rating;
             this.reviewDate = builder.reviewDate;
@@ -126,11 +130,10 @@ public class Review {
             this.customer = builder.customer;
             this.product = builder.product;
             return this;
-
         }
-        public Review build(){
+
+        public Review build() {
             return new Review(this);
         }
-
     }
 }
