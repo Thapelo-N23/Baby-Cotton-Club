@@ -7,14 +7,17 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Cart;
+import za.ac.cput.dto.CartRequest;
 import za.ac.cput.service.impl.CartService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/cart")
+@CrossOrigin
 public class CartController {
 
     private final CartService service;
@@ -25,8 +28,15 @@ public class CartController {
     }
 
     @PostMapping("/create")
-    public Cart createCart(@RequestBody Cart cart) {
-        return service.create(cart);
+    public ResponseEntity<Cart> createCart(@RequestBody CartRequest request) {
+        try {
+            Cart cart = service.create(request);
+            return ResponseEntity.ok(cart);
+        } catch (Exception e) {
+            System.err.println("Cart creation failed: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @GetMapping("/read/{id}")
