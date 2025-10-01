@@ -44,4 +44,3 @@ public class CartItemService implements ICartItemService {
         return this.cartItemRepository.findAll();
     }
 }
-

@@ -31,6 +31,9 @@ public class CustomerOrder {
     @JoinColumn(name = "shipment_id")
     @JsonBackReference("shipment-orders")
     private Shipment shipment;
+
+    private String status; // e.g., Pending, Processing, Delivered, Cancelled
+
     protected CustomerOrder() {}
 
     private CustomerOrder(Builder builder) {
@@ -40,6 +43,7 @@ public class CustomerOrder {
         this.orderLines = builder.orderLines;
         this.customer = builder.customer;
         this.shipment = builder.shipment;
+        this.status = builder.status;
     }
 
     public int getOrderId() {
@@ -66,6 +70,14 @@ public class CustomerOrder {
         return shipment;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "CustomerOrder{" +
@@ -75,6 +87,7 @@ public class CustomerOrder {
                 ", orderLines=" + (orderLines != null ? orderLines.size() + " lines" : "null") +
                 ", customerId=" + (customer != null ? customer.getCustomerId() : "null") +
                 ", shipmentId=" + (shipment != null ? shipment.getShipmentId() : "null") +
+                ", status='" + status + '\'' +
                 '}';
     }
     public static class Builder {
@@ -84,6 +97,7 @@ public class CustomerOrder {
         private List<OrderLine> orderLines;
         private Customer customer;
         private Shipment shipment;
+        private String status;
 
         public Builder setOrderId(int orderId) {
             this.orderId = orderId;
@@ -113,6 +127,10 @@ public class CustomerOrder {
             this.shipment = shipment;
             return this;
         }
+        public Builder setStatus(String status) {
+            this.status = status;
+            return this;
+        }
 
         public Builder copy(CustomerOrder customerOrder) {
             this.orderId = customerOrder.orderId;
@@ -121,6 +139,7 @@ public class CustomerOrder {
             this.orderLines = customerOrder.orderLines;
             this.customer = customerOrder.customer;
             this.shipment = customerOrder.shipment;
+            this.status = customerOrder.status;
             return this;
         }
 
