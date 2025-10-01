@@ -25,7 +25,7 @@ public class Cart {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
