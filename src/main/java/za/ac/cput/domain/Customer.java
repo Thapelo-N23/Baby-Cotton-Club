@@ -42,9 +42,9 @@ public class Customer {
     private List<Review> reviews ;
 
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Cart cart;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Cart> carts;
 
     public Customer() {}
 
@@ -58,7 +58,7 @@ public class Customer {
         this.addresses = builder.addresses;
         this.customerOrders = builder.customerOrders;
         this.reviews = builder.reviews;
-        this.cart = builder.cart;
+        this.carts = builder.carts;
     }
 
     public int getCustomerId() { return customerId; }
@@ -70,10 +70,10 @@ public class Customer {
     public List<Address> getAddresses() { return addresses; }
     public List<CustomerOrder> getOrders() { return customerOrders; }
     public List<Review> getReviews() { return reviews; }
-    public Cart getCart() { return cart; }
+    public List<Cart> getCarts() { return carts; }
 
     public void setPassword(String password) { this.password = password; }
-    public void setCart(Cart cart) { this.cart = cart; }
+    public void setCarts(List<Cart> carts) { this.carts = carts; }
 
     @Override
     public String toString() {
@@ -101,7 +101,7 @@ public class Customer {
         private List<Address> addresses;
         private List<CustomerOrder> customerOrders;
         private List<Review> reviews;
-        private Cart cart;
+        private List<Cart> carts;
 
         public Builder setCustomerId(int customerId) { this.customerId = customerId; return this; }
         public Builder setFirstName(String firstName) { this.firstName = firstName; return this; }
@@ -115,7 +115,7 @@ public class Customer {
         public Builder setAddresses(List<Address> addresses) { this.addresses = addresses; return this; }
         public Builder setOrders(List<CustomerOrder> customerOrders) { this.customerOrders = customerOrders; return this; }
         public Builder setReviews(List<Review> reviews) { this.reviews = reviews; return this; }
-        public Builder setCart(Cart cart) { this.cart = cart; return this; }
+        public Builder setCarts(List<Cart> carts) { this.carts = carts; return this; }
 
         public Builder copy(Customer customer) {
             this.customerId = customer.customerId;
@@ -127,7 +127,7 @@ public class Customer {
             this.addresses = customer.addresses;
             this.customerOrders = customer.customerOrders;
             this.reviews = customer.reviews;
-            this.cart = customer.cart;
+            this.carts = customer.carts;
             return this;
         }
 

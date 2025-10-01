@@ -35,7 +35,7 @@ public class CustomerFactory {
                     .setAddresses(addresses)
                     .setOrders(customerOrders)
                     .setReviews(reviews)
-                    .setCart(cart)
+                    .setCarts(cart == null ? null : List.of(cart))
                     .build();
         }
 
