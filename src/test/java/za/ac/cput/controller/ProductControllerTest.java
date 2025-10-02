@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductControllerTest {
 
+
     private Product product;
 
     private List<Product> products = new java.util.ArrayList<>();
