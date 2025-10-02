@@ -64,8 +64,6 @@ class ReviewServiceTest {
         cart = CartFactory.createCart(customer, cartItems);
         // If you have a CartService, persist it here
         // cart = cartService.create(cart);
-        customer.setCart(cart);
-        customer = customerService.update(customer);
 
         supplier = SupplierFactory.createSupplier(
             "SnuggleBabies Clothing Co.",
