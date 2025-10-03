@@ -3,7 +3,6 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
-import za.ac.cput.domain.Customer;
 import za.ac.cput.service.IAdminService;
 import za.ac.cput.service.impl.AdminService;
 
@@ -40,8 +39,15 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public Admin login(@RequestBody Admin loginRequest) {
-        return adminService.login(loginRequest.getEmail(), loginRequest.getPassword());
+    public za.ac.cput.dto.AdminLoginResponseDto login(
+        @RequestParam("email") String email,
+        @RequestParam("password") String password
+    ) {
+        Admin admin = adminService.login(email, password);
+        if (admin == null) return null;
+        return new za.ac.cput.dto.AdminLoginResponseDto(
+            admin.getAdminId(),
+            admin.getEmail()
+        );
     }
 }
-
