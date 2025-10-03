@@ -25,7 +25,6 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @JsonIgnoreProperties({"customerOrders", "orders", "carts", "reviews", "addresses", "password"})
     private Customer customer;
 
     @ManyToOne
