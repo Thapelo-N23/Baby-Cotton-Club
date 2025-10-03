@@ -47,6 +47,7 @@ public class CartItem {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public void setCart(Cart cart) { this.cart = cart; }
+    public void setProduct(Product product) { this.product = product; }
 
     @Override
     public String toString() {

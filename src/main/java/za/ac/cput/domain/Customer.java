@@ -33,7 +33,7 @@ public class Customer {
     private List<Address> addresses ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference("customer-orders")
+    @JsonManagedReference
     private List<CustomerOrder> customerOrders ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)

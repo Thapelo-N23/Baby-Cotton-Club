@@ -22,6 +22,7 @@ public class Admin {
 
     @OneToMany
     @JoinColumn(name = "managed_by_admin_id")
+    @com.fasterxml.jackson.annotation.JsonManagedReference("admin-orders")
     private List<CustomerOrder> orders;
 
     protected Admin() {
