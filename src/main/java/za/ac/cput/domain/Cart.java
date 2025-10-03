@@ -50,6 +50,8 @@ public class Cart {
     public void setItems(List<CartItem> items) { this.items = items; }
     public boolean isCheckedOut() { return isCheckedOut; }
     public void setCheckedOut(boolean checkedOut) { this.isCheckedOut = checkedOut; }
+    public void setCartId(int cartId) { this.cartId = cartId; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
 
     @Override
     public String toString() {

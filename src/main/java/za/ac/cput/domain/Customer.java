@@ -8,6 +8,7 @@
 package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -33,7 +34,7 @@ public class Customer {
     private List<Address> addresses ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference("customer-orders")
+    @JsonIgnore // Prevent circular reference during serialization
     private List<CustomerOrder> customerOrders ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)

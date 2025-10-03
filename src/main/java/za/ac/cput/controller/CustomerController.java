@@ -46,8 +46,18 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public Customer login(@RequestBody Customer loginRequest) {
-        return service.login(loginRequest.getEmail());
+    public za.ac.cput.dto.CustomerLoginResponseDto login(
+        @RequestParam("email") String email,
+        @RequestParam("password") String password
+    ) {
+        Customer customer = service.login(email);
+        if (customer == null) return null;
+        return new za.ac.cput.dto.CustomerLoginResponseDto(
+            customer.getCustomerId(),
+            customer.getEmail(),
+            customer.getFirstName(),
+            customer.getLastName()
+        );
     }
 
 }
