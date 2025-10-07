@@ -25,6 +25,7 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference("customer-orders")
     private Customer customer;
 
     @ManyToOne
