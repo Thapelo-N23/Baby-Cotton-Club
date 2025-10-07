@@ -34,7 +34,7 @@ public class Customer {
     private List<Address> addresses ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonIgnore // Prevent circular reference during serialization
+    @JsonIgnore
     private List<CustomerOrder> customerOrders ;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL , fetch = FetchType.LAZY)

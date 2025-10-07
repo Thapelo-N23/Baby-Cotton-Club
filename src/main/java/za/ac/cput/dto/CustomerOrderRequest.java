@@ -7,7 +7,7 @@ public class CustomerOrderRequest {
     private int customerId;
     private LocalDate orderDate;
     private double totalAmount;
-    private List<Integer> orderLineIds; // Or order line DTOs if needed
+    private List<OrderLineRequest> orderLines; // Accept full order line DTOs
     private Integer shipmentId;
     private Integer adminId;
     private String status;
@@ -19,8 +19,8 @@ public class CustomerOrderRequest {
     public void setOrderDate(LocalDate orderDate) { this.orderDate = orderDate; }
     public double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
-    public List<Integer> getOrderLineIds() { return orderLineIds; }
-    public void setOrderLineIds(List<Integer> orderLineIds) { this.orderLineIds = orderLineIds; }
+    public List<OrderLineRequest> getOrderLines() { return orderLines; }
+    public void setOrderLines(List<OrderLineRequest> orderLines) { this.orderLines = orderLines; }
     public Integer getShipmentId() { return shipmentId; }
     public void setShipmentId(Integer shipmentId) { this.shipmentId = shipmentId; }
     public Integer getAdminId() { return adminId; }
@@ -28,4 +28,3 @@ public class CustomerOrderRequest {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 }
-

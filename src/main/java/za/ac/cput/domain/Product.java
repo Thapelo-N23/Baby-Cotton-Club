@@ -132,7 +132,7 @@ public class Product {
         private short price;
         private String inStock;
         private Category category;
-        private List<Review> reviews;
+        private List<Review> reviews = new ArrayList<>();
         private Supplier supplier;
         private String imageUrl;
 
@@ -180,6 +180,11 @@ public class Product {
             return this;
         }
 
+        public Builder setReviews(List<Review> reviews) {
+            this.reviews = reviews;
+            return this;
+        }
+
         public Builder setImageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
             return this;
@@ -213,17 +218,7 @@ public class Product {
             return this;
         }
         public Product build() {
-            Product product = new Product();
-            product.productId = this.productId;
-            product.productName = this.productName;
-            product.color = this.color;
-            product.price = this.price;
-            product.inStock = this.inStock;
-            product.category = this.category;
-            product.reviews = this.reviews;
-            product.supplier = this.supplier;
-            product.imageUrl = this.imageUrl;
-            return product;
+            return new Product(this);
         }
     }
 }

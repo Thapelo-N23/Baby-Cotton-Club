@@ -18,10 +18,10 @@ public class OrderLineController {
         this.service = service;
     }
 
-    @PostMapping("/create")
-    public OrderLine create(@RequestBody OrderLine orderLine) {
-        return service.create(orderLine);
-    }
+    // @PostMapping("/create")
+    // public OrderLine create(@RequestBody OrderLine orderLine) {
+    //     return service.create(orderLine);
+    // }
 
     @GetMapping("/read/{orderLineId}")
     public OrderLine read(@PathVariable("orderLineId") int orderLineId) {

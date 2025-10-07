@@ -88,6 +88,10 @@ public class CustomerOrder {
         this.status = status;
     }
 
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
+    }
+
     @Override
     public String toString() {
         return "CustomerOrder{" +
