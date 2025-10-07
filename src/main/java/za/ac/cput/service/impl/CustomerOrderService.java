@@ -45,4 +45,8 @@ public class CustomerOrderService implements ICustomerOrderService {
     public List<CustomerOrder> getAll() {
         return this.customerOrderRepository.findAll();
     }
+
+    public List<CustomerOrder> getOrdersByCustomerId(Integer customerId) {
+        return customerOrderRepository.findByCustomer_Id(customerId);
+    }
 }
