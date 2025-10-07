@@ -68,7 +68,7 @@ public class ProductDataInitializer {
                 System.err.println("Failed to save Product: " + names[i]);
                 continue;
             }
-            
+
             Review review = ReviewFactory.createReview((short) 4, "Great service!", "20250503", null, saved);
             if (review == null) {
                 System.err.println("Failed to create Review for product: " + names[i]);
