@@ -49,4 +49,13 @@ public class CustomerOrderService implements ICustomerOrderService {
     public List<CustomerOrder> getOrdersByCustomerId(Integer customerId) {
         return customerOrderRepository.findByCustomer_Id(customerId);
     }
+
+    public CustomerOrder updateOrderStatus(Integer orderId, String status) {
+        CustomerOrder order = customerOrderRepository.findById(orderId).orElse(null);
+        if (order == null) {
+            return null;
+        }
+        order.setStatus(status);
+        return customerOrderRepository.save(order);
+    }
 }
