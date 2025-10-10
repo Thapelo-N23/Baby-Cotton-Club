@@ -20,8 +20,10 @@ import za.ac.cput.dto.CustomerOrderResponse;
 import za.ac.cput.mapper.CustomerOrderMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import za.ac.cput.dto.OrderStatusUpdateRequest;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/order")
@@ -92,6 +94,18 @@ public class CustomerOrderController {
                 // Add orderLines, shipment, admin if needed
                 .build();
         return service.update(order);
+    }
+
+    @PatchMapping("/status/{orderId}")
+    public ResponseEntity<CustomerOrderResponse> updateOrderStatus(
+        @PathVariable("orderId") Integer orderId,
+        @RequestBody OrderStatusUpdateRequest request
+    ) {
+        CustomerOrder updatedOrder = service.updateOrderStatus(orderId, request.getStatus());
+        if (updatedOrder == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(CustomerOrderMapper.toDto(updatedOrder));
     }
 
     @GetMapping("/getall")
