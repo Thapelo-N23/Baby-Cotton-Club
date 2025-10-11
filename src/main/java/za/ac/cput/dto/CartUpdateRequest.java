@@ -17,7 +17,7 @@ public class CartUpdateRequest {
     public static class CartItemRequest {
         private int productId;
         private int quantity;
-        // Add other CartItem fields as needed
+
 
         public int getProductId() { return productId; }
         public void setProductId(int productId) { this.productId = productId; }
