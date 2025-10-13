@@ -7,12 +7,11 @@ public class CustomerOrderRequest {
     private int customerId;
     private LocalDate orderDate;
     private double totalAmount;
-    private List<OrderLineRequest> orderLines; // Accept full order line DTOs
+    private List<OrderLineRequest> orderLines;
     private Integer shipmentId;
     private Integer adminId;
     private String status;
 
-    // Getters and setters
     public int getCustomerId() { return customerId; }
     public void setCustomerId(int customerId) { this.customerId = customerId; }
     public LocalDate getOrderDate() { return orderDate; }

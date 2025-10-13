@@ -7,6 +7,7 @@ public class OrderLineResponse {
     private double subTotal;
     private int productId;
     private String productName;
+    private int orderId;
 
     public int getOrderLineId() { return orderLineId; }
     public void setOrderLineId(int orderLineId) { this.orderLineId = orderLineId; }
@@ -20,5 +21,6 @@ public class OrderLineResponse {
     public void setProductId(int productId) { this.productId = productId; }
     public String getProductName() { return productName; }
     public void setProductName(String productName) { this.productName = productName; }
+    public int getOrderId() { return orderId; }
+    public void setOrderId(int orderId) { this.orderId = orderId; }
 }
-

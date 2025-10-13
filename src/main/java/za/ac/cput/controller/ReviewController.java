@@ -8,6 +8,10 @@ import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.service.impl.ReviewService;
+import za.ac.cput.dto.CreateReviewRequest;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,25 +32,25 @@ public class ReviewController {
     }
 
     @PostMapping("/create")
-    public Review createReview(@RequestBody Map<String, Object> payload){
-        Integer productId = (Integer) payload.get("productId");
-        Integer customerId = (Integer) payload.get("customerId");
-        Short rating = ((Number) payload.get("rating")).shortValue();
-        String reviewComment = (String) payload.get("reviewComment");
-        LocalDate reviewDate = LocalDate.parse((String) payload.get("reviewDate"));
-
+    public ResponseEntity<Review> createReview(@Valid @RequestBody CreateReviewRequest req) {
+        Integer productId = req.getProductId();
+        Short rating = req.getRating();
+        String reviewComment = req.getReviewComment();
+        // Set reviewDate server-side
+        LocalDate reviewDate = LocalDate.now();
+        // For now, still get customerId from request (should be from authentication in production)
+        // Integer customerId = ...
         Product product = productRepository.findById(productId).orElse(null);
-        Customer customer = customerRepository.findById(customerId).orElse(null);
-
+        // Customer customer = ...
         Review review = new Review.Builder()
                 .setProduct(product)
-                .setCustomer(customer)
+                // .setCustomer(customer)
                 .setRating(rating)
                 .setReviewComment(reviewComment)
                 .setReviewDate(reviewDate)
                 .build();
-
-        return service.create(review);
+        Review created = service.create(review);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping("/read/{id}")
