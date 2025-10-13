@@ -5,6 +5,7 @@ public class OrderLineRequest {
     private int quantity;
     private double unitPrice;
     private double subTotal;
+    private int orderId;
 
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
@@ -14,5 +15,6 @@ public class OrderLineRequest {
     public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
     public double getSubTotal() { return subTotal; }
     public void setSubTotal(double subTotal) { this.subTotal = subTotal; }
+    public int getOrderId() { return orderId; }
+    public void setOrderId(int orderId) { this.orderId = orderId; }
 }
-
