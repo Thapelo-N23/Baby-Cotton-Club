@@ -4,18 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Review;
 import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.ProductRepository;
-import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.service.impl.ReviewService;
-import za.ac.cput.dto.CreateReviewRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/review")
@@ -23,8 +19,6 @@ public class ReviewController {
     private final ReviewService service;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private CustomerRepository customerRepository;
 
     @Autowired
     public ReviewController(ReviewService reviewService){
@@ -32,23 +26,19 @@ public class ReviewController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Review> createReview(@Valid @RequestBody CreateReviewRequest req) {
-        Integer productId = req.getProductId();
-        Short rating = req.getRating();
-        String reviewComment = req.getReviewComment();
+    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
         // Set reviewDate server-side
-        LocalDate reviewDate = LocalDate.now();
-        // For now, still get customerId from request (should be from authentication in production)
-        // Integer customerId = ...
-        Product product = productRepository.findById(productId).orElse(null);
-        // Customer customer = ...
-        Review review = new Review.Builder()
-                .setProduct(product)
-                // .setCustomer(customer)
-                .setRating(rating)
-                .setReviewComment(reviewComment)
-                .setReviewDate(reviewDate)
-                .build();
+        review.setReviewDate(LocalDate.now());
+        // Handle both Integer and int productId
+        if (review.getProduct() != null) {
+            Integer productId = review.getProduct().getProductId();
+            if (productId != null && productId != 0) {
+                Product product = productRepository.findById(productId).orElse(null);
+                review.setProduct(product);
+            }
+        }
+        // Optionally set customer if needed
+        // review.setCustomer(...);
         Review created = service.create(review);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
