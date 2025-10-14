@@ -72,6 +72,14 @@ public class Review {
         return product != null ? product.getProductId() : null;
     }
 
+    public void setReviewDate(LocalDate reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
