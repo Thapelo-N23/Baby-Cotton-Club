@@ -8,6 +8,8 @@ import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.service.impl.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import za.ac.cput.domain.Customer;
+import za.ac.cput.repository.CustomerRepository;
 
 import java.time.LocalDate;
 import java.util.List;

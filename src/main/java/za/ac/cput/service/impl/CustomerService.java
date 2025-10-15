@@ -9,6 +9,7 @@
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.CustomerRepository;
@@ -19,16 +20,18 @@ import java.util.List;
 @Service
 public class CustomerService implements ICustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public Customer create(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return this.customerRepository.save(customer);
     }
 
@@ -39,6 +42,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer update(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return this.customerRepository.save(customer);
     }
     @Override
@@ -46,9 +50,9 @@ public class CustomerService implements ICustomerService {
         return this.customerRepository.findAll();
     }
 
-    public Customer login(String email) {
+    public Customer login(String email, String password) {
         Customer customer = customerRepository.findByEmail(email);
-        if (customer != null && customer.getEmail().equals(email)) {
+        if (customer != null && passwordEncoder.matches(password, customer.getPassword())) {
             return customer;
         }
         return null;

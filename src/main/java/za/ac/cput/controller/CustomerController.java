@@ -68,7 +68,7 @@ public class CustomerController {
     @PostMapping("/login")
     public ResponseEntity<CustomerLoginResponseDto> login(@RequestParam("email") String email,
                                                           @RequestParam("password") String password) {
-        Customer customer = service.login(email);
+        Customer customer = service.login(email, password);
         if (customer == null) {
             return ResponseEntity.status(401).build(); // Unauthorized
         }
