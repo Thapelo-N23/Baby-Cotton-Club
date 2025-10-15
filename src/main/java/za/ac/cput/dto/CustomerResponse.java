@@ -7,6 +7,7 @@ public class CustomerResponse {
         private String firstName;
         private String lastName;
         private String email;
+        private String phoneNumber;
         private List<CustomerOrderResponse> orders;
 
         // Add getters and setters
@@ -21,6 +22,9 @@ public class CustomerResponse {
 
         public String getEmail() { return email; }
         public void setEmail(String email) { this.email = email; }
+
+        public String getPhoneNumber() { return phoneNumber; }
+        public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
         public List<CustomerOrderResponse> getOrders() { return orders; }
         public void setOrders(List<CustomerOrderResponse> orders) { this.orders = orders; }
