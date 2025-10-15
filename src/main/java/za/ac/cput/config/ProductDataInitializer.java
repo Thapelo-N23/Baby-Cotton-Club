@@ -47,9 +47,63 @@ public class ProductDataInitializer {
             return;
         }
 
-        String[] names = {"Baby Cotton Onesie", "Soft Cotton Blanket", "Baby Boots", "Baby Dress", "Baby Princess Dress", "fleece", "Duvet", "Loafers", "Bedding", "Wool Onesie"};
-        double[] prices = {120, 250, 60, 45, 180, 300, 90, 70, 150, 110};
-        String[] imageUrls = {"/images/onesie.jpg", "/images/soft-cotton-blanket.jpg", "/images/boots.jpg", "/images/dress.jpg", "/images/princess_dress.jpg", "/images/fleece.jpg", "/images/duvet.jpg", "/images/loafers.jpg", "/images/bedding.jpg", "/images/wool_onesy.jpg"};
+        String[] names = {
+                "All-In-One Set",
+                "Boy Brown 2 Piece",
+                "Boy Duvet Set",
+                "Boy Formal Suit",
+                "Boy Sandals",
+                "Boy Summer Pyjamas",
+                "Boys Two Piece Set",
+                "Burgundy Ballroom Dress",
+                "Comfortable Lace-Up Sneakers",
+                "Girl Ribbon Pumps",
+                "Girls 2 Piece Dress",
+                "Girls Sandals",
+                "Girls Summer Dress",
+                "Newborn Dress",
+                "Newborn Knitted Set",
+                "Newborn Romper",
+                "Pink Princess Dress"
+        };
+        double[] prices = {
+                220, // All-In-One_Set
+                180, // Boy_Brown_2_Piece
+                350, // Boy_Duvet_Set
+                299, // Boy_Formal_Suit
+                120, // Boy_Sandals
+                160, // Boy_Summer_Pyjamas
+                210, // Boys_Two_Piece_Set
+                280, // Burgundy_Ballroom_Dress
+                140, // Comfortable_Lace-Up_Sneakers
+                130, // Girl_Ribbon_Pumps
+                190, // Girls_2_Piece_Dress
+                120, // Girls_Sandals
+                170, // Girls_Summer_Dress
+                150, // Newborn_Dress
+                240, // Newborn_Knitted_Set
+                160, // Newborn_Romper
+                230  // Pink_Princess_Dress
+        };
+        String[] imageUrls = {
+                "/images/All-In-One_Set.png",
+                "/images/Boy_Brown_2_Piece.png",
+                "/images/Boy_Duvet_Set.png",
+                "/images/Boy_Formal_Suit.png",
+                "/images/Boy_Sandals.png",
+                "/images/Boy_Summer_Pyjamas.png",
+                "/images/Boys_Two_Piece_Set.png",
+                "/images/Burgundy_Ballroom_Dress.png",
+                "/images/Comfortable_Lace-Up_Sneakers.png",
+                "/images/Girl_Ribbon_Pumps.png",
+                "/images/Girls_2_Piece_Dress.jpg",
+                "/images/Girls_Sandals.png",
+                "/images/Girls_Summer_Dress.png",
+                "/images/Newborn_Dress.jpg",
+                "/images/Newborn_Knitted_Set.png",
+                "/images/Newborn_Romper.png",
+                "/images/Pink_Princess_Dress.jpg"
+        };
         for (int i = 0; i < names.length; i++) {
             Product p = ProductFactory.createProduct(
                     names[i],
