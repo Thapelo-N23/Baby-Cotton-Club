@@ -9,6 +9,8 @@ import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.service.impl.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import za.ac.cput.domain.Customer;
+import za.ac.cput.repository.CustomerRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,12 +31,11 @@ public class ReviewController {
     }
 
     @PostMapping("/create")
+
     public ResponseEntity<Review> createReview(@RequestBody Review review) {
         if (review == null) {
             return ResponseEntity.badRequest().build();
         }
-
-
         review.setReviewDate(LocalDate.now());
 
         if (review.getProduct() != null) {
