@@ -6,7 +6,6 @@ import za.ac.cput.domain.Review;
 import za.ac.cput.domain.Product;
 import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.service.impl.ReviewService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
@@ -26,7 +25,7 @@ public class ReviewController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
+    public ResponseEntity<Review> createReview(Review review) {
         // Set reviewDate server-side
         review.setReviewDate(LocalDate.now());
         // Handle both Integer and int productId
