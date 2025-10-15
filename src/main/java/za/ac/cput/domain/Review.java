@@ -8,6 +8,7 @@ Date: 21 July 2025
 package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,7 +20,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewId;
     protected short rating;
+
+
+    @JsonAlias({"comment","text","content"})   
     private String reviewComment;
+
     private LocalDate reviewDate;
 
     @ManyToOne
@@ -63,7 +68,9 @@ public class Review {
     public Customer getCustomer() {
         return customer;
     }
-
+    public Integer getCustomerId() {
+        return customer != null ? customer.getCustomerId() : null;
+    }
     public Product getProduct() {
         return product;
     }
@@ -72,6 +79,19 @@ public class Review {
         return product != null ? product.getProductId() : null;
     }
 
+    public void setReviewDate(LocalDate reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    public void setReviewComment(String reviewComment) {
+        this.reviewComment = reviewComment;
+    }
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+    }
     @Override
     public String toString() {
         return "Review{" +
@@ -83,6 +103,8 @@ public class Review {
                 ", product=" + (product != null ? product.getProductId() : "null") +
                 '}';
     }
+
+
 
     public static class Builder {
         private Integer reviewId;
