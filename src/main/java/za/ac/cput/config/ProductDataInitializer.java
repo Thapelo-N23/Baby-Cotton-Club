@@ -25,7 +25,7 @@ public class ProductDataInitializer {
 
     @PostConstruct
     public void initProducts() {
-        if (productRepository.count() > 0) return; // Prevent duplicate seeding
+        if (productRepository.count() > 0) return;
 
         Category category = new Category.Builder()
                 .setCategoryName("Baby Clothes")
@@ -108,7 +108,7 @@ public class ProductDataInitializer {
             Product p = ProductFactory.createProduct(
                     names[i],
                     "Color" + (i+1),
-                    (short) prices[i], // Cast price to short
+                    (short) prices[i],
                     "available",
                     supplier
             );
