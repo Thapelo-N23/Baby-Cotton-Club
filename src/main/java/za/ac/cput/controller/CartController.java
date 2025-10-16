@@ -55,11 +55,17 @@ public class CartController {
     }
 
     @PutMapping("/update")
-    public Cart updateCart(@RequestBody CartUpdateRequest request) {
+    public ResponseEntity<?> updateCart(@RequestBody CartUpdateRequest request) {
+        if (request.getCustomerId() == null || request.getCustomerId() <= 0) {
+            return ResponseEntity.badRequest().body("Invalid customerId: " + request.getCustomerId());
+        }
         Cart cart = new Cart();
         cart.setCartId(request.getCartId());
         Customer customer = customerRepository.findById(request.getCustomerId())
-            .orElseThrow(() -> new RuntimeException("Customer not found: " + request.getCustomerId()));
+            .orElse(null);
+        if (customer == null) {
+            return ResponseEntity.badRequest().body("Customer not found: " + request.getCustomerId());
+        }
         cart.setCustomer(customer);
         List<CartItem> items = new java.util.ArrayList<>();
         for (CartUpdateRequest.CartItemRequest itemReq : request.getItems()) {
@@ -72,7 +78,7 @@ public class CartController {
             items.add(item);
         }
         cart.setItems(items);
-        return service.update(cart);
+        return ResponseEntity.ok(service.update(cart));
     }
 
     @GetMapping("/findAll")

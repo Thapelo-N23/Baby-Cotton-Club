@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.Customer;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.CartItem;
+import za.ac.cput.dto.CartItemRequest;
+import za.ac.cput.dto.CartRequest;
 import za.ac.cput.repository.CartRepository;
 import za.ac.cput.repository.CustomerRepository;
-import za.ac.cput.dto.CartRequest;
+import za.ac.cput.repository.ProductRepository;
 
 import java.util.List;
 
@@ -26,6 +30,8 @@ public class CartService {
     private CartRepository cartRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public Cart create(CartRequest request) {
         Customer customer = customerRepository.findById(request.getCustomer().getCustomerId())
@@ -34,6 +40,19 @@ public class CartService {
             .setCustomer(customer)
             .setCheckedOut(request.isCheckedOut())
             .build();
+
+        List<CartItem> cartItems = new java.util.ArrayList<>();
+        for (CartItemRequest itemRequest : request.getItems()) {
+            Product product = productRepository.findById(itemRequest.getProductId())
+                .orElseThrow(() -> new RuntimeException("Product not found: " + itemRequest.getProductId()));
+            CartItem cartItem = new CartItem.Builder()
+                .setCart(cart)
+                .setProduct(product)
+                .setQuantity(itemRequest.getQuantity())
+                .build();
+            cartItems.add(cartItem);
+        }
+        cart.setItems(cartItems);
         return cartRepository.save(cart);
     }
 
