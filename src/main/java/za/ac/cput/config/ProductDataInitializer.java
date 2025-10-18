@@ -12,6 +12,9 @@ import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.repository.ReviewRepository;
 import za.ac.cput.repository.SupplierRepository;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class ProductDataInitializer {
     @Autowired
@@ -116,7 +119,9 @@ public class ProductDataInitializer {
                 System.err.println("Failed to create Product: invalid data for " + names[i]);
                 continue;
             }
-            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).build();
+            // default sizes (you can customize by product if needed)
+            List<String> defaultSizes = Arrays.asList("Newborn", "0-3M", "3-6M", "6-12M", "12-18M");
+            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).setSizes(defaultSizes).build();
             Product saved = productRepository.save(p);
             if (saved == null) {
                 System.err.println("Failed to save Product: " + names[i]);

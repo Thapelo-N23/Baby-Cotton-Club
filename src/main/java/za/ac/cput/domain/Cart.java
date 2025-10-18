@@ -23,6 +23,9 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartId;
 
+    @Version
+    private Long version;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonBackReference
@@ -45,6 +48,7 @@ public class Cart {
     }
 
     public int getCartId() { return cartId; }
+    public Long getVersion() { return version; }
     public Customer getCustomer() { return customer; }
     public List<CartItem> getItems() { return items; }
     public void setItems(List<CartItem> items) { this.items = items; }

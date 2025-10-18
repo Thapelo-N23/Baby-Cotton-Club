@@ -20,6 +20,7 @@ import za.ac.cput.dto.CartRequest;
 import za.ac.cput.repository.CartRepository;
 import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.repository.ProductRepository;
+import za.ac.cput.exception.CartNotFoundException;
 
 import java.util.List;
 
@@ -45,10 +46,15 @@ public class CartService {
         for (CartItemRequest itemRequest : request.getItems()) {
             Product product = productRepository.findById(itemRequest.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found: " + itemRequest.getProductId()));
+            String selectedSize = itemRequest.getSize();
+            if (selectedSize == null || selectedSize.isEmpty() || product.getSizes() == null || !product.getSizes().contains(selectedSize)) {
+                throw new RuntimeException("Invalid size: " + selectedSize + " for product: " + product.getProductId());
+            }
             CartItem cartItem = new CartItem.Builder()
                 .setCart(cart)
                 .setProduct(product)
                 .setQuantity(itemRequest.getQuantity())
+                .setSize(selectedSize)
                 .build();
             cartItems.add(cartItem);
         }
@@ -61,7 +67,29 @@ public class CartService {
     }
 
     public Cart update(Cart cart) {
-        return this.cartRepository.save(cart);
+        if (cart == null || cart.getCartId() == 0) {
+            throw new IllegalArgumentException("Cart must have a valid id to update");
+        }
+        Cart existing = this.cartRepository.findById(cart.getCartId())
+            .orElseThrow(() -> new CartNotFoundException("Cart not found: " + cart.getCartId()));
+
+        // Update simple fields
+        existing.setCheckedOut(cart.isCheckedOut());
+        if (cart.getCustomer() != null && cart.getCustomer().getCustomerId() > 0) {
+            Customer managedCustomer = customerRepository.findById(cart.getCustomer().getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found: " + cart.getCustomer().getCustomerId()));
+            existing.setCustomer(managedCustomer);
+        }
+
+        // Replace items: ensure each item references the managed Cart
+        if (cart.getItems() != null) {
+            for (CartItem it : cart.getItems()) {
+                it.setCart(existing);
+            }
+            existing.setItems(cart.getItems());
+        }
+
+        return this.cartRepository.save(existing);
     }
 
     public List<Cart> getAll() {
