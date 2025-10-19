@@ -120,7 +120,7 @@ public class ProductDataInitializer {
                 continue;
             }
             // default sizes (you can customize by product if needed)
-            List<String> defaultSizes = Arrays.asList("Newborn", "0-3M", "3-6M", "6-12M", "12-18M");
+            List<String> defaultSizes = Arrays.asList("Newborn", "Baby", "Toddler");
             p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).setSizes(defaultSizes).build();
             Product saved = productRepository.save(p);
             if (saved == null) {

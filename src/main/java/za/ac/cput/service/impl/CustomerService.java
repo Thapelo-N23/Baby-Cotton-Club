@@ -42,10 +42,26 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer update(Customer customer) {
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return this.customerRepository.save(customer);
+        // Fetch existing customer from DB
+        Customer existing = customerRepository.findById(customer.getCustomerId())
+                .orElseThrow();
+
+        Customer updated = new Customer.Builder()
+                .copy(existing)
+                .setFirstName(customer.getFirstName())
+                .setLastName(customer.getLastName())
+                .setEmail(customer.getEmail())
+                .setPhoneNumber(customer.getPhoneNumber())
+                .password(customer.getPassword() != null && !customer.getPassword().isEmpty()
+                        ? passwordEncoder.encode(customer.getPassword())
+                        : existing.getPassword())
+                .build();
+
+        return customerRepository.save(updated);
     }
-    @Override
+
+
+        @Override
     public List<Customer> getAll() {
         return this.customerRepository.findAll();
     }
