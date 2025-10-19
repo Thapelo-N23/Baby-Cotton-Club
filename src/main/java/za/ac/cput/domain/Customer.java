@@ -73,6 +73,12 @@ public class Customer {
     public List<Review> getReviews() { return reviews; }
     public List<Cart> getCarts() { return carts; }
 
+
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
     public void setPassword(String password) { this.password = password; }
     public void setCarts(List<Cart> carts) { this.carts = carts; }
 
@@ -93,7 +99,7 @@ public class Customer {
 
 
     public static class Builder {
-        private int customerId;
+        private Integer customerId;
         private String firstName;
         private String lastName;
         private String email;
@@ -104,7 +110,7 @@ public class Customer {
         private List<Review> reviews;
         private List<Cart> carts;
 
-        public Builder setCustomerId(int customerId) { this.customerId = customerId; return this; }
+        public Builder setCustomerId(Integer customerId) { this.customerId = customerId; return this; }
         public Builder setFirstName(String firstName) { this.firstName = firstName; return this; }
         public Builder setLastName(String lastName) { this.lastName = lastName; return this; }
         public Builder setEmail(String email) { this.email = email; return this; }
