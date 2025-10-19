@@ -1,11 +1,3 @@
-/**
- * BabyCottonClub
- * Product.java
- * Author : Mengezi Junior Ngwenya - 230023967
- * Date : 24 May 2025
- */
-
-
 package za.ac.cput.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,39 +23,39 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer create(Customer customer) {
+        // Hash password before saving
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return this.customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public Customer read(Integer s) {
-        return this.customerRepository.findById(s).orElse(null);
+    public Customer read(Integer customerId) {
+        return customerRepository.findById(customerId).orElse(null);
     }
 
     @Override
     public Customer update(Customer customer) {
-        // Fetch existing customer from DB
+        // Fetch existing customer
         Customer existing = customerRepository.findById(customer.getCustomerId())
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        Customer updated = new Customer.Builder()
-                .copy(existing)
-                .setFirstName(customer.getFirstName())
-                .setLastName(customer.getLastName())
-                .setEmail(customer.getEmail())
-                .setPhoneNumber(customer.getPhoneNumber())
-                .password(customer.getPassword() != null && !customer.getPassword().isEmpty()
-                        ? passwordEncoder.encode(customer.getPassword())
-                        : existing.getPassword())
-                .build();
+        // Update fields
+        existing.setFirstName(customer.getFirstName());
+        existing.setLastName(customer.getLastName());
+        existing.setEmail(customer.getEmail());
+        existing.setPhoneNumber(customer.getPhoneNumber());
 
-        return customerRepository.save(updated);
+        // Update password only if provided
+        if (customer.getPassword() != null && !customer.getPassword().isEmpty()) {
+            existing.setPassword(passwordEncoder.encode(customer.getPassword()));
+        }
+
+        return customerRepository.save(existing);
     }
 
-
-        @Override
+    @Override
     public List<Customer> getAll() {
-        return this.customerRepository.findAll();
+        return customerRepository.findAll();
     }
 
     public Customer login(String email, String password) {
