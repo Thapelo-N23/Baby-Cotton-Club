@@ -30,10 +30,6 @@ public class Product {
     @Column(name = "in_stock")
     protected String inStock;
 
-
-
-
-
     @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-reviews")
     private List<Review> reviews = new ArrayList<>();
@@ -55,7 +51,6 @@ public class Product {
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "size")
     private List<String> sizes = new ArrayList<>();
-
 
 
     private Product(Builder builder) {
@@ -115,6 +110,15 @@ public class Product {
 
     public List<String> getSizes() {
         return sizes;
+    }
+
+    // Add setters to allow controllers to attach managed Category/Supplier before save
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     @Override

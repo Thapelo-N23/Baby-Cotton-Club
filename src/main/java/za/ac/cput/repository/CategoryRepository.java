@@ -12,6 +12,5 @@ import za.ac.cput.domain.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer >{
+    Category findByCategoryName(String categoryName);
 }
-
-
