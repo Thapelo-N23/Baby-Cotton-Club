@@ -79,4 +79,19 @@ class OrderLineFactoryTest {
 
         System.out.println(orderLine);
     }
+
+    // New test to ensure size is stored when using the size-aware factory overload
+    @Test
+    public void testCreateOrderLineWithSize() {
+        String size = "3-6M";
+        OrderLine orderLine = OrderLineFactory.createOrderLine(2, 100.0, size);
+
+        assertNotNull(orderLine);
+        assertEquals(2, orderLine.getQuantity());
+        assertEquals(100.0, orderLine.getUnitPrice());
+        assertEquals(200.0, orderLine.getSubTotal());
+        assertEquals(size, orderLine.getSize());
+
+        System.out.println(orderLine);
+    }
 }
