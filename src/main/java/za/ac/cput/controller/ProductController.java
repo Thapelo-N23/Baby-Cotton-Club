@@ -69,7 +69,7 @@ public class ProductController {
 
     // Get single product by ID
     @GetMapping("/read/{productId}")
-    public ResponseEntity<Product> read(@PathVariable int productId) {
+    public ResponseEntity<Product> read(@PathVariable("productId") int productId) {
         Product product = productService.read(productId);
         return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
     }
@@ -77,11 +77,19 @@ public class ProductController {
     // Update product
     @PutMapping("/update/{productId}")
     public ResponseEntity<Product> update(
-            @PathVariable int productId,
+            @PathVariable("productId") int productId,
             @RequestBody Product product) {
         product.setProductId(productId);
         Product updated = productService.update(product);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") int id) {
+        boolean deleted = productService.delete(id);
+        return deleted
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 
     // Get all products

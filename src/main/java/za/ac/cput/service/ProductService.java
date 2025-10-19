@@ -14,5 +14,7 @@ import java.util.List;
 
 
 public interface ProductService extends IService<Product, Integer> {
-List<Product> getall();
+    boolean delete(Integer productId);
+
+    List<Product> getall();
 }
