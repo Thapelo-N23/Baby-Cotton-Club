@@ -35,23 +35,26 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer update(Customer customer) {
-        // Fetch existing customer
+        // Fetch existing customer from DB
         Customer existing = customerRepository.findById(customer.getCustomerId())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        // Update fields
-        existing.setFirstName(customer.getFirstName());
-        existing.setLastName(customer.getLastName());
-        existing.setEmail(customer.getEmail());
-        existing.setPhoneNumber(customer.getPhoneNumber());
+        // Build updated customer object using Builder pattern
+        Customer updated = new Customer.Builder()
+                .copy(existing)
+                .setFirstName(customer.getFirstName())
+                .setLastName(customer.getLastName())
+                .setEmail(customer.getEmail())
+                .setPhoneNumber(customer.getPhoneNumber())
+                // Encode and update password only if provided
+                .setPassword((customer.getPassword() != null && !customer.getPassword().isEmpty())
+                        ? passwordEncoder.encode(customer.getPassword())
+                        : existing.getPassword())
+                .build();
 
-        // Update password only if provided
-        if (customer.getPassword() != null && !customer.getPassword().isEmpty()) {
-            existing.setPassword(passwordEncoder.encode(customer.getPassword()));
-        }
-
-        return customerRepository.save(existing);
+        return customerRepository.save(updated);
     }
+
 
     @Override
     public List<Customer> getAll() {

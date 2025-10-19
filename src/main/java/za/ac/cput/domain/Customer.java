@@ -115,7 +115,7 @@ public class Customer {
         public Builder setLastName(String lastName) { this.lastName = lastName; return this; }
         public Builder setEmail(String email) { this.email = email; return this; }
         public Builder setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; return this; }
-        public Builder password(String password) {
+        public Builder setPassword(String password) {
             this.password = password;
             return this;
         }
