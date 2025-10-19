@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-
 private ProductRepository productRepository;
     @Autowired
 public ProductServiceImpl(ProductRepository productRepository) {
@@ -34,14 +33,14 @@ public ProductServiceImpl(ProductRepository productRepository) {
         return productRepository.save(product);
     }
 
-////    @Override
-////    public boolean delete(String productId) {
-////        if (productRepository.existsById(productId)) {
-////            productRepository.deleteById(productId);
-////            return true;
-//        }
-//        return false;
-//    }
+   @Override
+   public boolean delete(Integer productId) {
+       if (productRepository.existsById(productId)) {
+           productRepository.deleteById(productId);
+           return true;
+        }
+        return false;
+    }
 
     @Override
     public List<Product> getall() {
