@@ -107,6 +107,14 @@ public class ProductDataInitializer {
                 "/images/Newborn_Romper.png",
                 "/images/Pink_Princess_Dress.jpg"
         };
+
+        // Define size categories
+        List<String> babySizes = Arrays.asList("0-3M", "3-6M", "6-9M", "9-12M", "12-18M", "18-24M");
+        List<String> toddlerSizes = Arrays.asList("2-3 years", "3-4 years", "4-5 years", "5-6 years");
+        List<String> newbornSizes = Arrays.asList("Newborn");
+        List<String> kidsShoeSizes = Arrays.asList("4", "5", "6", "7", "8", "9", "10");
+        List<String> duvetSizes = Arrays.asList("Cot Duvet", "Toddler Duvet", "Single Duvet", "Double Duvet");
+
         for (int i = 0; i < names.length; i++) {
             Product p = ProductFactory.createProduct(
                     names[i],
@@ -119,9 +127,19 @@ public class ProductDataInitializer {
                 System.err.println("Failed to create Product: invalid data for " + names[i]);
                 continue;
             }
-            // default sizes (you can customize by product if needed)
-            List<String> defaultSizes = Arrays.asList("Newborn", "Baby", "Toddler");
-            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).setSizes(defaultSizes).build();
+            List<String> sizesForProduct = babySizes;
+            String lower = names[i].toLowerCase();
+            if (lower.contains("newborn")) {
+                sizesForProduct = newbornSizes;
+            } else if (lower.contains("duvet")) {
+                sizesForProduct = duvetSizes;
+            } else if (lower.contains("sandal") || lower.contains("sneaker") || lower.contains("pumps") || lower.contains("shoe")) {
+                sizesForProduct = kidsShoeSizes;
+            } else if (lower.contains("toddler") || lower.contains("two piece") || lower.contains("2 piece") || lower.contains("pyjama") || lower.contains("pyjamas")) {
+                sizesForProduct = toddlerSizes;
+            }
+
+            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).setSizes(sizesForProduct).build();
             Product saved = productRepository.save(p);
             if (saved == null) {
                 System.err.println("Failed to save Product: " + names[i]);

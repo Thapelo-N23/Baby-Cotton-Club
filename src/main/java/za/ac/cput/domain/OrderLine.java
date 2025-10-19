@@ -22,6 +22,10 @@ public class OrderLine {
     protected double unitPrice;
     protected double subTotal;
 
+    // new size field
+    @Column(name = "size")
+    protected String size;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference("order-lines")
@@ -38,6 +42,7 @@ public class OrderLine {
         this.quantity = builder.quantity;
         this.unitPrice = builder.unitPrice;
         this.subTotal = builder.subTotal;
+        this.size = builder.size;
         this.customerOrder = builder.customerOrder;
         this.product = builder.product;
 
@@ -55,6 +60,7 @@ public class OrderLine {
         return customerOrder; }
     public Product getProduct() {
         return product; }
+    public String getSize() { return size; }
 
 
     @Override
@@ -64,6 +70,7 @@ public class OrderLine {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", subTotal=" + subTotal +
+                ", size='" + size + '\'' +
                 ", customerOrderId=" + (customerOrder != null ? customerOrder.getOrderId() : "null") +
                 ", productId=" + (product != null ? product.getProductId() : "null") +
 
@@ -76,6 +83,7 @@ public class OrderLine {
         private int quantity;
         private double unitPrice;
         private double subTotal;
+        private String size;
         private CustomerOrder customerOrder;
         private Product product;
 
@@ -98,6 +106,9 @@ public class OrderLine {
         public Builder setProduct(Product product) {
             this.product = product;
             return this; }
+        public Builder setSize(String size) {
+            this.size = size;
+            return this; }
 
 
         public Builder copy(OrderLine orderLine) {
@@ -105,6 +116,7 @@ public class OrderLine {
             this.quantity = orderLine.quantity;
             this.unitPrice = orderLine.unitPrice;
             this.subTotal = orderLine.subTotal;
+            this.size = orderLine.size;
             this.customerOrder = orderLine.customerOrder;
             this.product = orderLine.product;
             return this;

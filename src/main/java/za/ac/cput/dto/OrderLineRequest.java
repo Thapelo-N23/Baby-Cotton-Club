@@ -6,6 +6,7 @@ public class OrderLineRequest {
     private double unitPrice;
     private double subTotal;
     private int orderId;
+    private String size; // new field
 
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
@@ -17,4 +18,6 @@ public class OrderLineRequest {
     public void setSubTotal(double subTotal) { this.subTotal = subTotal; }
     public int getOrderId() { return orderId; }
     public void setOrderId(int orderId) { this.orderId = orderId; }
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
 }

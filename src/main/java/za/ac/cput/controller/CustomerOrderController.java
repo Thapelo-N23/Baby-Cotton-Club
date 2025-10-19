@@ -70,6 +70,7 @@ public class CustomerOrderController {
                         .setSubTotal(olReq.getSubTotal())
                         .setProduct(product)
                         .setOrder(order)
+                        .setSize(olReq.getSize()) // copy size from request into order line
                         .build();
                 return line;
             }).toList();
@@ -126,3 +127,4 @@ public class CustomerOrderController {
         return orders.stream().map(CustomerOrderMapper::toDto).toList();
     }
 }
+
