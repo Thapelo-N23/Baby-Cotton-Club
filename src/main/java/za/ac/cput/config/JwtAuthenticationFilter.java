@@ -1,9 +1,11 @@
 package za.ac.cput.config;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -11,13 +13,37 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final String SECRET_KEY = "your_secret_key";
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        try {
+            this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            logger.warn("Configured JWT secret is not secure enough for HS256: {}. Generating a fallback key.", e.getMessage());
+            // generate a secure random key suitable for HS256
+            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        }
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -26,8 +52,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
             try {
-                Claims claims = Jwts.parser()
-                        .setSigningKey(SECRET_KEY)
+                Claims claims = Jwts.parserBuilder()
+                        .setSigningKey(key)
+                        .build()
                         .parseClaimsJws(token)
                         .getBody();
                 String username = claims.getSubject();
@@ -36,10 +63,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
-            } catch (SignatureException | IllegalArgumentException e) {
+            } catch (JwtException | IllegalArgumentException e) {
+                logger.debug("Invalid JWT token: {}", e.getMessage());
+                // invalid token -> ignore and proceed without authentication
             }
         }
         filterChain.doFilter(request, response);
     }
 }
-

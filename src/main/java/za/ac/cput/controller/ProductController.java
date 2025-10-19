@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Category;
+import za.ac.cput.domain.Supplier;
 import za.ac.cput.service.ProductService;
+import za.ac.cput.repository.CategoryRepository;
+import za.ac.cput.repository.SupplierRepository;
 
 import java.util.List;
 
@@ -15,6 +19,12 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private SupplierRepository supplierRepository;
+
+    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -22,6 +32,38 @@ public class ProductController {
     // Create product
     @PostMapping("/create")
     public ResponseEntity<Product> create(@RequestBody Product product) {
+        // Ensure category is managed/persistent
+        Category cat = product.getCategory();
+        if (cat != null) {
+            try {
+                if (cat.getCategoryId() != 0) {
+                    Category existing = categoryRepository.findById(cat.getCategoryId()).orElse(null);
+                    product.setCategory(existing);
+                } else if (cat.getCategoryName() != null && !cat.getCategoryName().isEmpty()) {
+                    Category existingByName = categoryRepository.findByCategoryName(cat.getCategoryName());
+                    if (existingByName != null) {
+                        product.setCategory(existingByName);
+                    } else {
+                        Category newCat = new Category.Builder().setCategoryName(cat.getCategoryName()).build();
+                        Category saved = categoryRepository.save(newCat);
+                        product.setCategory(saved);
+                    }
+                }
+            } catch (Exception e) {
+                // if anything goes wrong, clear category to avoid transient save failures
+                product.setCategory(null);
+            }
+        }
+
+        // Ensure supplier is managed if id provided
+        Supplier sup = product.getSupplier();
+        if (sup != null) {
+            if (sup.getSupplierId() != 0) {
+                Supplier existingSup = supplierRepository.findById(sup.getSupplierId()).orElse(null);
+                product.setSupplier(existingSup);
+            }
+        }
+
         return ResponseEntity.ok(productService.create(product));
     }
 
