@@ -38,7 +38,6 @@ public class DataInitializer {
             adminService.create(newAdmin);
             System.out.println("Default admin user created with email: " + ADMIN_EMAIL);
         } else {
-            // Only update password if not already a BCrypt hash
             String currentPassword = existingAdmin.getPassword();
             if (currentPassword == null || !(currentPassword.startsWith("$2a$") || currentPassword.startsWith("$2b$") || currentPassword.startsWith("$2y$"))) {
                 existingAdmin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));

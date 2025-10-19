@@ -8,6 +8,8 @@
 package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class Category {
         this.categoryId = builder.categoryId;
         this.categoryName = builder.categoryName;
         this.products = builder.products;
+    }
+
+    // JsonCreator to allow deserializing a simple String into a Category (e.g. "Bed")
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static Category fromString(String categoryName) {
+        return new Builder().setCategoryName(categoryName).build();
     }
 
     public int getCategoryId() {

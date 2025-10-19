@@ -12,6 +12,9 @@ import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.repository.ReviewRepository;
 import za.ac.cput.repository.SupplierRepository;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class ProductDataInitializer {
     @Autowired
@@ -25,7 +28,7 @@ public class ProductDataInitializer {
 
     @PostConstruct
     public void initProducts() {
-        if (productRepository.count() > 0) return; // Prevent duplicate seeding
+        if (productRepository.count() > 0) return;
 
         Category category = new Category.Builder()
                 .setCategoryName("Baby Clothes")
@@ -47,14 +50,76 @@ public class ProductDataInitializer {
             return;
         }
 
-        String[] names = {"Baby Cotton Onesie", "Soft Cotton Blanket", "Baby Boots", "Baby Dress", "Baby Princess Dress", "fleece", "Duvet", "Loafers", "Bedding", "Wool Onesie"};
-        double[] prices = {120, 250, 60, 45, 180, 300, 90, 70, 150, 110};
-        String[] imageUrls = {"/images/onesie.jpg", "/images/soft-cotton-blanket.jpg", "/images/boots.jpg", "/images/dress.jpg", "/images/princess_dress.jpg", "/images/fleece.jpg", "/images/duvet.jpg", "/images/loafers.jpg", "/images/bedding.jpg", "/images/wool_onesy.jpg"};
+        String[] names = {
+                "All-In-One Set",
+                "Boy Brown 2 Piece",
+                "Boy Duvet Set",
+                "Boy Formal Suit",
+                "Boy Sandals",
+                "Boy Summer Pyjamas",
+                "Boys Two Piece Set",
+                "Burgundy Ballroom Dress",
+                "Comfortable Lace-Up Sneakers",
+                "Girl Ribbon Pumps",
+                "Girls 2 Piece Dress",
+                "Girls Sandals",
+                "Girls Summer Dress",
+                "Newborn Dress",
+                "Newborn Knitted Set",
+                "Newborn Romper",
+                "Pink Princess Dress"
+        };
+        double[] prices = {
+                220, // All-In-One_Set
+                180, // Boy_Brown_2_Piece
+                350, // Boy_Duvet_Set
+                299, // Boy_Formal_Suit
+                120, // Boy_Sandals
+                160, // Boy_Summer_Pyjamas
+                210, // Boys_Two_Piece_Set
+                280, // Burgundy_Ballroom_Dress
+                140, // Comfortable_Lace-Up_Sneakers
+                130, // Girl_Ribbon_Pumps
+                190, // Girls_2_Piece_Dress
+                120, // Girls_Sandals
+                170, // Girls_Summer_Dress
+                150, // Newborn_Dress
+                240, // Newborn_Knitted_Set
+                160, // Newborn_Romper
+                230  // Pink_Princess_Dress
+        };
+        String[] imageUrls = {
+                "/images/All-In-One_Set.png",
+                "/images/Boy_Brown_2_Piece.png",
+                "/images/Boy_Duvet_Set.png",
+                "/images/Boy_Formal_Suit.png",
+                "/images/Boy_Sandals.png",
+                "/images/Boy_Summer_Pyjamas.png",
+                "/images/Boys_Two_Piece_Set.png",
+                "/images/Burgundy_Ballroom_Dress.png",
+                "/images/Comfortable_Lace-Up_Sneakers.png",
+                "/images/Girl_Ribbon_Pumps.png",
+                "/images/Girls_2_Piece_Dress.jpg",
+                "/images/Girls_Sandals.png",
+                "/images/Girls_Summer_Dress.png",
+                "/images/Newborn_Dress.jpg",
+                "/images/Newborn_Knitted_Set.png",
+                "/images/Newborn_Romper.png",
+                "/images/Pink_Princess_Dress.jpg"
+        };
+
+        // Define size categories
+        List<String> babySizes = Arrays.asList("0-3M", "3-6M", "6-9M", "9-12M", "12-18M", "18-24M");
+        List<String> toddlerSizes = Arrays.asList("2-3 years", "3-4 years", "4-5 years", "5-6 years");
+        List<String> newbornSizes = Arrays.asList("Newborn");
+        List<String> kidsShoeSizes = Arrays.asList("4", "5", "6", "7", "8", "9", "10");
+        List<String> duvetSizes = Arrays.asList("Cot Duvet", "Toddler Duvet", "Single Duvet", "Double Duvet");
+
         for (int i = 0; i < names.length; i++) {
             Product p = ProductFactory.createProduct(
                     names[i],
                     "Color" + (i+1),
-                    (short) prices[i], // Cast price to short
+                    (short) prices[i],
                     "available",
                     supplier
             );
@@ -62,7 +127,19 @@ public class ProductDataInitializer {
                 System.err.println("Failed to create Product: invalid data for " + names[i]);
                 continue;
             }
-            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).build();
+            List<String> sizesForProduct = babySizes;
+            String lower = names[i].toLowerCase();
+            if (lower.contains("newborn")) {
+                sizesForProduct = newbornSizes;
+            } else if (lower.contains("duvet")) {
+                sizesForProduct = duvetSizes;
+            } else if (lower.contains("sandal") || lower.contains("sneaker") || lower.contains("pumps") || lower.contains("shoe")) {
+                sizesForProduct = kidsShoeSizes;
+            } else if (lower.contains("toddler") || lower.contains("two piece") || lower.contains("2 piece") || lower.contains("pyjama") || lower.contains("pyjamas")) {
+                sizesForProduct = toddlerSizes;
+            }
+
+            p = new Product.Builder().copy(p).setCategory(category).setImageUrl(imageUrls[i]).setSizes(sizesForProduct).build();
             Product saved = productRepository.save(p);
             if (saved == null) {
                 System.err.println("Failed to save Product: " + names[i]);

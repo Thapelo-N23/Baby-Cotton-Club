@@ -30,10 +30,6 @@ public class Product {
     @Column(name = "in_stock")
     protected String inStock;
 
-
-
-
-
     @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-reviews")
     private List<Review> reviews = new ArrayList<>();
@@ -48,10 +44,13 @@ public class Product {
     @JsonBackReference("supplier-products")
     private Supplier supplier;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
     private String imageUrl;
 
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "size")
+    private List<String> sizes = new ArrayList<>();
 
 
     private Product(Builder builder) {
@@ -64,6 +63,7 @@ public class Product {
         this.reviews = builder.reviews;
         this.supplier = builder.supplier;
         this.imageUrl = builder.imageUrl;
+        this.sizes = builder.sizes;
 
 
     }
@@ -108,6 +108,19 @@ public class Product {
         return imageUrl;
     }
 
+    public List<String> getSizes() {
+        return sizes;
+    }
+
+    // Add setters to allow controllers to attach managed Category/Supplier before save
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -120,6 +133,7 @@ public class Product {
                 ", category=" + category +
                 ", supplier=" + supplier +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", sizes=" + sizes +
                 '}';
     }
 
@@ -135,6 +149,7 @@ public class Product {
         private List<Review> reviews = new ArrayList<>();
         private Supplier supplier;
         private String imageUrl;
+        private List<String> sizes = new ArrayList<>();
 
         public Builder setCategory(Category category) {
             this.category = category;
@@ -190,6 +205,11 @@ public class Product {
             return this;
         }
 
+        public Builder setSizes(List<String> sizes) {
+            if (sizes != null) this.sizes = sizes;
+            return this;
+        }
+
         @Override
         public String toString() {
             return "Builder{" +
@@ -202,6 +222,7 @@ public class Product {
                     ", reviews=" + reviews +
                     ", supplier=" + supplier +
                     ", imageUrl='" + imageUrl + '\'' +
+                    ", sizes=" + sizes +
                     '}';
         }
 
@@ -215,6 +236,7 @@ public class Product {
             this.reviews = product.getReviews();
             this.supplier = product.getSupplier();
             this.imageUrl = product.getImageUrl();
+            this.sizes = product.getSizes();
             return this;
         }
         public Product build() {
@@ -222,4 +244,3 @@ public class Product {
         }
     }
 }
-

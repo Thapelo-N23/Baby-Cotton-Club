@@ -32,6 +32,7 @@ public class CustomerOrderMapper {
         r.setQuantity(line.getQuantity());
         r.setUnitPrice(line.getUnitPrice());
         r.setSubTotal(line.getSubTotal());
+        r.setSize(line.getSize()); // map the new size field
         Product p = line.getProduct();
         if (p != null) {
             r.setProductId(p.getProductId());

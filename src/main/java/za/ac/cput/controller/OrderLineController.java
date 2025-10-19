@@ -42,6 +42,7 @@ public class OrderLineController {
                 .setProduct(product)
                 .setQuantity(req.getQuantity())
                 .setUnitPrice(req.getUnitPrice())
+                .setSize(req.getSize())
                 .build();
         OrderLine created = service.create(orderLine);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);

@@ -4,14 +4,14 @@ import java.util.List;
 
 public class CartRequest {
     private CustomerDto customer;
-    private List<Object> items;
+    private List<CartItemRequest> items;
     private boolean isCheckedOut;
 
     public CustomerDto getCustomer() { return customer; }
     public void setCustomer(CustomerDto customer) { this.customer = customer; }
 
-    public List<Object> getItems() { return items; }
-    public void setItems(List<Object> items) { this.items = items; }
+    public List<CartItemRequest> getItems() { return items; }
+    public void setItems(List<CartItemRequest> items) { this.items = items; }
 
     public boolean isCheckedOut() { return isCheckedOut; }
     public void setCheckedOut(boolean isCheckedOut) { this.isCheckedOut = isCheckedOut; }
@@ -32,4 +32,3 @@ public class CartRequest {
         public void setEmail(String email) { this.email = email; }
     }
 }
-

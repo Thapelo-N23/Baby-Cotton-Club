@@ -8,6 +8,7 @@ public class OrderLineResponse {
     private int productId;
     private String productName;
     private int orderId;
+    private String size; // new field
 
     public int getOrderLineId() { return orderLineId; }
     public void setOrderLineId(int orderLineId) { this.orderLineId = orderLineId; }
@@ -23,4 +24,6 @@ public class OrderLineResponse {
     public void setProductName(String productName) { this.productName = productName; }
     public int getOrderId() { return orderId; }
     public void setOrderId(int orderId) { this.orderId = orderId; }
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
 }
