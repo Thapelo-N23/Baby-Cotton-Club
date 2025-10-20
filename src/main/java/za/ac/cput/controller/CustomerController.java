@@ -16,13 +16,24 @@ import za.ac.cput.dto.CustomerResponse;
 import za.ac.cput.mapper.CustomerMapper;
 import za.ac.cput.service.impl.CustomerService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import za.ac.cput.config.JwtKeyProvider;
+
+import java.security.Key;
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
 
     private final CustomerService service;
+
+    @Autowired
+    private JwtKeyProvider jwtKeyProvider;
 
     @Autowired
     public CustomerController(CustomerService service) {
@@ -67,12 +78,28 @@ public class CustomerController {
         if (customer == null) {
             return ResponseEntity.status(401).build(); // Unauthorized
         }
+
+        // build a JWT for the customer (24 hours)
+        long now = System.currentTimeMillis();
+        Date issuedAt = new Date(now);
+        Date expiry = new Date(now + 24 * 60 * 60 * 1000L);
+        Key key = jwtKeyProvider.getKey();
+
+        String token = Jwts.builder()
+                .setSubject(customer.getEmail())
+                .claim("roles", java.util.List.of("ROLE_CUSTOMER"))
+                .setIssuedAt(issuedAt)
+                .setExpiration(expiry)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
         return ResponseEntity.ok(
                 new CustomerLoginResponseDto(
                         customer.getCustomerId(),
                         customer.getEmail(),
                         customer.getFirstName(),
-                        customer.getLastName()
+                        customer.getLastName(),
+                        token
                 )
         );
     }

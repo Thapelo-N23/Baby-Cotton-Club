@@ -20,7 +20,6 @@ import za.ac.cput.dto.CartRequest;
 import za.ac.cput.repository.CartRepository;
 import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.repository.ProductRepository;
-import za.ac.cput.exception.CartNotFoundException;
 
 import java.util.List;
 
@@ -71,7 +70,7 @@ public class CartService {
             throw new IllegalArgumentException("Cart must have a valid id to update");
         }
         Cart existing = this.cartRepository.findById(cart.getCartId())
-            .orElseThrow(() -> new CartNotFoundException("Cart not found: " + cart.getCartId()));
+            .orElseThrow(() -> new RuntimeException("Cart not found: " + cart.getCartId()));
 
         // Update simple fields
         existing.setCheckedOut(cart.isCheckedOut());

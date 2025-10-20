@@ -5,44 +5,38 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    @Autowired
+    private JwtKeyProvider jwtKeyProvider;
 
     private Key key;
 
     @PostConstruct
     public void init() {
-        try {
-            this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            logger.warn("Configured JWT secret is not secure enough for HS256: {}. Generating a fallback key.", e.getMessage());
-            // generate a secure random key suitable for HS256
-            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        }
+        this.key = jwtKeyProvider.getKey();
     }
 
     @Override
@@ -59,13 +53,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .getBody();
                 String username = claims.getSubject();
                 if (username != null) {
-                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null, java.util.Collections.emptyList());
+                    List<SimpleGrantedAuthority> authorities = List.of();
+                    Object rolesObj = claims.get("roles");
+                    if (rolesObj instanceof java.util.Collection) {
+                        authorities = ((java.util.Collection<?>) rolesObj).stream()
+                                .map(Object::toString)
+                                .map(role -> {
+                                    if (role.startsWith("ROLE_")) return role;
+                                    return "ROLE_" + role;
+                                })
+                                .map(SimpleGrantedAuthority::new)
+                                .collect(Collectors.toList());
+                    } else if (rolesObj instanceof String) {
+                        String role = (String) rolesObj;
+                        if (!role.startsWith("ROLE_")) {
+                            role = "ROLE_" + role;
+                        }
+                        authorities = List.of(new SimpleGrantedAuthority(role));
+                    }
+
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null, authorities);
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
+
+                    // Log authenticated user and authorities for debugging
+                    logger.info("JWT parsed for user '{}', assigned authorities: {}", username, authorities.stream().map(Object::toString).collect(Collectors.joining(",")));
                 }
             } catch (JwtException | IllegalArgumentException e) {
-                logger.debug("Invalid JWT token: {}", e.getMessage());
-                // invalid token -> ignore and proceed without authentication
+                logger.warn("Invalid JWT token for request to {}: {}", request.getRequestURI(), e.getMessage());
             }
         }
         filterChain.doFilter(request, response);

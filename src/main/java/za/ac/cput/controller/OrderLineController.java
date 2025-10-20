@@ -14,6 +14,9 @@ import java.util.List;
 import za.ac.cput.domain.CustomerOrder;
 import za.ac.cput.domain.Product;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @RestController
 @RequestMapping("/api/orderline")
 public class OrderLineController {
@@ -37,6 +40,15 @@ public class OrderLineController {
         if (customerOrder == null || product == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
+        // Ensure the authenticated user owns the order
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String authenticatedUsername = (auth != null) ? auth.getName() : null;
+        if (authenticatedUsername == null || customerOrder.getCustomer() == null ||
+                !authenticatedUsername.equals(customerOrder.getCustomer().getEmail())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+
         OrderLine orderLine = new OrderLine.Builder()
                 .setOrder(customerOrder) // Use correct builder method for order
                 .setProduct(product)

@@ -1,28 +1,29 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
-import za.ac.cput.service.IAdminService;
 import za.ac.cput.service.impl.AdminService;
 
 import java.util.List;
 import java.util.Date;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
+
+import za.ac.cput.config.JwtKeyProvider;
+import za.ac.cput.dto.AdminLoginRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
     private final AdminService adminService;
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    @Autowired
+    private JwtKeyProvider jwtKeyProvider;
 
     @Autowired
     public AdminController(AdminService adminService) {
@@ -50,32 +51,45 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public za.ac.cput.dto.AdminLoginResponseDto login(
-        @RequestParam("email") String email,
-        @RequestParam("password") String password
+    public ResponseEntity<za.ac.cput.dto.AdminLoginResponseDto> login(
+        @RequestBody(required = false) AdminLoginRequest body,
+        @RequestParam(value = "email", required = false) String email,
+        @RequestParam(value = "password", required = false) String password
     ) {
+        // allow JSON body or form/query params for compatibility
+        if (body != null && body.getEmail() != null) {
+            email = body.getEmail();
+            password = body.getPassword();
+        }
+
+        if (email == null || password == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         Admin admin = adminService.login(email, password);
-        if (admin == null) return null;
+        if (admin == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         // generate JWT (24 hours expiry)
         long now = System.currentTimeMillis();
         Date issuedAt = new Date(now);
         Date expiry = new Date(now + 24 * 60 * 60 * 1000L);
 
-        // create a proper HMAC key from the configured secret
-        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        Key key = jwtKeyProvider.getKey();
 
         String token = Jwts.builder()
                 .setSubject(admin.getEmail())
+                .claim("roles", java.util.List.of("ROLE_ADMIN"))
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return new za.ac.cput.dto.AdminLoginResponseDto(
+        za.ac.cput.dto.AdminLoginResponseDto resp = new za.ac.cput.dto.AdminLoginResponseDto(
             admin.getAdminId(),
             admin.getEmail(),
             token
         );
+
+        return ResponseEntity.ok(resp);
     }
 }
