@@ -24,6 +24,7 @@ import za.ac.cput.dto.OrderStatusUpdateRequest;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("/api/order")
@@ -48,6 +49,15 @@ public class CustomerOrderController {
         }
         Customer customer = customerRepository.findById(customerId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found: " + customerId));
+
+        // Verify authenticated user matches the customer creating the order
+        String authEmail = SecurityContextHolder.getContext().getAuthentication() != null
+                ? SecurityContextHolder.getContext().getAuthentication().getName()
+                : null;
+        if (authEmail == null || !authEmail.equals(customer.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to create orders for this customer");
+        }
+
         CustomerOrder order = new CustomerOrder.Builder()
                 .setOrderDate(request.getOrderDate())
                 .setTotalAmount(request.getTotalAmount())
@@ -92,7 +102,7 @@ public class CustomerOrderController {
                 .setTotalAmount(request.getTotalAmount())
                 .setCustomer(customer)
                 .setStatus(request.getStatus())
-                // Add orderLines, shipment, admin if needed
+
                 .build();
         return service.update(order);
     }
@@ -127,4 +137,3 @@ public class CustomerOrderController {
         return orders.stream().map(CustomerOrderMapper::toDto).toList();
     }
 }
-

@@ -1,8 +1,6 @@
 package za.ac.cput.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -33,11 +31,6 @@ public class CustomerOrder {
     @JsonBackReference("shipment-orders")
     private Shipment shipment;
 
-    @ManyToOne
-    @JoinColumn(name = "managed_by_admin_id")
-    @com.fasterxml.jackson.annotation.JsonBackReference("admin-orders")
-    private Admin admin;
-
     private String status;
 
     protected CustomerOrder() {}
@@ -49,7 +42,6 @@ public class CustomerOrder {
         this.orderLines = builder.orderLines;
         this.customer = builder.customer;
         this.shipment = builder.shipment;
-        this.admin = builder.admin;
         this.status = builder.status;
     }
 
@@ -75,10 +67,6 @@ public class CustomerOrder {
 
     public Shipment getShipment() {
         return shipment;
-    }
-
-    public Admin getAdmin() {
-        return admin;
     }
 
     public String getStatus() {
@@ -112,7 +100,6 @@ public class CustomerOrder {
         private List<OrderLine> orderLines;
         private Customer customer;
         private Shipment shipment;
-        private Admin admin;
         private String status;
 
         public Builder setOrderId(int orderId) {
@@ -143,10 +130,6 @@ public class CustomerOrder {
             this.shipment = shipment;
             return this;
         }
-        public Builder setAdmin(Admin admin) {
-            this.admin = admin;
-            return this;
-        }
         public Builder setStatus(String status) {
             this.status = status;
             return this;
@@ -159,7 +142,6 @@ public class CustomerOrder {
             this.orderLines = customerOrder.orderLines;
             this.customer = customerOrder.customer;
             this.shipment = customerOrder.shipment;
-            this.admin = customerOrder.admin;
             this.status = customerOrder.status;
             return this;
         }
