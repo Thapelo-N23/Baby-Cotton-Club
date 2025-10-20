@@ -20,11 +20,6 @@ public class Admin {
     @JoinColumn(name = "added_by_admin_id")
     private List<Product> products;
 
-    @OneToMany
-    @JoinColumn(name = "managed_by_admin_id")
-    @com.fasterxml.jackson.annotation.JsonManagedReference("admin-orders")
-    private List<CustomerOrder> orders;
-
     protected Admin() {
     }
 
@@ -33,7 +28,6 @@ public class Admin {
         this.password = builder.password;
         this.email = builder.email;
         this.products = builder.products;
-        this.orders = builder.orders;
     }
 
     public int getAdminId() {
@@ -53,10 +47,6 @@ public class Admin {
         return products;
     }
 
-    public List<CustomerOrder> getOrders() {
-        return orders;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -67,7 +57,6 @@ public class Admin {
                 "adminId=" + adminId +
                 ", email='" + email + '\'' +
                 ", products=" + products +
-                ", orders=" + orders +
                 '}';
     }
 
@@ -76,7 +65,6 @@ public class Admin {
         private String password;
         private String email;
         private List<Product> products;
-        private List<CustomerOrder> orders;
 
         public Builder adminId(int adminId) {
             this.adminId = adminId;
@@ -95,11 +83,6 @@ public class Admin {
 
         public Builder products(List<Product> products) {
             this.products = products;
-            return this;
-        }
-
-        public Builder orders(List<CustomerOrder> orders) {
-            this.orders = orders;
             return this;
         }
 

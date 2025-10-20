@@ -85,8 +85,8 @@ public class ProductDataInitializer {
                 170, // Girls_Summer_Dress
                 150, // Newborn_Dress
                 240, // Newborn_Knitted_Set
-                160, // Newborn_Romper
-                230  // Pink_Princess_Dress
+                160,
+                230
         };
         String[] imageUrls = {
                 "/images/All-In-One_Set.png",
